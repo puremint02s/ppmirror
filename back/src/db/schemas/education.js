@@ -7,6 +7,10 @@ const EducationSchema = new Schema(
             ref: 'User',
             requied: true,
         },
+        eduId: {
+            type: String,
+            required: true,
+        },
         school: {
             type: String,
             required: true,
