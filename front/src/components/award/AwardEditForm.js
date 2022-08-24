@@ -6,7 +6,7 @@ function AwardEditForm({ userid, currentAward, setAward, setIsEditing }) {
     // 수상 & 내용
     const [ title, setTitle] = useState(currentAward.title);
     const [ description, setDescription ] = useState(currentAward.description);
-    const [ whenDate, setWhenDate ] = useState(currentAward.whenDate);
+    
     
 
     async function handleSubmit (e)  {
@@ -19,7 +19,6 @@ function AwardEditForm({ userid, currentAward, setAward, setIsEditing }) {
         await Api.put(`award/${currentAward.id}`, {
             title,
             description,
-            whenDate,
         });
 
         // 수정한거 다시 받아오기
@@ -48,14 +47,6 @@ function AwardEditForm({ userid, currentAward, setAward, setIsEditing }) {
                 />
             </Form.Group>
 
-            <Form.Group controlId="formAward"  className="mt-3">
-                <Form.Control
-                    type="text"
-                    placeholder="날짜"
-                    value={whenDate}
-                    onChange={(e)=>setWhenDate(e.target.value)}
-                />
-            </Form.Group>
             
 
             <Form.Group as={Row} className="mt-3 mb-3 text-center">

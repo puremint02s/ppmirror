@@ -7,7 +7,7 @@ function AwardAddForm({ portfolioOwnerId, setAward, setIsAdding }) {
     // 수상 내역
     const [ title, setTitle] = useState("");
     const [ description, setDescription ] = useState("");
-    const [ whenDate, setWhenDate ] = useState("");
+    
 
     async function handleSubmit (e) {
         e.preventDefault();
@@ -19,7 +19,6 @@ function AwardAddForm({ portfolioOwnerId, setAward, setIsAdding }) {
       Id,
       title,
       description,
-      whenDate,
     });
 
     // 추가한 후 수상내역 새로 받아오기
@@ -45,15 +44,6 @@ function AwardAddForm({ portfolioOwnerId, setAward, setIsAdding }) {
             placeholder="설명"
             value={description}
             onChange={(e)=>setDescription(e.target.value)}
-          />
-        </Form.Group>
-
-        <Form.Group controlId="formAward"  className="mt-3">
-          <Form.Control
-            type="text"
-            placeholder="날짜"
-            value={whenDate}
-            onChange={(e)=>setWhenDate(e.target.value)}
           />
         </Form.Group>
 
