@@ -15,6 +15,18 @@ class Project {
     const foundOneProject = await ProjectModel.findOne({ projectId });
     return foundOneProject;
   }
+
+  static async update({ projectId, fieldToUpdate, newValue }) {
+    const filter = { projectId };
+    const update = { [fieldToUpdate]: newValue };
+    const option = { returnOriginal: false };
+    const updatedProject = await ProjectModel.findOneAndUpdate(
+      filter,
+      update,
+      option
+    );
+    return updatedProject;
+  }
 }
 
 export { Project };

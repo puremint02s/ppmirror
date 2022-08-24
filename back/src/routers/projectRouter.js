@@ -42,7 +42,7 @@ projectRouter.post(
 
 projectRouter.get("/projects/:userId", async (req, res, next) => {
   const { userId } = req.params;
-  const foundProjects = await ProjectModel.find({ userId });
+  const foundProjects = await projectService.findProjectsByUserId({ userId });
   res.status(200).json(foundProjects);
 });
 
@@ -52,7 +52,7 @@ projectRouter.put(
   async (req, res, next) => {
     const userId = req.currentUserId;
     const { projectId } = req.params;
-    const foundProject = await ProjectModel.findOne({ projectId });
+    const foundProject = await projectService.findOneByProjectId({ projectId });
     if (userId === foundProject.userId) {
       try {
         if (is.emptyObject(req.body)) {
@@ -61,7 +61,7 @@ projectRouter.put(
         const { title, description, startDate, endDate } = req.body;
         const conditions = { projectId };
         const update = { title, description, startDate, endDate };
-        const updatedProject = await ProjectModel.findOneAndUpdate(
+        const updatedProject = await projectService.updateProject(
           conditions,
           update
         );
