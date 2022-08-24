@@ -41,14 +41,14 @@ educationRouter.put(
     login_required,
     async function (req, res, next) {
         try {
-            const edu_id = req.params.eduid;
+            const eduId = req.params.eduid;
             const school = req.body.school ?? null;
             const major = req.body.major ?? null;
             const status = req.body.status ?? null;
 
             const toUpdate = { school, major, status };
 
-            const updatedEducation = await educationService.updateEducation({ edu_id, toUpdate });
+            const updatedEducation = await educationService.updateEducation({ eduId, toUpdate });
 
             if (updatedEducation.errorMessage) {
                 throw new Error(updatedEducation.errorMessage);
@@ -66,8 +66,8 @@ educationRouter.get(
     login_required,
     async function (req, res, next) {
         try {
-            const user_id = req.params.userid;
-            const educationList = await educationService.getEducations({ user_id });
+            const userId = req.params.userid;
+            const educationList = await educationService.getEducations({ userId });
 
             res.status(200).send(educationList);
         } catch (error) {

@@ -13,8 +13,8 @@ class educationService {
         return createdNewEducation;
     }
 
-    static async getEducations({ userid }) {
-        const education = await Education.find({ userId: userid });
+    static async getEducations({ userId }) {
+        const education = await Education.find({ userId: userId });
 
         const school = education.school;
         const major = education.major;
