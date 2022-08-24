@@ -14,19 +14,8 @@ class educationService {
     }
 
     static async getEducations({ userId }) {
-        const education = await Education.findAllById({ userId: userId });
-
-        const school = education.school;
-        const major = education.major;
-        const status = education.status;
-
-        const educationDetail = {
-            school,
-            major,
-            status,
-        };
-
-        return educationDetail;
+        const educations = await Education.findAllById({ userId: userId });
+        return educations;
     }
 
     static async updateEducation({ eduId, toUpdate }) {

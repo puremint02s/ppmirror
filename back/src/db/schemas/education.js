@@ -5,7 +5,7 @@ const EducationSchema = new Schema(
         userId: {
             type: Schema.Types.ObjectId,
             ref: 'User',
-            requied: true,
+            required: true,
         },
         eduId: {
             type: String,
