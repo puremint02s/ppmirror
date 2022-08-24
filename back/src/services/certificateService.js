@@ -6,14 +6,14 @@ class certificateService {
     certificateId,
     title,
     description,
-    getDate,
+    acquiredAt,
   }) {
     const newCertificate = {
       userId,
       certificateId,
       title,
       description,
-      getDate,
+      acquiredAt,
     };
 
     const createdNewCertificate = await Certificate.create({ newCertificate });
@@ -66,9 +66,9 @@ class certificateService {
       });
     }
 
-    if (toUpdate.getDate) {
-      const fieldToUpdate = "getDate";
-      const newValue = toUpdate.getDate;
+    if (toUpdate.acquiredAt) {
+      const fieldToUpdate = "acquiredAt";
+      const newValue = toUpdate.acquiredAt;
       certificate = await Certificate.update({
         certificateId,
         fieldToUpdate,

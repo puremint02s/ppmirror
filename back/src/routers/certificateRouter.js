@@ -19,13 +19,13 @@ certificateRouter.post(
       // jwt토큰에서 추출된 사용자 id 사용
       const userId = req.currentUserId;
       const certificateId = uuidv4();
-      const { title, description, getDate } = req.body;
+      const { title, description, acquiredAt } = req.body;
       const newCertificate = await certificateService.addCertificate({
         userId,
         certificateId,
         title,
         description,
-        getDate,
+        acquiredAt,
       });
       return res.status(201).json(newCertificate);
     } catch (error) {
@@ -58,9 +58,9 @@ certificateRouter.put(
         if (is.emptyObject(req.body)) {
           throw new Error("모든 항목을 입력해주세요");
         }
-        const { title, description, getDate } = req.body;
+        const { title, description, acquiredAt } = req.body;
 
-        const toUpdate = { title, description, getDate };
+        const toUpdate = { title, description, acquiredAt };
 
         const updatedCertificate = await certificateService.updateCertificate({
           certificateId,
