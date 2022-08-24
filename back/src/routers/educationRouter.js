@@ -16,11 +16,13 @@ educationRouter.post(
                 );
             }
 
+            //const userId = req.currentUserId;
             const school = req.body.school;
             const major = req.body.major;
             const status = req.body.status;
 
             const newEducation = await educationService.addEducation({
+                //userId,
                 school,
                 major,
                 status,
@@ -62,7 +64,7 @@ educationRouter.put(
 );
 
 educationRouter.get(
-    "/educationlist/:userid",
+    "/educations/:userid",
     login_required,
     async function (req, res, next) {
         try {

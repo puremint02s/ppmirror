@@ -2,10 +2,10 @@ import { Education } from "../db";
 import { v4 as uuidv4 } from "uuid";
 
 class educationService {
-    static async addEducation({ school, major, status }) {
+    static async addEducation({ userId, school, major, status }) {
         const eduId = uuidv4();
 
-        const newEducation = { eduId, school, major, status };
+        const newEducation = { userId, eduId, school, major, status };
 
         const createdNewEducation = await Education.create({ newEducation });
         createdNewEducation.errorMessage = null;
@@ -14,7 +14,7 @@ class educationService {
     }
 
     static async getEducations({ userId }) {
-        const education = await Education.find({ userId: userId });
+        const education = await Education.findAllById({ userId: userId });
 
         const school = education.school;
         const major = education.major;
