@@ -1,25 +1,45 @@
 import { Certificate, User } from "../db";
 
 class certificateService {
-  static async addCertificate({ author, title, description, date }) {
-    const createdNewCertificate = await Certificate.create({
-      author,
+  static async addCertificate({
+    userId,
+    certificateId,
+    title,
+    description,
+    getDate,
+  }) {
+    const newCertificate = {
+      userId,
+      certificateId,
       title,
       description,
-      date,
-    });
+      getDate,
+    };
+
+    const createdNewCertificate = await Certificate.create({ newCertificate });
     createdNewCertificate.errorMessage = null;
     return createdNewCertificate;
   }
 
-  static async findCertificateByUserId({ id }) {
-    const foundCertificates = await Certificate.findAllByUserId({ author: id });
+  static async findCertificatesByUserId({ userId }) {
+    const foundCertificates = await Certificate.findAllByUserId({
+      userId,
+    });
     return foundCertificates;
+  }
+
+  static async findOneByCertificateId({ certificateId }) {
+    const foundOneCertificate = await Certificate.findOneByCertificateId({
+      certificateId,
+    });
+    return foundOneCertificate;
   }
 
   // 수정관련 작성
   static async updateCertificate({ certificateId, toUpdate }) {
-    let certificate = await Certificate.findOneById({ certificateId });
+    let certificate = await Certificate.findOneByCertificateId({
+      certificateId,
+    });
     if (!certificate) {
       const errorMessage =
         "해당 자격증을 찾을 수 없습니다. 다시 한 번 확인해 주세요.";
@@ -46,9 +66,9 @@ class certificateService {
       });
     }
 
-    if (toUpdate.date) {
-      const fieldToUpdate = "date";
-      const newValue = toUpdate.date;
+    if (toUpdate.getDate) {
+      const fieldToUpdate = "getDate";
+      const newValue = toUpdate.getDate;
       certificate = await Certificate.update({
         certificateId,
         fieldToUpdate,

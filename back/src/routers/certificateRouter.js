@@ -1,4 +1,5 @@
 import is from "@sindresorhus/is";
+import { v4 as uuidv4 } from "uuid";
 import { Router } from "express";
 import { login_required } from "../middlewares/login_required";
 import { certificateService } from "../services/certificateService";
@@ -6,53 +7,61 @@ import { certificateService } from "../services/certificateService";
 const certificateRouter = Router();
 
 // 새로운 자격증 추가하기
-certificateRouter.post("/", login_required, async (req, res, next) => {
-  try {
-    if (is.emptyObject(req.body)) {
-      throw new Error("모든 항목을 입력해주세요.");
+certificateRouter.post(
+  "/certificate/create",
+  login_required,
+  async (req, res, next) => {
+    try {
+      if (is.emptyObject(req.body)) {
+        throw new Error("모든 항목을 입력해주세요.");
+      }
+
+      // jwt토큰에서 추출된 사용자 id 사용
+      const userId = req.currentUserId;
+      const certificateId = uuidv4();
+      const { title, description, getDate } = req.body;
+      const newCertificate = await certificateService.addCertificate({
+        userId,
+        certificateId,
+        title,
+        description,
+        getDate,
+      });
+      return res.status(201).json(newCertificate);
+    } catch (error) {
+      next(error);
     }
-
-    const user_id = req.currentUserId;
-    const { title, description, date } = req.body;
-
-    const newCertificate = await certificateService.addCertificate({
-      author: user_id,
-      title,
-      description,
-      date,
-    });
-
-    return res.status(201).json(newCertificate);
-  } catch (error) {
-    next(error);
   }
-});
+);
 
 // :userId에 해당하는 사람의 자격증 가져오기
-certificateRouter.get("/:userId", async (req, res) => {
+certificateRouter.get("/certificates/:userId", async (req, res, next) => {
   const { userId } = req.params;
-  const certificates = await certificateService.findCertificateByUserId({
+  const foundCertificates = await certificateService.findCertificatesByUserId({
     userId,
   });
-  return res.status(200).json(certificates);
+  return res.status(200).json(foundCertificates);
 });
 
 // :certificateId에 해당하는 자격증 수정하기
 certificateRouter.put(
-  "/:certificateId",
+  "/certificates/:certificateId",
   login_required,
   async (req, res, next) => {
-    const user_id = req.currentUserId;
+    const userId = req.currentUserId;
     const { certificateId } = req.params;
-    if (user_id === certificateId) {
+    const foundCertificate = await certificateService.findOneByCertificateId({
+      certificateId,
+    });
+    if (userId === foundCertificate.userId) {
       try {
-        const { title, description, date } = req.body;
-
         if (is.emptyObject(req.body)) {
-          throw new Error("모든 항목을 입력해주세요.");
+          throw new Error("모든 항목을 입력해주세요");
         }
+        const { title, description, getDate } = req.body;
 
-        const toUpdate = { title, description, date };
+        const toUpdate = { title, description, getDate };
+
         const updatedCertificate = await certificateService.updateCertificate({
           certificateId,
           toUpdate,
@@ -63,6 +72,7 @@ certificateRouter.put(
         next(error);
       }
     }
+    // 작성자만 수정할 수 있음을 알리는 방법은?
     next("작성자만 수정할 수 있습니다.");
   }
 );
