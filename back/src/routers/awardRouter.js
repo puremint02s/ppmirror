@@ -13,12 +13,12 @@ awardRouter.post("/award/create", login_required, async function (req, res, next
             );
         }
 
-        //const userId = req.currentUserId;
+        const userId = req.currentUserId;
         const title = req.body.title;
         const description = req.body.description;
 
         const newAward = await awardService.addAward({
-            //userId,
+            userId,
             title,
             description,
         });
@@ -39,7 +39,7 @@ awardRouter.put("/award/edit/:awardid", login_required, async function (req, res
         const title = req.body.title ?? null;
         const description = req.body.description ?? null;
 
-        const toUpdate = { title, description, getDate };
+        const toUpdate = { title, description };
 
         const updatedAward = await awardService.updateAward({ awardId, toUpdate });
 

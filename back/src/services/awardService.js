@@ -40,14 +40,7 @@ class awardService {
             const newValue = toUpdate.description;
             award = await Award.update({ awardId, fieldToUpdate, newValue });
         }
-
-        // 날짜 수정 시
-        if (toUpdate.getDate) {
-            const fieldToUpdate = "getDate";
-            const newValue = toUpdate.getDate;
-            award = await Award.update({ awardId, fieldToUpdate, newValue });
-        }
-
+        
         return award;
     }
 }

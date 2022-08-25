@@ -7,7 +7,7 @@ class Award {
     }
 
     static async findAllById({ userId }) {
-        const awards = await AwardModel.find({ userId: userId }).populate('userId', 'id').exec();
+        const awards = await AwardModel.find({ userId: userId });
         return awards;
     }
 
