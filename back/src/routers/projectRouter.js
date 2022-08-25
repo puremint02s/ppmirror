@@ -33,7 +33,7 @@ projectRouter.post(
         throw new Error(newProject.errorMessage);
       }
 
-      res.status(201).json(newProject);
+      return res.status(201).json(newProject);
     } catch (error) {
       next(error);
     }
@@ -52,21 +52,25 @@ projectRouter.put(
   async (req, res, next) => {
     const userId = req.currentUserId;
     const { projectId } = req.params;
-    const foundProject = await projectService.findOneByProjectId({ projectId });
+    const foundProject = await projectService.findOneByProjectId({
+      projectId,
+    });
     if (userId === foundProject.userId) {
       try {
         if (is.emptyObject(req.body)) {
           throw new Error("모든 항목을 입력해주세요");
         }
-        const { title, description, startDate, endDate } = req.body;
-        const conditions = { projectId };
-        const update = { title, description, startDate, endDate };
-        const updatedProject = await projectService.updateProject(
-          conditions,
-          update
-        );
 
-        res.status(201).json(updatedProject);
+        const { title, description, startDate, endDate } = req.body;
+
+        const toUpdate = { title, description, startDate, endDate };
+
+        const updatedProject = await projectService.updateProject({
+          projectId,
+          toUpdate,
+        });
+
+        return res.status(201).json(updatedProject);
       } catch (error) {
         next(error);
       }
