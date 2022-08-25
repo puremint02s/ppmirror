@@ -70,12 +70,13 @@ projectRouter.put(
           toUpdate,
         });
 
-        return res.status(201).json(updatedProject);
+        console.log(updatedProject);
+        res.status(201).json(updatedProject);
       } catch (error) {
         next(error);
       }
     }
-    res.status(400).json({ message: "작성자만 수정할 수 있습니다." });
+    // res.status(400).json({ message: "작성자만 수정할 수 있습니다." });
   }
 );
 

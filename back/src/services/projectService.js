@@ -76,6 +76,7 @@ class projectService {
         newValue,
       });
     }
+    return project;
   }
 }
 
