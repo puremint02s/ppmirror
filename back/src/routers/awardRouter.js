@@ -33,9 +33,9 @@ awardRouter.post("/award/create", login_required, async function (req, res, next
     }
 });
 
-awardRouter.put("/award/edit/:awardid", login_required, async function (req, res, next) {
+awardRouter.put("/awards/:awardId", login_required, async function (req, res, next) {
     try {
-        const awardId = req.params.awardid;
+        const awardId = req.params.awardId;
         const title = req.body.title ?? null;
         const description = req.body.description ?? null;
 
@@ -53,9 +53,9 @@ awardRouter.put("/award/edit/:awardid", login_required, async function (req, res
     }
 });
 
-awardRouter.get("/awards/:userid", login_required, async function (req, res, next) {
+awardRouter.get("/awards/:userId", login_required, async function (req, res, next) {
     try {
-        const userId = req.params.userid;
+        const userId = req.params.userId;
         const awards = await awardService.getAwards({ userId });
 
         res.status(200).send(awards);
