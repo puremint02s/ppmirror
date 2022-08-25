@@ -2,10 +2,10 @@ import { Education } from "../db";
 import { v4 as uuidv4 } from "uuid";
 
 class educationService {
-    static async addEducation({ userId, school, major, status }) {
+    static async addEducation({ userId, school, major, position }) {
         const eduId = uuidv4();
 
-        const newEducation = { userId, eduId, school, major, status };
+        const newEducation = { userId, eduId, school, major, position };
 
         const createdNewEducation = await Education.create({ newEducation });
         createdNewEducation.errorMessage = null;
@@ -41,9 +41,9 @@ class educationService {
         }
 
         // 상태 필드 수정 시
-        if (toUpdate.status) {
-            const fieldToUpdate = "status";
-            const newValue = toUpdate.status;
+        if (toUpdate.position) {
+            const fieldToUpdate = "position";
+            const newValue = toUpdate.position;
             education = await Education.update({ eduId, fieldToUpdate, newValue });
         }
 

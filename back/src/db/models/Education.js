@@ -7,7 +7,7 @@ class Education {
     }
 
     static async findAllById ({ userId }) {
-        const educations = await EducationModel.find({ userId: userId }).populate('userId', 'id').exec();
+        const educations = await EducationModel.find({ userId: userId });
         return educations;
     }
 

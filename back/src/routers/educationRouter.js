@@ -16,16 +16,16 @@ educationRouter.post(
                 );
             }
 
-            //const userId = req.currentUserId;
+            const userId = req.currentUserId;
             const school = req.body.school;
             const major = req.body.major;
-            const status = req.body.status;
+            const position = req.body.position;
 
             const newEducation = await educationService.addEducation({
-                //userId,
+                userId,
                 school,
                 major,
-                status,
+                position,
             });
 
             if (newEducation.errorMessage) {
@@ -46,9 +46,9 @@ educationRouter.put(
             const eduId = req.params.eduid;
             const school = req.body.school ?? null;
             const major = req.body.major ?? null;
-            const status = req.body.status ?? null;
+            const position = req.body.position ?? null;
 
-            const toUpdate = { school, major, status };
+            const toUpdate = { school, major, position };
 
             const updatedEducation = await educationService.updateEducation({ eduId, toUpdate });
 
