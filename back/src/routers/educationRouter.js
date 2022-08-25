@@ -6,7 +6,7 @@ import { educationService } from "../services/educationService";
 const educationRouter = Router();
 
 educationRouter.post(
-    "/education/register",
+    "/education/create",
     login_required,
     async function (req, res, next) {
         try {
@@ -39,7 +39,7 @@ educationRouter.post(
 });
 
 educationRouter.put(
-    "/education/edit/:eduid",
+    "/educations/:eduid",
     login_required,
     async function (req, res, next) {
         try {
@@ -64,11 +64,11 @@ educationRouter.put(
 );
 
 educationRouter.get(
-    "/educations/:userid",
+    "/educations/:userId",
     login_required,
     async function (req, res, next) {
         try {
-            const userId = req.params.userid;
+            const userId = req.params.userId;
             const educationList = await educationService.getEducations({ userId });
 
             res.status(200).send(educationList);
