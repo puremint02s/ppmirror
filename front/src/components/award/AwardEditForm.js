@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
 
-function AwardEditForm({ userid, currentAward, setAward, setIsEditing }) {
+function AwardEditForm({ currentAward, setAward, setIsEditing }) {
     // 수상 & 내용
     const [ title, setTitle] = useState(currentAward.title);
     const [ description, setDescription ] = useState(currentAward.description);
@@ -13,7 +13,7 @@ function AwardEditForm({ userid, currentAward, setAward, setIsEditing }) {
         e.preventDefault();
 
         // 현재 수상내역에서 userid로 찾기 - 백엔드에 award 보고 확인하기......? 맞나?????
-        const Id = currentAward[userid];
+        const Id = currentAward['user_id'];
 
         // 수정해서 보내기
         await Api.put(`award/${currentAward.id}`, {

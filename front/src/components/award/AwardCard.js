@@ -1,8 +1,15 @@
 import { Card, Button, Row, Col } from "react-bootstrap";
+import * as Api from '../../api';
 
-function AwardCard({award, setIsEditing, isEditable}) {
-    // 삭제 기능은 추후 추가하기!
-    // whenDate를 다른 형태로 바꿔야 하나...?
+function AwardCard({award, setAward, setIsEditing, isEditable}) {
+    // 삭제 기능은 추후 추가하기! - delete에 뭐가 들어가야하지?
+    
+    async function handleDelete () {
+      await Api.delete()
+
+      const res = await Api.get();
+      setAward(res.data);
+    }
     return (
         <Card.Text>
           <Row className="alert-items-center">
@@ -21,6 +28,11 @@ function AwardCard({award, setIsEditing, isEditable}) {
                 >
                   Edit
                 </Button>{' '}
+                <Button
+                  variant="outline-secondary"
+                  size="sm"
+                  onClick={() => handleDelete()}
+                >Delete</Button>
             
               </Col>
             )}

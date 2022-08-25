@@ -18,7 +18,6 @@ function Awards({ portfolioOwnerId, isEditable }) {
           <Card.Title>수상</Card.Title>
           {awards.map((award) => (
              <Award
-               userid={award['id']}
                Award={award}
                setAward={setAwards}
                isEditable={isEditable}
