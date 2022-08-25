@@ -20,7 +20,7 @@ class awardService {
     }
 
     static async updateAward({ awardId, toUpdate }) {
-        const award = await Award.findOne({ awardId: awardId });
+        let award = await Award.findByAwardId({ awardId: awardId });
 
         if (!award) {
             const errorMessage = "해당하는 수상 내역이 없습니다.";
