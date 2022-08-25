@@ -19,7 +19,7 @@ class educationService {
     }
 
     static async updateEducation({ eduId, toUpdate }) {
-        const education = await Education.findOne({ eduId: eduId });
+        let education = await Education.findById({ eduId });
 
         if (!education) {
             const errorMessage = "해당하는 학력 사항이 없습니다.";
