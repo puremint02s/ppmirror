@@ -17,12 +17,14 @@ userAuthRouter.post("/user/register", async function (req, res, next) {
     const name = req.body.name;
     const email = req.body.email;
     const password = req.body.password;
+    const description = req.body.description;
 
     // 위 데이터를 유저 db에 추가하기
     const newUser = await userAuthService.addUser({
       name,
       email,
       password,
+      description,
     });
 
     if (newUser.errorMessage) {

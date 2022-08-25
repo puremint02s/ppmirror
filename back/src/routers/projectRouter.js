@@ -76,7 +76,7 @@ projectRouter.put(
         next(error);
       }
     }
-    // res.status(400).json({ message: "작성자만 수정할 수 있습니다." });
+    res.status(400).json({ message: "작성자만 수정할 수 있습니다." });
   }
 );
 
