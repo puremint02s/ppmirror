@@ -9,6 +9,7 @@ function Award({ Award, setAward, isEditable }) {
     <>
     {isEditing ?
       <AwardEditForm
+        
         currentAward = {Award}
         setAward = {setAward}
         setIsEditing = {setIsEditing}
