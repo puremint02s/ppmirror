@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Form, Col, Row } from "react-bootstrap";
 import DatePicker from "react-datepicker";
-// import * as dateFns from "date-fns";
 import * as Api from "../../api";
 
 const ProjectAddForm = ({isAdding, portfolioOwnerId, setProjects}) => {
@@ -9,7 +8,6 @@ const ProjectAddForm = ({isAdding, portfolioOwnerId, setProjects}) => {
   const [description, setDescription] = useState('');
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
-  // const date = `${dateFns.format(startDate, "yyyy-MM-dd")} ~ ${dateFns.format(endDate, "yyyy-MM-dd")}`
 
   const handleSubmit = async (e) => {
       e.preventDefault();
@@ -17,7 +15,7 @@ const ProjectAddForm = ({isAdding, portfolioOwnerId, setProjects}) => {
       const userId = portfolioOwnerId;
 
       await Api.post("project/create", {
-        // userId,
+        userId,
         title,
         description,
         startDate,

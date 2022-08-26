@@ -2,23 +2,21 @@ import React, { useState } from 'react';
 import { Form, Button, Row, Col } from "react-bootstrap";
 import * as Api from '../../api';
 import DatePicker from "react-datepicker";
-// import * as dateFns from "date-fns";
 
 const ProjectEditForm = ({currentProject, setProjects, setIsEditing}) => {
   const [title, setTitle] = useState(currentProject.title);
   const [description, setDescription] = useState(currentProject.description);
-  const [startDate, setStartDate] = useState(currentProject.startDate);
-  const [endDate, setEndDate] = useState(currentProject.endDate);
-
-  // const date = `${dateFns.format(startDate, "yyyy-MM-dd")} ~ ${dateFns.format(endDate, "yyyy-MM-dd")}`
+  const [startDate, setStartDate] = useState(new Date(currentProject.startDate));
+  const [endDate, setEndDate] = useState(new Date(currentProject.endDate));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const userId = currentProject.userId;
+    const projectId = currentProject.projectId;
 
     await Api.put(`projects/${currentProject.projectId}`, {
-      userId,
+      projectId,
       title,
       description,
       startDate,
