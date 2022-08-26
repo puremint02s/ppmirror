@@ -43,6 +43,11 @@ class awardService {
         
         return award;
     }
+
+    static async deleteAward({ awardId }) {
+        await Award.delete({ awardId });
+        return;
+    }
 }
 
 export { awardService };

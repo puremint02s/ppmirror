@@ -5,66 +5,93 @@ import { awardService } from "../services/awardService";
 
 const awardRouter = Router();
 
-awardRouter.post("/award/create", login_required, async function (req, res, next) {
-    try {
-        if (is.emptyObject(req.body)) {
-            throw new Error(
-                "수상 내역을 빠짐 없이 작성해 주세요."
-            );
+awardRouter.post(
+    "/award/create",
+    login_required,
+    async function (req, res, next) {
+        try {
+            if (is.emptyObject(req.body)) {
+                throw new Error(
+                    "수상 내역을 빠짐 없이 작성해 주세요."
+                );
+            }
+
+            const userId = req.currentUserId;
+            const title = req.body.title;
+            const description = req.body.description;
+
+            const newAward = await awardService.addAward({
+                userId,
+                title,
+                description,
+            });
+
+            if (newAward.errorMessage) {
+                throw new Error(newAward.errorMessage);
+            }
+
+            res.status(201).json(newAward);
+        } catch (error) {
+            next(error);
         }
+    }
+);
 
-        const userId = req.currentUserId;
-        const title = req.body.title;
-        const description = req.body.description;
+awardRouter.put(
+    "/awards/:awardId",
+    login_required, 
+    async function (req, res, next) {
+        try {
+            const userId = req.currentUserId;
+            const awardId = req.params.awardId;
 
-        const newAward = await awardService.addAward({
-            userId,
-            title,
-            description,
-        });
+            
+            const title = req.body.title ?? null;
+            const description = req.body.description ?? null;
 
-        if (newAward.errorMessage) {
-            throw new Error(newAward.errorMessage);
+            const toUpdate = { title, description };
+
+            const updatedAward = await awardService.updateAward({ awardId, toUpdate });
+
+            if (updatedAward.errorMessage) {
+                throw new Error(updatedEducation.errorMessage);
+            }
+
+            res.status(200).json(updatedAward);
+        } catch (error) {
+            next(error);
         }
-
-        res.status(201).json(newAward);
-    } catch (error) {
-        next(error);
     }
-});
+);
 
-awardRouter.put("/awards/:awardId", login_required, async function (req, res, next) {
-    try {
-        const userId = req.currentUserId;
-        const awardId = req.params.awardId;
+awardRouter.get(
+    "/awards/:userId",
+    login_required,
+    async function (req, res, next) {
+        try {
+            const userId = req.params.userId;
+            const awards = await awardService.getAwards({ userId });
 
-        
-        const title = req.body.title ?? null;
-        const description = req.body.description ?? null;
-
-        const toUpdate = { title, description };
-
-        const updatedAward = await awardService.updateAward({ awardId, toUpdate });
-
-        if (updatedAward.errorMessage) {
-            throw new Error(updatedEducation.errorMessage);
+            res.status(200).send(awards);
+        } catch (error) {
+            next(error);
         }
-
-        res.status(200).json(updatedAward);
-    } catch (error) {
-        next(error);
     }
-});
+);
 
-awardRouter.get("/awards/:userId", login_required, async function (req, res, next) {
-    try {
-        const userId = req.params.userId;
-        const awards = await awardService.getAwards({ userId });
+awardRouter.delete(
+    "/awards/:awardId",
+    login_required,
+    async function (req, res, next) {
+        try {
+            const awardId = req.params.awardId;
+            await awardService.deleteAward({ awardId });
 
-        res.status(200).send(awards);
-    } catch (error) {
-        next(error);
+            res.status(201).send("정상적으로 삭제되었습니다.");
+        } catch (error) {
+            next(error);
+        }
     }
-});
+);
 
 export { awardRouter };

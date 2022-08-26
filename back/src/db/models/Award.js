@@ -29,6 +29,11 @@ class Award {
 
         return updatedAward;
     }
+
+    static async delete({ awardId }) {
+        await AwardModel.findOneAndDelete({ awardId: awardId });
+        return;
+    }
 }
 
 export { Award };
