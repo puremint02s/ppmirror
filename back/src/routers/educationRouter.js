@@ -79,4 +79,19 @@ educationRouter.get(
     }
 );
 
+educationRouter.delete(
+    "/educations/:eduId",
+    login_required,
+    async function (req, res, next) {
+        try {
+            const eduId = req.params.eduId;
+            await educationService.deleteEducation({ eduId });
+
+            res.status(201).send("정상적으로 삭제되었습니다.");
+        } catch (error) {
+            next(error);
+        }
+    }
+)
+
 export { educationRouter };
