@@ -2,7 +2,6 @@ import is from "@sindresorhus/is";
 import { v4 as uuidv4 } from "uuid";
 import { Router } from "express";
 import { login_required } from "../middlewares/login_required";
-import { ProjectModel } from "../db/schemas/project";
 import { projectService } from "../services/projectService";
 
 const projectRouter = Router();
@@ -13,7 +12,9 @@ projectRouter.post(
   async (req, res, next) => {
     try {
       if (is.emptyObject(req.body)) {
-        throw new Error("모든 항목을 입력해주세요.");
+        throw new Error(
+          "headers의 Content-Type을 application/json으로 설정해주세요"
+        );
       }
 
       const userId = req.currentUserId;
