@@ -4,8 +4,6 @@ import * as dateFns from "date-fns";
 
 const ProjectCard = ({setIsEditing, isEditable, project}) => {
 
-  const date = `${dateFns.format(project.startDate, "yyyy-MM-dd")} ~ ${dateFns.format(project.endDate, "yyyy-MM-dd")}`
-
   return (
     <Card.Text>
       <Row className="alert-items-center">
@@ -14,17 +12,18 @@ const ProjectCard = ({setIsEditing, isEditable, project}) => {
           <br />
           <span className="text-muted">{project.description}</span>
           <br />
-          {/* <span className="text-muted">{project.date}</span> */}
-          <span className="text-muted">{date}</span>
+          <span className="text-muted">{dateFns.format(new Date(project.startDate), "yyyy-MM-dd")} ~ {dateFns.format(new Date(project.endDate), "yyyy-MM-dd")}</span>
         </Col>
         {isEditable && (
-          <Col xs lg="2">
-            <Button
-              variant="outline-info"
-              size="sm"
-              onClick={() => setIsEditing((prev) => !prev)}
-            >편집</Button>
-          </Col>
+          <>
+            <Col xs lg="2">
+              <Button
+                variant="outline-info"
+                size="sm"
+                onClick={() => setIsEditing((prev) => !prev)}
+              >편집</Button>
+            </Col>
+          </>
         )}
       </Row>
     </Card.Text>

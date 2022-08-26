@@ -2,14 +2,13 @@ import React, { useState } from 'react';
 import ProjectCard from './ProjectCard';
 import ProjectEditForm from './ProjectEditForm';
 
-const Project = ({key, project, setProjects, isEditable}) => {
+const Project = ({project, setProjects, isEditable}) => {
   const [isEditing, setIsEditing] = useState(false);
 
   return (
     <>
       {isEditing ? (
         <ProjectEditForm 
-          key={key}
           currentProject={project}
           setProjects={setProjects}
           setIsEditing={setIsEditing}

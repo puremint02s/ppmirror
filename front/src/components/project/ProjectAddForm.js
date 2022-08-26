@@ -17,7 +17,7 @@ const ProjectAddForm = ({isAdding, portfolioOwnerId, setProjects}) => {
       const userId = portfolioOwnerId;
 
       await Api.post("project/create", {
-        userId,
+        // userId,
         title,
         description,
         startDate,

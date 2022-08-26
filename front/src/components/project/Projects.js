@@ -12,7 +12,7 @@ const Projects = ({ portfolioOwnerId, isEditable }) => {
     Api.get("projects", portfolioOwnerId).then((res) => {
       setProjects(res.data);
     })
-  }, [portfolioOwnerId])
+  }, [portfolioOwnerId]);
 
   return (
     <Card>
@@ -20,7 +20,7 @@ const Projects = ({ portfolioOwnerId, isEditable }) => {
         <Card.Title>프로젝트</Card.Title>
         {projects.map((project) => (
           <Project
-            key={project.id}
+            key={project.projectId}
             project={project}
             setProjects={setProjects}
             isEditable={isEditable}
