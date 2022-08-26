@@ -16,7 +16,7 @@ function AwardEditForm({ currentAward, setAward, setIsEditing }) {
         const Id = currentAward['userId'];
 
         // 수정해서 보내기
-        await Api.put(`awards/${currentAward.awardid}`, {
+        await Api.put(`awards/${currentAward.awardId}`, {
             title,
             description,
         });
