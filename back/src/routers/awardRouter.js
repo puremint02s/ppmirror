@@ -35,7 +35,10 @@ awardRouter.post("/award/create", login_required, async function (req, res, next
 
 awardRouter.put("/awards/:awardId", login_required, async function (req, res, next) {
     try {
+        const userId = req.currentUserId;
         const awardId = req.params.awardId;
+
+        
         const title = req.body.title ?? null;
         const description = req.body.description ?? null;
 
