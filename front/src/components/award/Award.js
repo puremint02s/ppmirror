@@ -11,7 +11,7 @@ function Award({ Award, setAward, isEditable }) {
       <AwardEditForm
         currentAward = {Award}
         setAward = {setAward}
-        setIsEditing = {setIsEditing}
+        setIsEditing = {setIsEditifng}
       />
       : <AwardCard
           setAward={setAward}

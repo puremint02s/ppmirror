@@ -5,9 +5,9 @@ function AwardCard({award, setAward, setIsEditing, isEditable}) {
     // 삭제 기능은 추후 추가하기! - delete에 뭐가 들어가야하지?
     
     async function handleDelete () {
-      await Api.delete()
+      await Api.delete('awards', award.awardId)
 
-      const res = await Api.get();
+      const res = await Api.get('awards', award['userId']);
       setAward(res.data);
     }
     return (
