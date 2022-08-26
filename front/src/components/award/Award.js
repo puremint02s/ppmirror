@@ -14,6 +14,7 @@ function Award({ Award, setAward, isEditable }) {
         setIsEditing = {setIsEditing}
       />
       : <AwardCard
+          award={Award}
           setAward={setAward}
           setIsEditing = {setIsEditing}
           isEditable = {isEditable}
