@@ -43,6 +43,7 @@ educationRouter.put(
     login_required,
     async function (req, res, next) {
         try {
+            const userId = req.currentUserId;
             const eduId = req.params.eduid;
             const school = req.body.school ?? null;
             const major = req.body.major ?? null;
