@@ -13,7 +13,7 @@ function AwardEditForm({ currentAward, setAward, setIsEditing }) {
         e.preventDefault();
 
         // 현재 수상내역에서 userid로 찾기 - 백엔드에 award 보고 확인하기......? 맞나?????
-        const Id = currentAward['userId'];
+        const Id = currentAward['userid'];
 
         // 수정해서 보내기
         await Api.put(`awards/${currentAward.awardid}`, {
