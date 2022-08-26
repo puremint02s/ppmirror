@@ -9,7 +9,7 @@ userAuthRouter.post("/user/register", async function (req, res, next) {
   try {
     if (is.emptyObject(req.body)) {
       throw new Error(
-        // 이 부분이 error.message로 들어가게 된다.
+        // 이 부분이 error.message로 들어가게 된다
         // (추정) 내가 분명히 json으로 보냈는데 값이 가지 않았을 경우(ex. undefined도 null도 오지 않을때)
         "headers의 Content-Type을 application/json으로 설정해주세요"
       );
