@@ -15,6 +15,7 @@ class Certificate {
     const foundCertificate = await CertificateModel.findOne({
       certificateId,
     });
+    console.log(foundCertificate);
     return foundCertificate;
   }
 

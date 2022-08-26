@@ -32,6 +32,7 @@ class certificateService {
     const foundOneCertificate = await Certificate.findOneByCertificateId({
       certificateId,
     });
+    console.log(foundOneCertificate);
     return foundOneCertificate;
   }
 

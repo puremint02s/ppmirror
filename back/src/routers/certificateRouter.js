@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Router } from "express";
 import { login_required } from "../middlewares/login_required";
 import { certificateService } from "../services/certificateService";
+import { CertificateModel } from "../db/schemas/certificate";
 
 const certificateRouter = Router();
 
@@ -75,6 +76,16 @@ certificateRouter.put(
     // 작성자만 수정할 수 있음을 알리는 방법은?
     // next("작성자만 수정할 수 있습니다."); <-  포스트맨에서 작동안함
     res.status(400).json({ message: "작성자만 수정할 수 있습니다." });
+  }
+);
+
+certificateRouter.delete(
+  "/certificates/:certificateId",
+  // login_required,
+  async (req, res, next) => {
+    const { certificateId } = req.params;
+    await CertificateModel.findOneAndDelete({ certificateId });
+    return res.status(201).json({ msg: "삭제성공" });
   }
 );
 
