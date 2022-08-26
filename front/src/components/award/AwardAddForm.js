@@ -15,14 +15,14 @@ function AwardAddForm({ portfolioOwnerId, setAward, setIsAdding }) {
     const Id = portfolioOwnerId;
 
     // 수상내역 추가해서 보내기 --- 확인버튼을 누르면 여기서 오류!!! POST 오류  createError???? 백엔드가 없어서 그런가?????
-    await Api.post("awards/create", {
+    await Api.post("award/create", {
       Id,
       title,
       description,
     });
 
     // 추가한 후 수상내역 새로 받아오기
-    const res = await Api.get("awardlist", Id);
+    const res = await Api.get("awarda", Id);
     setAward(res.data);
     setIsAdding(false);
   }
