@@ -32,11 +32,9 @@ class certificateService {
     const foundOneCertificate = await Certificate.findOneByCertificateId({
       certificateId,
     });
-    console.log(foundOneCertificate);
     return foundOneCertificate;
   }
 
-  // 수정관련 작성
   static async updateCertificate({ certificateId, toUpdate }) {
     let certificate = await Certificate.findOneByCertificateId({
       certificateId,
@@ -78,6 +76,12 @@ class certificateService {
     }
 
     return certificate;
+  }
+
+  static async deleteCertificate({ certificateId }) {
+    return await Certificate.delete({
+      certificateId,
+    });
   }
 }
 

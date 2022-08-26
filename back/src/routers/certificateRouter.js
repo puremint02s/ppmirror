@@ -85,12 +85,18 @@ certificateRouter.delete(
   async (req, res, next) => {
     const userId = req.currentUserId;
     const { certificateId } = req.params;
-    const foundCertificate = await CertificateModel.findOne({ certificateId });
+    const foundCertificate = await certificateService.findOneByCertificateId({
+      certificateId,
+    });
+
     if (userId === foundCertificate.userId) {
-      await CertificateModel.findOneAndDelete({ certificateId });
-      return res.status(201).json({ msg: "성공적으로 삭제 되었습니다." });
+      await certificateService.deleteCertificate({
+        certificateId,
+      });
+
+      return res.status(201).end();
     }
-    res.status(400).json({ message: "작성자만 삭제할 수 있습니다." });
+    return res.status(400).json({ message: "작성자만 삭제할 수 있습니다." });
   }
 );
 

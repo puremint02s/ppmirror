@@ -15,7 +15,6 @@ class Certificate {
     const foundCertificate = await CertificateModel.findOne({
       certificateId,
     });
-    console.log(foundCertificate);
     return foundCertificate;
   }
 
@@ -30,6 +29,12 @@ class Certificate {
       option
     );
     return updatedCertificate;
+  }
+
+  static async delete({ certificateId }) {
+    return await CertificateModel.findOneAndDelete({
+      certificateId,
+    });
   }
 }
 
