@@ -9,7 +9,7 @@ function Awards({ portfolioOwnerId, isEditable }) {
     const [ isAdding, setIsAdding ] = useState(false);
   
     useEffect(() => {
-      Api.get('awardlist', portfolioOwnerId ).then((res) => setAwards(res.data));
+      Api.get('awards', portfolioOwnerId ).then((res) => setAwards(res.data));
     }, [portfolioOwnerId])
   
     return (

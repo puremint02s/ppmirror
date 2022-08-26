@@ -22,7 +22,7 @@ function AwardAddForm({ portfolioOwnerId, setAward, setIsAdding }) {
     });
 
     // 추가한 후 수상내역 새로 받아오기
-    const res = await Api.get("awarda", Id);
+    const res = await Api.get("awards", Id);
     setAward(res.data);
     setIsAdding(false);
   }
