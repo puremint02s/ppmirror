@@ -38,11 +38,11 @@ educationRouter.post(
 );
 
 educationRouter.put(
-  "/educations/:eduid",
+  "/educations/:eduId",
   login_required,
   async function (req, res, next) {
     try {
-      const eduId = req.params.eduid;
+      const eduId = req.params.eduId;
       const school = req.body.school ?? null;
       const major = req.body.major ?? null;
       const position = req.body.position ?? null;

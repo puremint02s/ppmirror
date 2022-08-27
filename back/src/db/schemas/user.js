@@ -27,6 +27,10 @@ const UserSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    likeCount: {
+      type: Number,
+      default: 0,
+    },
   },
   {
     timestamps: true,

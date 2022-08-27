@@ -21,6 +21,34 @@ class User {
     return users;
   }
 
+  static async findAllNetwork(id) {
+
+    const user = await UserModel.aggregate([
+      {
+        $lookup: {
+          from: 'likes',
+          let: {
+            id: "$id",
+          },
+          pipeline: [{
+            $match: {
+              $expr: {
+                $and: [
+                  { $eq: ["$targetUserId", "$$id" ] },
+                  { $eq: ["$userId", id ] }
+                ]
+              }
+            }
+          }],
+          as: 'like'
+        },
+      },
+    ])
+
+    return user;
+  }
+
+
   static async update({ user_id, fieldToUpdate, newValue }) {
     const filter = { id: user_id };
     const update = { [fieldToUpdate]: newValue };
@@ -33,6 +61,20 @@ class User {
     );
     return updatedUser;
   }
+
+  static async updateInc({ user_id, fieldToUpdate, newValue }) {
+    const filter = { id: user_id };
+    const update = { $inc: { [fieldToUpdate]: newValue } };
+    const option = { returnOriginal: false };
+
+    const updatedUser = await UserModel.findOneAndUpdate(
+      filter,
+      update,
+      option
+    );
+    return updatedUser;
+  }
+
 }
 
 export { User };
