@@ -132,6 +132,12 @@ class userAuthService {
       user = await User.updateInc({ user_id, fieldToUpdate, newValue });
     }
 
+    if (toUpdate.viewCount) {
+      const fieldToUpdate = "viewCount";
+      const newValue = toUpdate.viewCount;
+      user = await User.updateInc({ user_id, fieldToUpdate, newValue });
+    }
+
     return user;
   }
 

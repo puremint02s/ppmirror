@@ -137,12 +137,13 @@ userAuthRouter.put(
       let imageUploaded = req.body.imageUploaded ?? null;
       const defaultImage = req.body.defaultImage ?? null;
       const likeCount = req.body.likeCount ?? null;
+      const viewCount = req.body.viewCount ?? null;
 
       if (defaultImage) {
         imageUploaded = false;
       }
 
-      const toUpdate = { name, email, password, description, imageUploaded, defaultImage, likeCount };
+      const toUpdate = { name, email, password, description, imageUploaded, defaultImage, likeCount, viewCount };
 
       // 해당 사용자 아이디로 사용자 정보를 db에서 찾아 업데이트함. 업데이트 요소가 없을 시 생략함
       const updatedUser = await userAuthService.setUser({ user_id, toUpdate });
