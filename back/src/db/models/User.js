@@ -48,6 +48,11 @@ class User {
     return user;
   }
 
+  static async findMaxLike() {
+    const users = await UserModel.find().sort({"likeCount":-1}).limit(1)
+    return users;
+  }
+
 
   static async update({ user_id, fieldToUpdate, newValue }) {
     const filter = { id: user_id };

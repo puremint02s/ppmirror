@@ -107,6 +107,21 @@ userAuthRouter.get(
   }
 );
 
+
+userAuthRouter.get(
+  "/users/maxlike",
+  login_required,
+  async function (req, res, next) {
+    try {
+      const maxLikeUserInfo = await userAuthService.getUserMaxLike();
+
+      res.status(200).send(maxLikeUserInfo);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 userAuthRouter.put(
   "/users/:id",
   login_required,
