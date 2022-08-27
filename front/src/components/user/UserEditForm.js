@@ -9,6 +9,20 @@ function UserEditForm({ user, setIsEditing, setUser }) {
   const [email, setEmail] = useState(user.email);
   //useState로 description 상태를 생성함.
   const [description, setDescription] = useState(user.description);
+  //useState로 imageUploaded 상태를 생성함.
+  const [imageUploaded, setImageUploaded] = useState(user.imageUploaded);
+  //false로 defaultImage 상태를 생성함.
+  const [defaultImage, setDefaultImage] = useState(false);
+
+  const upload = async (e) => {
+      const formData = new FormData();
+      // alert(e.target.files[0]);
+      formData.append('file', e.target.files[0]);
+      const res = await Api.upload('user/upload', `${user.id}`, formData);
+
+    const imageUpload = await res;
+      setImageUploaded(imageUpload);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,6 +32,8 @@ function UserEditForm({ user, setIsEditing, setUser }) {
       name,
       email,
       description,
+      imageUploaded,
+      defaultImage,
     });
     // 유저 정보는 response의 data임.
     const updatedUser = res.data;
@@ -28,9 +44,38 @@ function UserEditForm({ user, setIsEditing, setUser }) {
     setIsEditing(false);
   };
 
+
   return (
     <Card className="mb-2">
       <Card.Body>
+        <Row className="justify-content-md-center">
+          { imageUploaded ?
+            <Card.Img
+              style={{ width: "10rem", height: "8rem" }}
+              className="mb-3"
+              src={`http://localhost:5001/image/${user.id}`}
+              alt="나만의 프로필"
+            />
+            :
+            <Card.Img
+              style={{ width: "10rem", height: "8rem" }}
+              className="mb-3"
+              src="http://placekitten.com/200/200"
+              alt="랜덤 고양이 사진 (http://placekitten.com API 사용)"
+            />
+          }
+        </Row>
+        <Form.Group controlId="formFile" className="mb-1" encType='multipart/form-data' >
+          <Form.Label>프로필 이미지</Form.Label>
+          <Form.Control type="file" onChange={(e) => upload(e)}/>
+        </Form.Group>
+        <Form.Group controlId="formCheckbox"  className="mb-3" >
+          <Form.Check onChange={(e)=> {setDefaultImage(!!e.target.value); setImageUploaded(false);}}
+            type='checkbox'
+            id={'default-checkbox'}
+            label={'기본 프로필 이미지로 전환'}
+          />
+        </Form.Group>
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="useEditName" className="mb-3">
             <Form.Control

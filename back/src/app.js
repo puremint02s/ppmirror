@@ -3,10 +3,10 @@ import express from "express";
 import { userAuthRouter } from "./routers/userRouter";
 import { projectRouter } from "./routers/projectRouter";
 import { certificateRouter } from "./routers/certificateRouter";
-import { errorMiddleware } from "./middlewares/errorMiddleware";
 import { educationRouter } from "./routers/educationRouter";
 import { awardRouter } from "./routers/awardRouter";
-
+import { errorMiddleware } from "./middlewares/errorMiddleware";
+import * as path from "path";
 const app = express();
 
 // CORS 에러 방지
@@ -22,6 +22,15 @@ app.use(express.urlencoded({ extended: false }));
 app.get("/", (req, res) => {
   res.send("안녕하세요, 레이서 프로젝트 API 입니다.");
 });
+
+// 이미지 조회
+app.get("/image/:id", (req, res) => {
+  const url1 = path.join(__dirname, '..', '/public/images/',  `${req.params.id}.png`);
+  const url2 = path.join(__dirname, '..', '/public/images/',  `${req.params.id}.jpg`);
+  const url3 = path.join(__dirname, '..', '/public/images/',  `${req.params.id}.jpeg`);
+  res.sendFile(url1 || url2 || url3);
+});
+
 
 // router, service 구현 (userAuthRouter는 맨 위에 있어야 함.)
 app.use(userAuthRouter);

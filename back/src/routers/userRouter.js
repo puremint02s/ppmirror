@@ -2,8 +2,18 @@ import is from "@sindresorhus/is";
 import { Router } from "express";
 import { login_required } from "../middlewares/login_required";
 import { userAuthService } from "../services/userService";
+import { uploader } from "../middlewares/uploader";
 
 const userAuthRouter = Router();
+
+userAuthRouter.post("/user/upload/:id", uploader.single('file'), (req, res, next) => {
+  try {
+    res.status(201).json(true);
+  } catch (e) {
+    next(e);
+  }
+});
+
 
 userAuthRouter.post("/user/register", async function (req, res, next) {
   try {
@@ -106,8 +116,14 @@ userAuthRouter.put(
       const email = req.body.email ?? null;
       const password = req.body.password ?? null;
       const description = req.body.description ?? null;
+      let imageUploaded = req.body.imageUploaded ?? null;
+      const defaultImage = req.body.defaultImage ?? null;
 
-      const toUpdate = { name, email, password, description };
+      if (defaultImage) {
+        imageUploaded = false;
+      }
+
+      const toUpdate = { name, email, password, description, imageUploaded, defaultImage };
 
       // 해당 사용자 아이디로 사용자 정보를 db에서 찾아 업데이트함. 업데이트 요소가 없을 시 생략함
       const updatedUser = await userAuthService.setUser({ user_id, toUpdate });
