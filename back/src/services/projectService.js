@@ -78,6 +78,12 @@ class projectService {
     }
     return project;
   }
+
+  static async deleteProject({ projectId }) {
+    return await Project.delete({
+      projectId,
+    });
+  }
 }
 
 export { projectService };

@@ -81,4 +81,24 @@ projectRouter.put(
   }
 );
 
+projectRouter.delete(
+  "/projects/:projectId",
+  login_required,
+  async (req, res, next) => {
+    const userId = req.currentUserId;
+    const { projectId } = req.params;
+
+    const foundProject = await projectService.findOneByProjectId({ projectId });
+
+    if (userId === foundProject.userId) {
+      await projectService.deleteProject({ projectId });
+
+      return res
+        .status(201)
+        .json({ message: "Project 삭제가 성공적으로 이루어졌습니다." });
+    }
+    return res.status(400).json({ message: "작성자만 삭제할 수 있습니다." });
+  }
+);
+
 export { projectRouter };
