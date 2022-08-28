@@ -4,8 +4,15 @@ import * as Api from "../../api";
 
 function AwardEditForm({ currentAward, setAward, setIsEditing }) {
   // 수상 & 내용
-  const [title, setTitle] = useState(currentAward.title);
-  const [description, setDescription] = useState(currentAward.description);
+  const [form, setForm] = useState(currentAward);
+
+  function handleChange(e) {
+    const { name, value } = e.currentTarget;
+    setForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  }
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -14,15 +21,18 @@ function AwardEditForm({ currentAward, setAward, setIsEditing }) {
     const Id = currentAward["userId"];
 
     // 수정해서 보내기
-    await Api.put(`awards/${currentAward.awardId}`, {
-      title,
-      description,
-    });
+    try {
+      await Api.put(`awards/${currentAward.awardId}`, {
+        ...form,
+      });
 
-    // 수정한거 다시 받아오기
-    const res = await Api.get("awards", Id);
-    setAward(res.data);
-    setIsEditing(false);
+      // 수정한거 다시 받아오기
+      const res = await Api.get("awards", Id);
+      setAward(res.data);
+      setIsEditing(false);
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   return (
@@ -31,8 +41,8 @@ function AwardEditForm({ currentAward, setAward, setIsEditing }) {
         <Form.Control
           type="text"
           placeholder="제목"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          value={form.title}
+          onChange={handleChange}
         />
       </Form.Group>
 
@@ -40,8 +50,8 @@ function AwardEditForm({ currentAward, setAward, setIsEditing }) {
         <Form.Control
           type="text"
           placeholder="설명"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          value={form.description}
+          onChange={handleChange}
         />
       </Form.Group>
 
