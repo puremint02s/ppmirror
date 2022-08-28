@@ -2,7 +2,7 @@ import React, { useState} from "react";
 import CertificateEditForm from "./CertificateEditForm";
 import CertificateCard from "./CertificateCard";
 
-function Certificate({ key, certificate, setCertificates,isEditable}) {
+function Certificate({certificate, setCertificates,isEditable}) {
   const [ isEditing, setIsEditing ] = useState(false);
  
  

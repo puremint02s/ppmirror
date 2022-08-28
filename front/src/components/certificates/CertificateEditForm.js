@@ -16,16 +16,30 @@ function CertificateEditForm({ currentCertificate, setCertificates,setIsEditing 
     const acquiredAt = AcquiredAt.toISOString().split("T")[0];
     const certificateId=currentCertificate.certificateId
     // "users/유저id" 엔드포인트로 PUT 요청함.
-    await Api.put(`certificates/${currentCertificate.certificateId}`, {
+    // await Api.put(`certificates/${currentCertificate.certificateId}`, {
+    //   certificateId,
+    //   title,
+    //   description,
+    //   acquiredAt,
+    // });
+    // // 유저 정보는 response의 data임.d
+    // const res = await Api.get("certificates", userId);
+    // setCertificates(res.data);
+    // setIsEditing(false);
+
+    try {
+     await Api.put(`certificates/${currentCertificate.certificateId}`, {
       certificateId,
       title,
       description,
       acquiredAt,
-    });
-    // 유저 정보는 response의 data임.d
-    const res = await Api.get("certificates", userId);
+    })
+      const res = await Api.get("certificates", userId);
     setCertificates(res.data);
     setIsEditing(false);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (

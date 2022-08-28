@@ -9,18 +9,22 @@ function Educations({ portfolioOwnerId, isEditable }) {
   const [ isAdding, setIsAdding ] = useState(false);
 
   useEffect(() => {
-    Api.get('educations', portfolioOwnerId ).then((res) => setEducations(res.data));
+    Api.get('educations', portfolioOwnerId ).then((res) => {
+        if (Array.isArray(res.data)) {setEducations(res.data)}});
   }, [portfolioOwnerId])
 
+  const getEducations = data => {
+    setEducations(data);
+  }
   return (
     <Card>
       <Card.Body>
         <Card.Title>학력</Card.Title>
         {educations.map((education) => (
            <Education
-             key={education['eduId']}
+             key={education.eduId}
              education={education}
-             setEducations={setEducations}
+             getEducations={getEducations}
              isEditable={isEditable}
            />
         ))}
@@ -34,7 +38,7 @@ function Educations({ portfolioOwnerId, isEditable }) {
         {isAdding && (
          <EducationAddForm
            portfolioOwnerId={portfolioOwnerId}
-           setEducations={setEducations}
+           getEducations={getEducations}
            setIsAdding={setIsAdding}
          />
         )}
