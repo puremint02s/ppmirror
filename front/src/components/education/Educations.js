@@ -13,6 +13,9 @@ function Educations({ portfolioOwnerId, isEditable }) {
         if (Array.isArray(res.data)) {setEducations(res.data)}});
   }, [portfolioOwnerId])
 
+  const getEducations = data => {
+    setEducations(data)
+  }
   return (
     <Card>
       <Card.Body>
@@ -21,7 +24,7 @@ function Educations({ portfolioOwnerId, isEditable }) {
            <Education
              key={education['eduId']}
              education={education}
-             setEducations={setEducations}
+             getEducations={getEducations}
              isEditable={isEditable}
            />
         ))}
@@ -35,7 +38,7 @@ function Educations({ portfolioOwnerId, isEditable }) {
         {isAdding && (
          <EducationAddForm
            portfolioOwnerId={portfolioOwnerId}
-           setEducations={setEducations}
+           getEducations={getEducations}
            setIsAdding={setIsAdding}
          />
         )}

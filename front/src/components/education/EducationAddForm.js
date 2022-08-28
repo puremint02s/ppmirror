@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
 
-function EducationAddForm({ portfolioOwnerId, setEducations, setIsAdding }) {
+function EducationAddForm({ portfolioOwnerId, getEducations, setIsAdding }) {
 
   const [ form, setForm ] = useState({} );
 
@@ -20,15 +20,13 @@ function EducationAddForm({ portfolioOwnerId, setEducations, setIsAdding }) {
 
     const userId = portfolioOwnerId;
 
-    console.log({...form})
-
     await Api.post("education/create", {
       userId,
       ...form
     });
 
     const res = await Api.get("educations", userId);
-    setEducations(res.data);
+    getEducations(res.data);
     setIsAdding(false);
   }
 

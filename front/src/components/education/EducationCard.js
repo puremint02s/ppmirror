@@ -1,13 +1,13 @@
 import { Card, Button, Row, Col } from "react-bootstrap";
 import * as Api from "../../api";
 
-function EducationCard({ education, isEditable, setEducations, setIsEditing}) {
+function EducationCard({ education, isEditable, getEducations, setIsEditing}) {
 
   const handleDelete = async () => {
     await Api.delete('educations', education.eduId);
 
     const res = await Api.get("educations", education['userId']);
-    setEducations(res.data);
+    getEducations(res.data);
   }
 
   return (

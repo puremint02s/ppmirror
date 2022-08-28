@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
 
-function EducationEditForm({ key, currentEducation, setEducations, setIsEditing }) {
+function EducationEditForm({ key, currentEducation, getEducations, setIsEditing }) {
 
   const [ form, setForm ] = useState( currentEducation );
 
@@ -25,7 +25,7 @@ function EducationEditForm({ key, currentEducation, setEducations, setIsEditing 
     });
 
     const res = await Api.get("educations", userId);
-    setEducations(res.data);
+    getEducations(res.data);
     setIsEditing(false);
   }
 
