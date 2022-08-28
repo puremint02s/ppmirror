@@ -94,14 +94,14 @@ awardRouter.delete(
     async function (req, res, next) {
         const userId = req.currentUserId;
         const { awardId } = req.params;
-        const foundAward = await findOneByAwardId({ awardId });
+        const foundAward = await awardService.findOneByAwardId({ awardId });
 
         if (userId === foundAward.userId) {
             await awardService.deleteAward({ awardId });            
-            return res.status(201).send({ message: "정상적으로 삭제되었습니다." });
+            return res.status(201).json({ message: "삭제 성공!" });
         }
 
-        return res.status(401).send({ message: "작성자만 삭제할 수 있습니다." });
+        return res.status(401).json({ message: "작성자만 삭제할 수 있습니다." });
     }
 );
 

@@ -49,7 +49,7 @@ educationRouter.post(
 });
 
 educationRouter.put(
-    "/educations/:eduid",
+    "/educations/:eduId",
     login_required,
     async function (req, res, next) {
       const userId = req.currentUserId;
@@ -103,7 +103,7 @@ educationRouter.delete(
 
       if (userId === foundEducation.userId) {
         await educationService.deleteEducation({ eduId });
-        return res.status(201).send("정상적으로 삭제되었습니다.");        
+        return res.status(201).json({ message: "삭제 성공!" });        
       }
       res.status(401).json({ message: "작성자만 삭제할 수 있습니다." });
     }
