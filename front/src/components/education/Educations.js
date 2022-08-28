@@ -9,7 +9,11 @@ function Educations({ portfolioOwnerId, isEditable }) {
   const [ isAdding, setIsAdding ] = useState(false);
 
   useEffect(() => {
-    Api.get('educations', portfolioOwnerId ).then((res) => setEducations(res.data));
+    Api.get('educations', portfolioOwnerId )
+      .then((res) => {
+        if (typeof res.data === 'object' && Array.isArray(res.data)) {
+          setEducations(res.data);
+        }});
   }, [portfolioOwnerId])
 
   return (
