@@ -5,6 +5,7 @@ import * as Api from "../../api";
 
 const ProjectCard = ({ setIsEditing, isEditable, project, setProjects }) => {
   const handleDelete = async () => {
+    // try ~ catch문
     try {
       await Api.delete("projects", project.projectId);
       const res = await Api.get("projects", project.userId);
