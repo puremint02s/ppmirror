@@ -44,6 +44,18 @@ class certificateService {
         "해당 자격증을 찾을 수 없습니다. 다시 한 번 확인해 주세요.";
       return { errorMessage };
     }
+    if (!toUpdate.title) {
+      const errorMessage = "자격증 이름을 입력해주세요.";
+      return { errorMessage };
+    }
+    if (!toUpdate.description) {
+      const errorMessage = "상세내역을 입력해주세요.";
+      return { errorMessage };
+    }
+    if (!toUpdate.acquiredAt) {
+      const errorMessage = "취득날짜를 입력해주세요.";
+      return { errorMessage };
+    }
 
     if (toUpdate.title) {
       const fieldToUpdate = "title";
