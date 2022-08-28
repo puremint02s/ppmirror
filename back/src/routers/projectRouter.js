@@ -21,6 +21,19 @@ projectRouter.post(
       const projectId = uuidv4();
       const { title, description, startDate, endDate } = req.body;
 
+      if (!title) {
+        throw new Error("프로젝트 제목을 입력해주세요.");
+      }
+      if (!description) {
+        throw new Error("상세내역을 입력해주세요.");
+      }
+      if (!startDate) {
+        throw new Error("프로젝트 시작 날짜를 입력해주세요.");
+      }
+      if (!endDate) {
+        throw new Error("프로젝트 끝 날짜를 입력해주세요.");
+      }
+
       const newProject = await projectService.addProject({
         userId,
         projectId,
@@ -59,7 +72,9 @@ projectRouter.put(
     if (userId === foundProject.userId) {
       try {
         if (is.emptyObject(req.body)) {
-          throw new Error("모든 항목을 입력해주세요");
+          throw new Error(
+            "headers의 Content-Type을 application/json으로 설정해주세요."
+          );
         }
 
         const { title, description, startDate, endDate } = req.body;
@@ -71,13 +86,32 @@ projectRouter.put(
           toUpdate,
         });
 
-        console.log(updatedProject);
-        res.status(201).json(updatedProject);
+        return res.status(201).json(updatedProject);
       } catch (error) {
         next(error);
       }
     }
     res.status(400).json({ message: "작성자만 수정할 수 있습니다." });
+  }
+);
+
+projectRouter.delete(
+  "/projects/:projectId",
+  login_required,
+  async (req, res, next) => {
+    const userId = req.currentUserId;
+    const { projectId } = req.params;
+
+    const foundProject = await projectService.findOneByProjectId({ projectId });
+
+    if (userId === foundProject.userId) {
+      await projectService.deleteProject({ projectId });
+
+      return res
+        .status(201)
+        .json({ message: "Project 삭제가 성공적으로 이루어졌습니다." });
+    }
+    return res.status(400).json({ message: "작성자만 삭제할 수 있습니다." });
   }
 );
 
