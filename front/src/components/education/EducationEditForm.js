@@ -4,9 +4,15 @@ import * as Api from "../../api";
 
 function EducationEditForm({ key, currentEducation, setEducations, setIsEditing }) {
 
-  const [ school, setSchool] = useState(currentEducation.school);
-  const [ major, setMajor ] = useState(currentEducation.major);
-  const [ position, setPosition ] = useState(currentEducation.position);
+  const [ form, setForm ] = useState( currentEducation );
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm(prev => ({
+        ...prev,
+        [name]: value
+      }))
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,9 +21,7 @@ function EducationEditForm({ key, currentEducation, setEducations, setIsEditing 
     const userId = currentEducation['userId'];
 
     await Api.put(`educations/${currentEducation.eduId}`, {
-      school,
-      major,
-      position,
+      ...form
     });
 
     const res = await Api.get("educations", userId);
@@ -31,8 +35,9 @@ function EducationEditForm({ key, currentEducation, setEducations, setIsEditing 
         <Form.Control
           type="text"
           placeholder="학교"
-          value={school}
-          onChange={(e) => setSchool(e.target.value)}
+          name="school"
+          value={form.school}
+          onChange={handleChange}
         />
       </Form.Group>
 
@@ -40,8 +45,9 @@ function EducationEditForm({ key, currentEducation, setEducations, setIsEditing 
         <Form.Control
           type="text"
           placeholder="전공"
-          value={major}
-          onChange={(e)=>setMajor(e.target.value)}
+          name="major"
+          value={form.major}
+          onChange={handleChange}
         />
       </Form.Group>
 
@@ -49,42 +55,42 @@ function EducationEditForm({ key, currentEducation, setEducations, setIsEditing 
         <Form.Check
           inline
           label="재학중"
-          name="status"
+          name="position"
           type="radio"
           id={`radio-${key}-1`}
           value="재학중"
-          checked={position === "재학중"}
-          onChange={(e) => setPosition(e.target.value)}
+          checked={form.position === "재학중"}
+          onChange={handleChange}
         />
         <Form.Check
           inline
           label="학사졸업"
-          name="status"
+          name="position"
           type="radio"
           id={`radio-${key}-2`}
           value="학사졸업"
-          checked={position === "학사졸업"}
-          onChange={(e) => setPosition(e.target.value)}
+          checked={form.position === "학사졸업"}
+          onChange={handleChange}
         />
         <Form.Check
           inline
           label="석사졸업"
-          name="status"
+          name="position"
           type="radio"
           id={`radio-${key}-3`}
           value="석사졸업"
-          checked={position === "석사졸업"}
-          onChange={(e) => setPosition(e.target.value)}
+          checked={form.position === "석사졸업"}
+          onChange={handleChange}
         />
         <Form.Check
           inline
           label="박사졸업"
-          name="status"
+          name="position"
           type="radio"
           id={`radio-${key}-4`}
           value="박사졸업"
-          checked={position === "박사졸업"}
-          onChange={(e) => setPosition(e.target.value)}
+          checked={form.position === "박사졸업"}
+          onChange={handleChange}
         />
       </Form.Group>
 

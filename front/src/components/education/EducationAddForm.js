@@ -4,9 +4,15 @@ import * as Api from "../../api";
 
 function EducationAddForm({ portfolioOwnerId, setEducations, setIsAdding }) {
 
-  const [ school, setSchool] = useState("");
-  const [ major, setMajor ] = useState("");
-  const [ position, setPosition ] = useState("");
+  const [ form, setForm ] = useState({} );
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm(prev => ({
+      ...prev,
+      [name] : value
+    }))
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -14,11 +20,11 @@ function EducationAddForm({ portfolioOwnerId, setEducations, setIsAdding }) {
 
     const userId = portfolioOwnerId;
 
+    console.log({...form})
+
     await Api.post("education/create", {
       userId,
-      school,
-      major,
-      position,
+      ...form
     });
 
     const res = await Api.get("educations", userId);
@@ -32,17 +38,19 @@ function EducationAddForm({ portfolioOwnerId, setEducations, setIsAdding }) {
           <Form.Control
             type="text"
             placeholder="학교"
-            value={school}
-            onChange={(e) => setSchool(e.target.value)}
+            name="school"
+            value={form.school}
+            onChange={handleChange}
           />
         </Form.Group>
 
         <Form.Group controlId="formBasicSchool"  className="mt-3">
           <Form.Control
             type="text"
+            name="major"
             placeholder="전공"
-            value={major}
-            onChange={(e)=>setMajor(e.target.value)}
+            value={form.major}
+            onChange={handleChange}
           />
         </Form.Group>
 
@@ -50,42 +58,42 @@ function EducationAddForm({ portfolioOwnerId, setEducations, setIsAdding }) {
             <Form.Check
               inline
               label="재학중"
-              name="status"
+              name="position"
               type="radio"
               id="radio1"
               value="재학중"
-              checked={position === "재학중"}
-              onChange={(e) => setPosition(e.target.value)}
+              checked={form.position === "재학중"}
+              onChange={handleChange}
             />
             <Form.Check
               inline
               label="학사졸업"
-              name="status"
+              name="position"
               type="radio"
               id="radio2"
               value="학사졸업"
-              checked={position === "학사졸업"}
-              onChange={(e) => setPosition(e.target.value)}
+              checked={form.position === "학사졸업"}
+              onChange={handleChange}
             />
             <Form.Check
               inline
               label="석사졸업"
-              name="status"
+              name="position"
               type="radio"
               id="radio3"
               value="석사졸업"
-              checked={position === "석사졸업"}
-              onChange={(e) => setPosition(e.target.value)}
+              checked={form.position === "석사졸업"}
+              onChange={handleChange}
             />
             <Form.Check
               inline
               label="박사졸업"
-              name="status"
+              name="position"
               type="radio"
               id="radio4"
               value="박사졸업"
-              checked={position === "박사졸업"}
-              onChange={(e) => setPosition(e.target.value)}
+              checked={form.position === "박사졸업"}
+              onChange={handleChange}
             />
         </Form.Group>
 
@@ -101,7 +109,6 @@ function EducationAddForm({ portfolioOwnerId, setEducations, setIsAdding }) {
         </Form.Group>
       </Form>
   )
-
 }
 
 export default EducationAddForm;
