@@ -20,6 +20,19 @@ certificateRouter.post(
       const userId = req.currentUserId;
       const certificateId = uuidv4();
       const { title, description, acquiredAt } = req.body;
+
+      if (!title) {
+        throw new Error("자격증 제목을 입력해주세요.");
+      }
+
+      if (!description) {
+        throw new Error("상세내역을 입력해주세요.");
+      }
+
+      if (!acquiredAt) {
+        throw new Error("취득날짜를 입력해주세요.");
+      }
+
       const newCertificate = await certificateService.addCertificate({
         userId,
         certificateId,
