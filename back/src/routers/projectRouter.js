@@ -21,6 +21,19 @@ projectRouter.post(
       const projectId = uuidv4();
       const { title, description, startDate, endDate } = req.body;
 
+      if (!title) {
+        throw new Error("프로젝트 제목을 입력해주세요.");
+      }
+      if (!description) {
+        throw new Error("상세내역을 입력해주세요.");
+      }
+      if (!startDate) {
+        throw new Error("프로젝트 시작 날짜를 입력해주세요.");
+      }
+      if (!endDate) {
+        throw new Error("프로젝트 끝 날짜를 입력해주세요.");
+      }
+
       const newProject = await projectService.addProject({
         userId,
         projectId,
@@ -59,7 +72,9 @@ projectRouter.put(
     if (userId === foundProject.userId) {
       try {
         if (is.emptyObject(req.body)) {
-          throw new Error("모든 항목을 입력해주세요");
+          throw new Error(
+            "headers의 Content-Type을 application/json으로 설정해주세요."
+          );
         }
 
         const { title, description, startDate, endDate } = req.body;
@@ -71,8 +86,7 @@ projectRouter.put(
           toUpdate,
         });
 
-        console.log(updatedProject);
-        res.status(201).json(updatedProject);
+        return res.status(201).json(updatedProject);
       } catch (error) {
         next(error);
       }

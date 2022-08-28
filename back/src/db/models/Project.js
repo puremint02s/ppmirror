@@ -18,7 +18,7 @@ class Project {
     return foundOneProject;
   }
 
-  static async update({ projectId, fieldToUpdate, newValue }) {
+  static async update(projectId, fieldToUpdate, newValue) {
     const filter = { projectId };
     const update = { [fieldToUpdate]: newValue };
     const option = { returnOriginal: false };
