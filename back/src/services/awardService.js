@@ -19,6 +19,11 @@ class awardService {
         return awards;
     }
 
+    static async findOneByAwardId({ awardId }) {
+        const foundOneAward = await Award.findByAwardId({ awardId });
+        return foundOneAward;
+    }
+
     static async updateAward({ awardId, toUpdate }) {
         let award = await Award.findByAwardId({ awardId });
 

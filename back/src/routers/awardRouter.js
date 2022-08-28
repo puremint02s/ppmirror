@@ -12,7 +12,7 @@ awardRouter.post(
         try {
             if (is.emptyObject(req.body)) {
                 throw new Error(
-                    "수상 내역을 빠짐 없이 작성해 주세요."
+                    "headers의 Content-Type을 application/json으로 설정해 주세요."
                 );
             }
 
@@ -48,24 +48,28 @@ awardRouter.put(
     "/awards/:awardId",
     login_required, 
     async function (req, res, next) {
-        try {
-            const userId = req.currentUserId;
-            const { awardId } = req.params;
-            const title = req.body.title ?? null;
-            const description = req.body.description ?? null;
+        const userId = req.currentUserId;
+        const { awardId } = req.params;
+        const foundAward = await awardService.findOneByAwardId({ awardId });        
+        if (userId === foundAward.userId) {
+            try {
+                const title = req.body.title ?? null;
+                const description = req.body.description ?? null;
 
-            const toUpdate = { title, description };
+                const toUpdate = { title, description };
 
-            const updatedAward = await awardService.updateAward({ awardId, toUpdate });
+                const updatedAward = await awardService.updateAward({ awardId, toUpdate });
 
-            if (updatedAward.errorMessage) {
-                throw new Error(updatedEducation.errorMessage);
+                if (updatedAward.errorMessage) {
+                    throw new Error(updatedEducation.errorMessage);
+                }
+
+                res.status(201).json(updatedAward);   
+            } catch (error) {
+                next(error);
             }
-
-            res.status(201).json(updatedAward);
-        } catch (error) {
-            next(error);
         }
+        res.status(401).json({ message: "작성자만 수정할 수 있습니다." });
     }
 );
 
@@ -77,7 +81,7 @@ awardRouter.get(
             const userId = req.params.userId;
             const awards = await awardService.getAwards({ userId });
 
-            res.status(200).send(awards);
+            return res.status(200).send(awards);
         } catch (error) {
             next(error);
         }
@@ -88,14 +92,16 @@ awardRouter.delete(
     "/awards/:awardId",
     login_required,
     async function (req, res, next) {
-        try {
-            const awardId = req.params.awardId;
-            await awardService.deleteAward({ awardId });
+        const userId = req.currentUserId;
+        const { awardId } = req.params;
+        const foundAward = await findOneByAwardId({ awardId });
 
-            res.status(201).send("정상적으로 삭제되었습니다.");
-        } catch (error) {
-            next(error);
+        if (userId === foundAward.userId) {
+            await awardService.deleteAward({ awardId });            
+            return res.status(201).send({ message: "정상적으로 삭제되었습니다." });
         }
+
+        return res.status(401).send({ message: "작성자만 삭제할 수 있습니다." });
     }
 );
 
