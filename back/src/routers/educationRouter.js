@@ -12,14 +12,24 @@ educationRouter.post(
         try {
             if(is.emptyObject(req.body)) {
                 throw new Error(
-                    "학력 정보를 정확히 작성해 주세요."
+                    "headers의 Content-Type을 application/json으로 설정해 주세요."
                 );
             }
 
             const userId = req.currentUserId;
-            const school = req.body.school;
-            const major = req.body.major;
-            const position = req.body.position;
+            const { school, major, position } = req.body;
+
+            if (!school) {
+                throw new Error("학교명을 입력해 주세요.")
+            }
+            
+            if (!major) {
+                throw new Error("전공명을 입력해 주세요.")
+            }
+
+            if (!position) {
+                throw new Error("학력 상태를 설정해 주세요.")
+            }
 
             const newEducation = await educationService.addEducation({
                 userId,

@@ -7,12 +7,12 @@ class Education {
     }
 
     static async findAllById({ userId }) {
-        const educations = await EducationModel.find({ userId: userId });
+        const educations = await EducationModel.find({ userId });
         return educations;
     }
 
     static async findByEduId({ eduId }) {
-        const education = await EducationModel.findOne({ eduId: eduId });
+        const education = await EducationModel.findOne({ eduId });
         return education;
     }
 
