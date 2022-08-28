@@ -54,7 +54,7 @@ function EducationAddForm({ portfolioOwnerId, getEducations, setIsAdding }) {
           />
         </Form.Group>
 
-        <Form.Group controlId="formBasicStatus" key={`inline-radio`}  className="mb-3 mt-3 text-center">
+        <Form.Group controlId="formBasicStatus" className="mb-3 mt-3 text-center">
             <Form.Check
               inline
               label="재학중"

@@ -14,7 +14,7 @@ function EducationCard({ education, isEditable, getEducations, setIsEditing}) {
   }
 
   return (
-    <Card.Text>
+    <Card.Text key={education.eduId}>
       <Row className="alert-items-center">
         <Col>
           <span>{education.school}</span>

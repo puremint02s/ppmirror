@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
 
-function EducationEditForm({ key, currentEducation, getEducations, setIsEditing }) {
+function EducationEditForm({ currentEducation, getEducations, setIsEditing }) {
 
   const [ form, setForm ] = useState( currentEducation );
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.currentTarget;
     setForm(prev => ({
         ...prev,
         [name]: value,
@@ -32,7 +32,7 @@ function EducationEditForm({ key, currentEducation, getEducations, setIsEditing 
   }
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form key={currentEducation.eduId} onSubmit={handleSubmit}>
       <Form.Group controlId="formBasicSchool">
         <Form.Control
           type="text"
@@ -43,7 +43,7 @@ function EducationEditForm({ key, currentEducation, getEducations, setIsEditing 
         />
       </Form.Group>
 
-      <Form.Group controlId="formBasicSchool"  className="mt-3">
+      <Form.Group controlId="formBasicMajor" className="mt-3">
         <Form.Control
           type="text"
           placeholder="전공"
@@ -53,13 +53,13 @@ function EducationEditForm({ key, currentEducation, getEducations, setIsEditing 
         />
       </Form.Group>
 
-      <Form.Group controlId="formBasicStatus" key={key}  className="mb-3 mt-3 text-center">
+      <Form.Group controlId="formBasicPosition" className="mb-3 mt-3 text-center">
         <Form.Check
           inline
           label="재학중"
           name="position"
           type="radio"
-          id={`radio-${key}-1`}
+          id={`radio-${currentEducation.eduId}-1`}
           value="재학중"
           checked={form.position === "재학중"}
           onChange={handleChange}
@@ -69,7 +69,7 @@ function EducationEditForm({ key, currentEducation, getEducations, setIsEditing 
           label="학사졸업"
           name="position"
           type="radio"
-          id={`radio-${key}-2`}
+          id={`radio-${currentEducation.eduId}-2`}
           value="학사졸업"
           checked={form.position === "학사졸업"}
           onChange={handleChange}
@@ -79,7 +79,7 @@ function EducationEditForm({ key, currentEducation, getEducations, setIsEditing 
           label="석사졸업"
           name="position"
           type="radio"
-          id={`radio-${key}-3`}
+          id={`radio-${currentEducation.eduId}-3`}
           value="석사졸업"
           checked={form.position === "석사졸업"}
           onChange={handleChange}
@@ -89,7 +89,7 @@ function EducationEditForm({ key, currentEducation, getEducations, setIsEditing 
           label="박사졸업"
           name="position"
           type="radio"
-          id={`radio-${key}-4`}
+          id={`radio-${currentEducation.eduId}-4`}
           value="박사졸업"
           checked={form.position === "박사졸업"}
           onChange={handleChange}
