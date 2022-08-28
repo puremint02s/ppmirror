@@ -14,7 +14,7 @@ function Educations({ portfolioOwnerId, isEditable }) {
   }, [portfolioOwnerId])
 
   const getEducations = data => {
-    setEducations(data)
+    setEducations(data);
   }
   return (
     <Card>

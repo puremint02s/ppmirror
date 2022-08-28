@@ -4,10 +4,13 @@ import * as Api from "../../api";
 function EducationCard({ education, isEditable, getEducations, setIsEditing}) {
 
   const handleDelete = async () => {
-    await Api.delete('educations', education.eduId);
-
-    const res = await Api.get("educations", education['userId']);
-    getEducations(res.data);
+    try {
+      await Api.delete('educations', education.eduId);
+      const res = await Api.get("educations", education['userId']);
+      getEducations(res.data);
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   return (

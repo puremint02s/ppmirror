@@ -10,7 +10,7 @@ function EducationAddForm({ portfolioOwnerId, getEducations, setIsAdding }) {
     const { name, value } = e.target;
     setForm(prev => ({
       ...prev,
-      [name] : value
+      [name]: value
     }))
   }
 
@@ -19,15 +19,17 @@ function EducationAddForm({ portfolioOwnerId, getEducations, setIsAdding }) {
     e.stopPropagation();
 
     const userId = portfolioOwnerId;
-
-    await Api.post("education/create", {
-      userId,
-      ...form
-    });
-
-    const res = await Api.get("educations", userId);
-    getEducations(res.data);
-    setIsAdding(false);
+    try {
+      await Api.post("education/create", {
+        userId,
+        ...form
+      });
+      const res = await Api.get("educations", userId);
+      getEducations(res.data);
+      setIsAdding(false);
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   return (

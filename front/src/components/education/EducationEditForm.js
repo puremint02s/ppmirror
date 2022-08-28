@@ -10,7 +10,7 @@ function EducationEditForm({ key, currentEducation, getEducations, setIsEditing 
     const { name, value } = e.target;
     setForm(prev => ({
         ...prev,
-        [name]: value
+        [name]: value,
       }))
   }
 
@@ -19,14 +19,16 @@ function EducationEditForm({ key, currentEducation, getEducations, setIsEditing 
     e.stopPropagation();
 
     const userId = currentEducation['userId'];
-
-    await Api.put(`educations/${currentEducation.eduId}`, {
-      ...form
-    });
-
-    const res = await Api.get("educations", userId);
-    getEducations(res.data);
-    setIsEditing(false);
+    try {
+      await Api.put(`educations/${currentEducation.eduId}`, {
+        ...form
+      });
+      const res = await Api.get("educations", userId);
+      getEducations(res.data);
+      setIsEditing(false);
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   return (
