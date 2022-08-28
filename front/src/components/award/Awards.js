@@ -8,8 +8,12 @@ function Awards({ portfolioOwnerId, isEditable }) {
   const [awards, setAwards] = useState([]);
   const [isAdding, setIsAdding] = useState(false);
 
+  function getAwards(data) {
+    setAwards(data);
+  }
+
   useEffect(() => {
-    Api.get("awards", portfolioOwnerId).then((res) => setAwards(res.data));
+    Api.get("awards", portfolioOwnerId).then((res) => getAwards(res.data));
   }, [portfolioOwnerId]);
 
   return (

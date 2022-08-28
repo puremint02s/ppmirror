@@ -4,25 +4,39 @@ import * as Api from "../../api";
 
 function AwardAddForm({ portfolioOwnerId, setAward, setIsAdding }) {
   // 수상 내역
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [form, setForm] = useState({
+    title: "",
+    description: "",
+  });
+
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  }
 
   async function handleSubmit(e) {
     e.preventDefault();
 
     const Id = portfolioOwnerId;
 
-    // 수상내역 추가해서 보내기 --- 확인버튼을 누르면 여기서 오류!!! POST 오류  createError???? 백엔드가 없어서 그런가?????
-    await Api.post("award/create", {
-      Id,
-      title,
-      description,
-    });
+    // try ~ catch로 오류보내기
+    try {
+      // 수상내역 추가해서 보내기
+      await Api.post("award/create", {
+        Id,
+        ...form,
+      });
 
-    // 추가한 후 수상내역 새로 받아오기
-    const res = await Api.get("awards", Id);
-    setAward(res.data);
-    setIsAdding(false);
+      // 추가한 후 수상내역 새로 받아오기
+      const res = await Api.get("awards", Id);
+      setAward(res.data);
+      setIsAdding(false);
+    } catch (e) {
+      console.log("추가 실패", e);
+    }
   }
 
   return (
@@ -31,8 +45,9 @@ function AwardAddForm({ portfolioOwnerId, setAward, setIsAdding }) {
         <Form.Control
           type="text"
           placeholder="제목"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          name="title"
+          value={form.title}
+          onChange={handleChange}
         />
       </Form.Group>
 
@@ -40,8 +55,9 @@ function AwardAddForm({ portfolioOwnerId, setAward, setIsAdding }) {
         <Form.Control
           type="text"
           placeholder="설명"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          name="description"
+          value={form.description}
+          onChange={handleChange}
         />
       </Form.Group>
 
