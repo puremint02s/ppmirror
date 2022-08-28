@@ -50,9 +50,7 @@ awardRouter.put(
     async function (req, res, next) {
         try {
             const userId = req.currentUserId;
-            const awardId = req.params.awardId;
-
-            
+            const { awardId } = req.params;
             const title = req.body.title ?? null;
             const description = req.body.description ?? null;
 
@@ -64,7 +62,7 @@ awardRouter.put(
                 throw new Error(updatedEducation.errorMessage);
             }
 
-            res.status(200).json(updatedAward);
+            res.status(201).json(updatedAward);
         } catch (error) {
             next(error);
         }
