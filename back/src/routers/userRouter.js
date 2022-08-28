@@ -34,7 +34,6 @@ userAuthRouter.post("/user/register", async function (req, res, next) {
       name,
       email,
       password,
-      description,
     });
 
     if (newUser.errorMessage) {
