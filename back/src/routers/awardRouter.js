@@ -17,8 +17,15 @@ awardRouter.post(
             }
 
             const userId = req.currentUserId;
-            const title = req.body.title;
-            const description = req.body.description;
+            const { title, description } = req.body;
+
+            if (!title) {
+                throw new Error("제목을 입력해 주세요.");
+            }
+
+            if (!description) {
+                throw new Error("설명을 입력해 주세요.");
+            }
 
             const newAward = await awardService.addAward({
                 userId,

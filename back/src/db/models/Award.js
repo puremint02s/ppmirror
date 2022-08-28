@@ -7,12 +7,12 @@ class Award {
     }
 
     static async findAllById({ userId }) {
-        const awards = await AwardModel.find({ userId: userId });
+        const awards = await AwardModel.find({ userId });
         return awards;
     }
 
     static async findByAwardId({ awardId }) {
-        const award = await AwardModel.findOne({ awardId: awardId });
+        const award = await AwardModel.findOne({ awardId });
         return award;
     }
 
