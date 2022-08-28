@@ -48,31 +48,31 @@ class certificateService {
     if (toUpdate.title) {
       const fieldToUpdate = "title";
       const newValue = toUpdate.title;
-      certificate = await Certificate.update({
+      certificate = await Certificate.update(
         certificateId,
         fieldToUpdate,
-        newValue,
-      });
+        newValue
+      );
     }
 
     if (toUpdate.description) {
       const fieldToUpdate = "description";
       const newValue = toUpdate.description;
-      certificate = await Certificate.update({
+      certificate = await Certificate.update(
         certificateId,
         fieldToUpdate,
-        newValue,
-      });
+        newValue
+      );
     }
 
     if (toUpdate.acquiredAt) {
       const fieldToUpdate = "acquiredAt";
       const newValue = toUpdate.acquiredAt;
-      certificate = await Certificate.update({
+      certificate = await Certificate.update(
         certificateId,
         fieldToUpdate,
-        newValue,
-      });
+        newValue
+      );
     }
 
     return certificate;

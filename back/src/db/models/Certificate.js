@@ -18,10 +18,27 @@ class Certificate {
     return foundCertificate;
   }
 
-  static async update({ certificateId, fieldToUpdate, newValue }) {
+  // static async update({ certificateId, fieldToUpdate, newValue }) {
+  //   const filter = { certificateId };
+  //   const update = { [fieldToUpdate]: newValue };
+  //   const option = { returnOriginal: false };
+
+  //   const updatedCertificate = await CertificateModel.findOneAndUpdate(
+  //     filter,
+  //     update,
+  //     option
+  //   );
+  //   return updatedCertificate;
+  // }
+
+  static async update(certificateId, fieldToUpdate, newValue) {
     const filter = { certificateId };
     const update = { [fieldToUpdate]: newValue };
     const option = { returnOriginal: false };
+
+    // You should set the `new` option to `true` to return the document after update was applied.
+    // As an alternative to the new option, you can also use the returnOriginal option. `returnOriginal: false` is equivalent to `new: true`
+    // the MongoDB Node.js driver's returnOriginal과의 통일성위해 존재
 
     const updatedCertificate = await CertificateModel.findOneAndUpdate(
       filter,

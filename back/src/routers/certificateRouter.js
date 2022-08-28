@@ -3,7 +3,6 @@ import { v4 as uuidv4 } from "uuid";
 import { Router } from "express";
 import { login_required } from "../middlewares/login_required";
 import { certificateService } from "../services/certificateService";
-import { CertificateModel } from "../db/schemas/certificate";
 
 const certificateRouter = Router();
 
@@ -36,7 +35,7 @@ certificateRouter.post(
 );
 
 // :userId에 해당하는 사람의 자격증 가져오기
-certificateRouter.get("/certificates/:userId", async (req, res, next) => {
+certificateRouter.get("/certificates/:userId", async (req, res) => {
   const { userId } = req.params;
   const foundCertificates = await certificateService.findCertificatesByUserId({
     userId,
@@ -73,8 +72,6 @@ certificateRouter.put(
         next(error);
       }
     }
-    // 작성자만 수정할 수 있음을 알리는 방법은?
-    // next("작성자만 수정할 수 있습니다."); <-  포스트맨에서 작동안함
     res.status(400).json({ message: "작성자만 수정할 수 있습니다." });
   }
 );
@@ -94,7 +91,7 @@ certificateRouter.delete(
         certificateId,
       });
 
-      return res.status(201).end();
+      return res.status(201).json({ message: "삭제 성공!" });
     }
     return res.status(400).json({ message: "작성자만 삭제할 수 있습니다." });
   }
