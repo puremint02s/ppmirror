@@ -2,22 +2,23 @@ import React, { useState } from 'react';
 import EducationCard from "./EducationCard";
 import EducationEditForm from "./EducationEditForm";
 
-function Education({ education, setEducations, isEditable }) {
+function Education({ education, getEducations, isEditable }) {
   const [ isEditing, setIsEditing ] = useState(false);
 
   return (
     <>
     {isEditing ?
       <EducationEditForm
-        key={education['eduId']}
+        key={education.eduId}
         currentEducation={education}
-        setEducations={setEducations}
+        getEducations={getEducations}
         setIsEditing={setIsEditing}
       />
       : <EducationCard
+        key={education.eduId}
         education={education}
         isEditable={isEditable}
-        setEducations={setEducations}
+        getEducations={getEducations}
         setIsEditing={setIsEditing}
       />
     }
