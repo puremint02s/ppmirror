@@ -2,7 +2,7 @@ import React, { useState} from "react";
 import CertificateEditForm from "./CertificateEditForm";
 import CertificateCard from "./CertificateCard";
 
-function Certificate({certificate, setCertificates,isEditable}) {
+function Certificate({ certificate, setCertificates,isEditable}) {
   const [ isEditing, setIsEditing ] = useState(false);
  
  
@@ -10,7 +10,7 @@ function Certificate({certificate, setCertificates,isEditable}) {
     <>
      {isEditing ? (
       <CertificateEditForm
-        key={key}
+        key={certificate.certificateId}
         currentCertificate={certificate}
         setCertificates={setCertificates}
         setIsEditing={setIsEditing}
