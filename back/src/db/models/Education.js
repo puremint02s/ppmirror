@@ -16,8 +16,8 @@ class Education {
         return education;
     }
 
-    static async update({ eduId, fieldToUpdate, newValue }) {
-        const filter = { eduId: eduId };
+    static async update(eduId, fieldToUpdate, newValue) {
+        const filter = { eduId };
         const update = { [fieldToUpdate]: newValue };
         const option = { returnOriginal : false };
 
@@ -30,7 +30,7 @@ class Education {
     }
 
     static async delete({ eduId }) {
-        await EducationModel.findOneAndDelete({ eduId: eduId });
+        await EducationModel.findOneAndDelete({ eduId });
         return;
     }
 }

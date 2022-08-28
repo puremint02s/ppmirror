@@ -22,7 +22,7 @@ class educationService {
         let education = await Education.findByEduId({ eduId });
 
         if (!education) {
-            const errorMessage = "해당하는 학력 사항이 없습니다.";
+            const errorMessage = "해당 학력 사항을 찾을 수 없습니다. 다시 한 번 확인해 주세요.";
             return { errorMessage };
         }
 
@@ -30,21 +30,21 @@ class educationService {
         if (toUpdate.school) {
             const fieldToUpdate = "school";
             const newValue = toUpdate.school;
-            education = await Education.update({ eduId, fieldToUpdate, newValue });
+            education = await Education.update(eduId, fieldToUpdate, newValue);
         }
 
         // 전공 필드 수정 시
         if (toUpdate.major) {
             const fieldToUpdate = "major";
             const newValue = toUpdate.major;
-            education = await Education.update({ eduId, fieldToUpdate, newValue });
+            education = await Education.update(eduId, fieldToUpdate, newValue);
         }
 
         // 상태 필드 수정 시
         if (toUpdate.position) {
             const fieldToUpdate = "position";
             const newValue = toUpdate.position;
-            education = await Education.update({ eduId, fieldToUpdate, newValue });
+            education = await Education.update(eduId, fieldToUpdate, newValue);
         }
 
         return education;

@@ -54,7 +54,7 @@ educationRouter.put(
     async function (req, res, next) {
         try {
             const userId = req.currentUserId;
-            const eduId = req.params.eduid;
+            const { eduId } = req.params;
             const school = req.body.school ?? null;
             const major = req.body.major ?? null;
             const position = req.body.position ?? null;
