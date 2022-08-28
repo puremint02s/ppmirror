@@ -52,25 +52,29 @@ educationRouter.put(
     "/educations/:eduid",
     login_required,
     async function (req, res, next) {
+      const userId = req.currentUserId;
+      const { eduId } = req.params;
+
+      const foundEducation = await educationService.findOneByEducationId({ eduId });
+      if (userId === foundEducation.userId) {
         try {
-            const userId = req.currentUserId;
-            const { eduId } = req.params;
-            const school = req.body.school ?? null;
-            const major = req.body.major ?? null;
-            const position = req.body.position ?? null;
+          const school = req.body.school ?? null;
+          const major = req.body.major ?? null;
+          const position = req.body.position ?? null;
+          
+          const toUpdate = { school, major, position };
+          const updatedEducation = await educationService.updateEducation({ eduId, toUpdate });
 
-            const toUpdate = { school, major, position };
+          if (updatedEducation.errorMessage) {
+              throw new Error(updatedEducation.errorMessage);
+          }
 
-            const updatedEducation = await educationService.updateEducation({ eduId, toUpdate });
-
-            if (updatedEducation.errorMessage) {
-                throw new Error(updatedEducation.errorMessage);
-            }
-
-            res.status(200).json(updatedEducation);
+          return res.status(201).json(updatedEducation);          
         } catch (error) {
-            next(error);
+          next(error);
         }
+      }
+      res.status(401).json({ message: "작성자만 수정할 수 있습니다." });
     }
 );
 
@@ -93,14 +97,15 @@ educationRouter.delete(
     "/educations/:eduId",
     login_required,
     async function (req, res, next) {
-        try {
-            const eduId = req.params.eduId;
-            await educationService.deleteEducation({ eduId });
+      const userId = req.currentUserId;      
+      const { eduId } = req.params;
+      const foundEducation = await educationService.findOneByEducationId({ eduId });
 
-            res.status(201).send("정상적으로 삭제되었습니다.");
-        } catch (error) {
-            next(error);
-        }
+      if (userId === foundEducation.userId) {
+        await educationService.deleteEducation({ eduId });
+        return res.status(201).send("정상적으로 삭제되었습니다.");        
+      }
+      res.status(401).json({ message: "작성자만 삭제할 수 있습니다." });
     }
 )
 

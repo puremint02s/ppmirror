@@ -18,6 +18,11 @@ class educationService {
         return educations;
     }
 
+    static async findOneByEducationId({ eduId }) {
+        const foundOneEducation = await Education.findByEduId({ eduId });
+        return foundOneEducation;
+    }
+
     static async updateEducation({ eduId, toUpdate }) {
         let education = await Education.findByEduId({ eduId });
 
