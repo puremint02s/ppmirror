@@ -6,7 +6,7 @@ const localBaseUrl = 'localhost';
 // 개발서버
 const realBaseUrl = 'kdt-ai5-team02.elicecoding.com';
 
-const serverUrl = `http://${localBaseUrl}:${backendPortNumber}/`;
+const serverUrl = `http://${realBaseUrl}:${backendPortNumber}/`;
 
 async function get(endpoint, params = "") {
   console.log(
