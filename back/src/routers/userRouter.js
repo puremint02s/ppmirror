@@ -1,5 +1,7 @@
 import is from "@sindresorhus/is";
 import { Router } from "express";
+import { User } from "../db";
+import { UserModel } from "../db/schemas/user";
 import { login_required } from "../middlewares/login_required";
 import { userAuthService } from "../services/userService";
 
@@ -69,9 +71,24 @@ userAuthRouter.get(
   login_required,
   async function (req, res, next) {
     try {
-      // 전체 사용자 목록을 얻음
-      const users = await userAuthService.getUsers();
-      res.status(200).send(users);
+      // // 전체 사용자 목록을 얻음
+      // const users = await userAuthService.getUsers();
+      // res.status(200).send(users);
+
+      const page = Number(req.query.page || 1);
+      const perPage = Number(req.query.perPage || 10);
+
+      const total = await UserModel.countDocuments({});
+
+      const users = await UserModel.find({})
+        .sort({ createdAt: "desc" })
+        .skip(perPage * (page - 1))
+        .limit(perPage);
+
+      const totalPage = Math.ceil(total / perPage);
+      const pagination = { users, page, perPage, totalPage };
+
+      return res.status(200).json(pagination);
     } catch (error) {
       next(error);
     }
