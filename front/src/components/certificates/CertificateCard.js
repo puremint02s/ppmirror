@@ -1,11 +1,14 @@
 import * as Api from "../../api";
 import { Card, Row, Button, Col } from "react-bootstrap";
 
-
-function CertificateCard({ certificate, setIsEditing,isEditable,getCertificates }) {
-
-  const t=new Date(certificate.acquiredAt)
-  const time_text=t.toISOString().split("T")[0]
+function CertificateCard({
+  certificate,
+  setIsEditing,
+  isEditable,
+  getCertificates,
+}) {
+  const t = new Date(certificate.acquiredAt);
+  const time_text = t.toISOString().split("T")[0];
   const handleDelete = async () => {
     try {
       await Api.delete("certificates", certificate.certificateId);
@@ -27,7 +30,6 @@ function CertificateCard({ certificate, setIsEditing,isEditable,getCertificates 
           <span className="text-muted">{time_text}</span>
         </Col>
 
-          
         {isEditable && (
           <Col xs lg="2">
             <Button
@@ -36,9 +38,8 @@ function CertificateCard({ certificate, setIsEditing,isEditable,getCertificates 
               onClick={() => setIsEditing(true)}
             >
               Edit
-            </Button>{' '}
+            </Button>{" "}
             <Button
-
               variant="outline-secondary"
               size="sm"
               onClick={() => handleDelete()}
@@ -49,8 +50,7 @@ function CertificateCard({ certificate, setIsEditing,isEditable,getCertificates 
         )}
       </Row>
     </Card.Text>
-  )
+  );
 }
-
 
 export default CertificateCard;
