@@ -109,6 +109,12 @@ class userAuthService {
       user = await User.update({ user_id, fieldToUpdate, newValue });
     }
 
+    if (toUpdate.hashtag) {
+      const fieldToUpdate = "hashtag";
+      const newValue = toUpdate.hashtag;
+      user = await User.update({ user_id, fieldToUpdate, newValue });
+    }
+
     return user;
   }
 
