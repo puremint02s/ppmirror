@@ -17,6 +17,7 @@ function Certificate({ certificate, getCertificates,isEditable}) {
       />
     ) : (
       <CertificateCard
+      key={certificate.certificateId}
       certificate={certificate}
       isEditable={isEditable}
       getCertificates={getCertificates}
