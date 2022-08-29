@@ -3,7 +3,7 @@ import { Button, Form, Card, Col, Row } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import * as Api from "../../api";
 
-function CertificateAddForm({ portfolioOwnerId, setIsAdding, setCertificates }) {
+function CertificateAddForm({ portfolioOwnerId, setIsAdding, getCertificates }) {
   //useState로 name 상태를 생성함.
   const [ title, setTitle] = useState("");
 //useState로 description 상태를 생성함.
@@ -25,7 +25,7 @@ function CertificateAddForm({ portfolioOwnerId, setIsAdding, setCertificates }) 
     });
     const res = await Api.get("certificates", userId);
     // 유저 정보는 response의 data임.
-    setCertificates(res.data);
+    getCertificates(res.data);
     setIsAdding(false);
   };
   

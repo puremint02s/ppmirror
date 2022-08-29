@@ -17,7 +17,9 @@ function Certificates({ portfolioOwnerId,  isEditable }) {
     Api.get("certificates", portfolioOwnerId).then((res) => setCertificates(res.data));
   }, [portfolioOwnerId]);
 
-
+  const getCertificates = data => {
+    setCertificates(data);
+  }
 
 
   return (
@@ -29,7 +31,7 @@ function Certificates({ portfolioOwnerId,  isEditable }) {
            <Certificate
            key={certificate.certificateId}
            certificate={certificate}
-           setCertificates={setCertificates}
+           getCertificates={getCertificates}
            isEditable={isEditable}
            />
         ))}
@@ -49,7 +51,7 @@ function Certificates({ portfolioOwnerId,  isEditable }) {
 {isAdding && (
          <CertificateAddForm
            portfolioOwnerId={portfolioOwnerId}
-           setCertificates={setCertificates}
+           getCertificates={getCertificates}
            setIsAdding={setIsAdding}
          />
         )}

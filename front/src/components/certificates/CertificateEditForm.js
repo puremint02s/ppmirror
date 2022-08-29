@@ -3,7 +3,7 @@ import { Button, Form, Card, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
 import DatePicker from "react-datepicker";
 
-function CertificateEditForm({ currentCertificate, setCertificates,setIsEditing }) {
+function CertificateEditForm({ currentCertificate, getCertificates,setIsEditing }) {
   //useState로 name 상태를 생성함.
   const [ title, setTitle] = useState(currentCertificate.title);
 //useState로 description 상태를 생성함.
@@ -35,7 +35,7 @@ function CertificateEditForm({ currentCertificate, setCertificates,setIsEditing 
       acquiredAt,
     })
       const res = await Api.get("certificates", userId);
-    setCertificates(res.data);
+    getCertificates(res.data);
     setIsEditing(false);
     } catch (e) {
       console.log(e);

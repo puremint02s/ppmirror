@@ -1,9 +1,21 @@
 import * as Api from "../../api";
 import { Card, Row, Button, Col } from "react-bootstrap";
 import DatePicker from "react-datepicker";
-function CertificateCard({ certificate, setIsEditing,isEditable }) {
+function CertificateCard({ certificate, setIsEditing,isEditable,getCertifications }) {
 const t=new Date(certificate.acquiredAt)
 const time_text=t.toISOString().split("T")[0]
+
+const handleDelete = async () => {
+  try {
+    await Api.delete('certificates', certificate.certificateId);
+    const res = await Api.get("certificates", certificate.userId);
+    getCertifications(res.data);
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+
 
 
   return (
@@ -28,8 +40,15 @@ const time_text=t.toISOString().split("T")[0]
                   size="sm"
                   onClick={() => setIsEditing(true)}
                 >
-                  편집
+                 Edit
                 </Button>
+                <Button
+              variant="outline-secondary"
+              size="sm"
+              onClick={() => handleDelete()}
+            >
+              Delete
+            </Button>
               </Col>
              
             
