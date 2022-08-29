@@ -1,28 +1,29 @@
 import * as Api from "../../api";
 import { Card, Row, Button, Col } from "react-bootstrap";
 import DatePicker from "react-datepicker";
-function CertificateCard({ certificate, setIsEditing,isEditable,getCertifications }) {
-const t=new Date(certificate.acquiredAt)
-const time_text=t.toISOString().split("T")[0]
+function CertificateCard({
+  certificate,
+  setIsEditing,
+  isEditable,
+  getCertifications,
+}) {
+  const t = new Date(certificate.acquiredAt);
+  const time_text = t.toISOString().split("T")[0];
 
-const handleDelete = async () => {
-  try {
-    await Api.delete('certificates', certificate.certificateId);
-    const res = await Api.get("certificates", certificate.userId);
-    getCertifications(res.data);
-  } catch (e) {
-    console.log(e)
-  }
-}
-
-
-
+  const handleDelete = async () => {
+    try {
+      await Api.delete("certificates", certificate.certificateId);
+      const res = await Api.get("certificates", certificate.userId);
+      getCertifications(res.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   return (
-   
-        <Card.Text>
-    <Row className="alert-items-center">
-          <Col>
+    <Card.Text>
+      <Row className="alert-items-center">
+        <Col>
           <span>{certificate.title}</span>
           <br />
           <span className="text-muted">{certificate.description}</span>
@@ -30,33 +31,26 @@ const handleDelete = async () => {
           <span className="text-muted">{time_text}</span>
         </Col>
 
-{isEditable && (
-       
-           
-              <Col xs lg="2">
-                
-                <Button
-                  variant="outline-info"
-                  size="sm"
-                  onClick={() => setIsEditing(true)}
-                >
-                 Edit
-                </Button>
-                <Button
+        {isEditable && (
+          <Col xs lg="2">
+            <Button
+              variant="outline-info"
+              size="sm"
+              onClick={() => setIsEditing(true)}
+            >
+              Edit
+            </Button>
+            <Button
               variant="outline-secondary"
               size="sm"
               onClick={() => handleDelete()}
             >
               Delete
             </Button>
-              </Col>
-             
-            
-          
+          </Col>
         )}
-  </Row>
-      </Card.Text>
-    
+      </Row>
+    </Card.Text>
   );
 }
 

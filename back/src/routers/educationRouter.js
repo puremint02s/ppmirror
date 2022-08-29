@@ -50,7 +50,7 @@ educationRouter.post(
 );
 
 educationRouter.put(
-  "/educations/:eduid",
+  "/educations/:eduId",
   login_required,
   async function (req, res, next) {
     const userId = req.currentUserId;
