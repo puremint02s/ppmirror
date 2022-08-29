@@ -19,11 +19,16 @@ class awardService {
         return awards;
     }
 
+    static async findOneByAwardId({ awardId }) {
+        const foundOneAward = await Award.findByAwardId({ awardId });
+        return foundOneAward;
+    }
+
     static async updateAward({ awardId, toUpdate }) {
-        let award = await Award.findByAwardId({ awardId: awardId });
+        let award = await Award.findByAwardId({ awardId });
 
         if (!award) {
-            const errorMessage = "해당하는 수상 내역이 없습니다.";
+            const errorMessage = "해당 수상 내역을 찾을 수 없습니다. 다시 한 번 확인해 주세요.";
             return { errorMessage };
         }
 
@@ -31,17 +36,22 @@ class awardService {
         if (toUpdate.title) {
             const fieldToUpdate = "title";
             const newValue = toUpdate.title;
-            award = await Award.update({ awardId, fieldToUpdate, newValue });
+            award = await Award.update(awardId, fieldToUpdate, newValue);
         }
 
         // description 필드 수정 시
         if (toUpdate.description) {
             const fieldToUpdate = "description";
             const newValue = toUpdate.description;
-            award = await Award.update({ awardId, fieldToUpdate, newValue });
+            award = await Award.update(awardId, fieldToUpdate, newValue);
         }
         
         return award;
+    }
+
+    static async deleteAward({ awardId }) {
+        await Award.delete({ awardId });
+        return;
     }
 }
 

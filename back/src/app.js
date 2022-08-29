@@ -24,6 +24,7 @@ app.get("/", (req, res) => {
   res.send("안녕하세요, 레이서 프로젝트 API 입니다.");
 });
 
+
 // 이미지 조회
 app.get("/image/:id", (req, res) => {
   const url1 = path.join(__dirname, '..', '/public/images/',  `${req.params.id}.png`);

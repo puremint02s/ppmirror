@@ -7,17 +7,17 @@ class Award {
     }
 
     static async findAllById({ userId }) {
-        const awards = await AwardModel.find({ userId: userId });
+        const awards = await AwardModel.find({ userId });
         return awards;
     }
 
     static async findByAwardId({ awardId }) {
-        const award = await AwardModel.findOne({ awardId: awardId });
+        const award = await AwardModel.findOne({ awardId });
         return award;
     }
 
-    static async update({ awardId, fieldToUpdate, newValue }) {
-        const filter = { awardId: awardId };
+    static async update(awardId, fieldToUpdate, newValue) {
+        const filter = { awardId };
         const update = { [fieldToUpdate]: newValue };
         const option = { returnOriginal: false };
 
@@ -28,6 +28,11 @@ class Award {
         );
 
         return updatedAward;
+    }
+
+    static async delete({ awardId }) {
+        await AwardModel.findOneAndDelete({ awardId });
+        return;
     }
 }
 

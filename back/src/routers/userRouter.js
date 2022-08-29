@@ -21,22 +21,29 @@ userAuthRouter.post("/user/register", async function (req, res, next) {
       throw new Error(
         // 이 부분이 error.message로 들어가게 된다
         // (추정) 내가 분명히 json으로 보냈는데 값이 가지 않았을 경우(ex. undefined도 null도 오지 않을때)
-        "headers의 Content-Type을 application/json으로 설정해주세요"
+        "headers의 Content-Type을 application/json으로 설정해주세요."
       );
     }
 
     // req (request) 에서 데이터 가져오기
-    const name = req.body.name;
-    const email = req.body.email;
-    const password = req.body.password;
-    const description = req.body.description;
+
+    const { name, email, password } = req.body;
+
+    if (!name) {
+      throw new Error("이름을 입력해주세요.");
+    }
+    if (!email) {
+      throw new Error("이메일 주소를 입력해주세요.");
+    }
+    if (!password) {
+      throw new Error("비밀번호를 입력해주세요.");
+    }
 
     // 위 데이터를 유저 db에 추가하기
     const newUser = await userAuthService.addUser({
       name,
       email,
       password,
-      description,
     });
 
     if (newUser.errorMessage) {
@@ -52,8 +59,7 @@ userAuthRouter.post("/user/register", async function (req, res, next) {
 userAuthRouter.post("/user/login", async function (req, res, next) {
   try {
     // req (request) 에서 데이터 가져오기
-    const email = req.body.email;
-    const password = req.body.password;
+    const { email, password } = req.body;
 
     // 위 데이터를 이용하여 유저 db에서 유저 찾기
     const user = await userAuthService.getUser({ email, password });
