@@ -3,7 +3,7 @@ import { Button, Form, Card, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
 import DatePicker from "react-datepicker";
 
-function CertificateEditForm({ currentCertificate, setCertificates,setIsEditing }) {
+function CertificateEditForm({ currentCertificate, getCertificates,setIsEditing }) {
   //useState로 name 상태를 생성함.
   const [ title, setTitle] = useState(currentCertificate.title);
 //useState로 description 상태를 생성함.
@@ -16,16 +16,30 @@ function CertificateEditForm({ currentCertificate, setCertificates,setIsEditing 
     const acquiredAt = AcquiredAt.toISOString().split("T")[0];
     const certificateId=currentCertificate.certificateId
     // "users/유저id" 엔드포인트로 PUT 요청함.
-    await Api.put(`certificates/${currentCertificate.certificateId}`, {
+    // await Api.put(`certificates/${currentCertificate.certificateId}`, {
+    //   certificateId,
+    //   title,
+    //   description,
+    //   acquiredAt,
+    // });
+    // // 유저 정보는 response의 data임.d
+    // const res = await Api.get("certificates", userId);
+    // setCertificates(res.data);
+    // setIsEditing(false);
+
+    try {
+     await Api.put(`certificates/${currentCertificate.certificateId}`, {
       certificateId,
       title,
       description,
       acquiredAt,
-    });
-    // 유저 정보는 response의 data임.d
-    const res = await Api.get("certificates", userId);
-    setCertificates(res.data);
+    })
+      const res = await Api.get("certificates", userId);
+    getCertificates(res.data);
     setIsEditing(false);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (

@@ -1,17 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import {Card, Col, Row, Button} from "react-bootstrap";
-import * as Api from '../../api';
-import Project from './Project';
-import ProjectAddForm from './ProjectAddForm';
- 
+import React, { useState, useEffect } from "react";
+import { Card, Col, Row, Button } from "react-bootstrap";
+import * as Api from "../../api";
+import Project from "./Project";
+import ProjectAddForm from "./ProjectAddForm";
+
 const Projects = ({ portfolioOwnerId, isEditable }) => {
   const [projects, setProjects] = useState([]);
   const [isAdding, setIsAdding] = useState(false);
 
+  // setProjects를 명시적으로 전달하기 위해 함수 작성
+  const getNewProjectList = (data) => {
+    setProjects(data);
+  };
+
+  //res.data가 배열인지 확인
   useEffect(() => {
     Api.get("projects", portfolioOwnerId).then((res) => {
-      setProjects(res.data);
-    })
+      if (Array.isArray(res.data)) {
+        setProjects(res.data);
+      }
+    });
   }, [portfolioOwnerId]);
 
   return (
@@ -28,21 +36,21 @@ const Projects = ({ portfolioOwnerId, isEditable }) => {
         ))}
         {isEditable && (
           <Row className="mt-3 text-center mb-4">
-            <Col sm={{span: 20}}>
+            <Col sm={{ span: 20 }}>
               <Button onClick={() => setIsAdding(true)}>+</Button>
             </Col>
           </Row>
         )}
         {isAdding && (
-          <ProjectAddForm 
+          <ProjectAddForm
             portfolioOwnerId={portfolioOwnerId}
-            setProjects={setProjects}
+            setProjects={getNewProjectList}
             isAdding={setIsAdding}
           />
         )}
       </Card.Body>
     </Card>
-  )
-}
+  );
+};
 
 export default Projects;

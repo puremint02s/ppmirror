@@ -7,17 +7,17 @@ class Education {
     }
 
     static async findAllById({ userId }) {
-        const educations = await EducationModel.find({ userId: userId });
+        const educations = await EducationModel.find({ userId });
         return educations;
     }
 
-    static async findById({ eduId }) {
-        const education = await EducationModel.findOne({ eduId: eduId });
+    static async findByEduId({ eduId }) {
+        const education = await EducationModel.findOne({ eduId });
         return education;
     }
 
-    static async update({ eduId, fieldToUpdate, newValue }) {
-        const filter = { eduId: eduId };
+    static async update(eduId, fieldToUpdate, newValue) {
+        const filter = { eduId };
         const update = { [fieldToUpdate]: newValue };
         const option = { returnOriginal : false };
 
@@ -27,6 +27,11 @@ class Education {
             option
         );
         return updatedEducation;
+    }
+
+    static async delete({ eduId }) {
+        await EducationModel.findOneAndDelete({ eduId });
+        return;
     }
 }
 
