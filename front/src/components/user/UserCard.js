@@ -1,16 +1,16 @@
 import { useNavigate } from "react-router-dom";
-import { Card, Row, Button, Col } from "react-bootstrap";
+import { Button, Card, Col, Row } from "react-bootstrap";
 import { useContext, useEffect, useState } from "react";
 import { UserStateContext } from "../../App";
-import * as Api from "../../api"
+import * as Api from "../../api";
 
 function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
   const navigate = useNavigate();
   const userState = useContext(UserStateContext);
-  const [ like, setLike ] = useState(false);
-  const [ likeCount, setLikeCount ] = useState(user?.likeCount || 0);
+  const [like, setLike] = useState(false);
+  const [likeCount, setLikeCount] = useState(user?.likeCount || 0);
 
-  useEffect(async () => {
+  useEffect(() => {
     // 만약 전역 상태의 user가 null이라면, 로그인 페이지로 이동함.
     // useState 훅을 통해 users 상태를 생성함.
     if (!userState.user) {
@@ -18,22 +18,22 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
       return;
     }
 
-    if (user?.like.length > 0) {
+    if (isNetwork && user?.like.length > 0) {
       setLike(true);
     }
-  },[])
+  }, []);
 
   const handleLike = async (e) => {
     e.preventDefault();
 
     let res;
     if (!like) {
-      res = await Api.post('like', {
-        userId : user.id
+      res = await Api.post("like", {
+        userId: user.id,
       });
       await setLike(true);
     } else {
-      res = await Api.delete('unlike', user.id);
+      res = await Api.delete("unlike", user.id);
       await setLike(false);
     }
     const updatedUser = await res.data;
@@ -45,33 +45,36 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
     <Card className="mb-2 ms-3 mr-5" style={{ width: "18rem" }}>
       <Card.Body>
         <Row className="justify-content-md-center">
-          { user?.imageUploaded ?
+          {user?.imageUploaded ? (
             <Card.Img
               style={{ width: "10rem", height: "8rem" }}
               className="mb-3"
               src={`${Api.serverUrl}image/${user.id}`}
               alt="나만의 프로필"
             />
-            :
+          ) : (
             <Card.Img
               style={{ width: "10rem", height: "8rem" }}
               className="mb-3"
               src="http://placekitten.com/200/200"
               alt="랜덤 고양이 사진 (http://placekitten.com API 사용)"
             />
-          }
+          )}
         </Row>
         <Card.Title>
-          {user?.name}{' '}
-          {isNetwork && (user?.id !== userState.user.id) &&
+          {user?.name}{" "}
+          {isNetwork && user?.id !== userState.user.id && (
             <Card.Link
               className="mt-3"
               href="#"
-              style={{textDecoration:"none"}}
-              onClick={(e) => {handleLike(e)}}
+              style={{ textDecoration: "none" }}
+              onClick={(e) => {
+                handleLike(e);
+              }}
             >
-              {like ? "❤" : "🤍"}{' '}
-            </Card.Link>}
+              {like ? "❤" : "🤍"}{" "}
+            </Card.Link>
+          )}
           {likeCount}
         </Card.Title>
         <Card.Subtitle className="mb-2 text-muted">{user?.email}</Card.Subtitle>
@@ -102,7 +105,6 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
             포트폴리오
           </Card.Link>
         )}
-
       </Card.Body>
     </Card>
   );
