@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Card, Row, Button, Col } from "react-bootstrap";
-import {useContext, useEffect, useState} from "react";
+import { useContext, useEffect } from "react";
 import {UserStateContext} from "../../App";
 
 function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
