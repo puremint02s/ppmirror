@@ -2,8 +2,11 @@ import React, { useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 import { UserStateContext, DispatchContext } from "../App";
+import ThemeToggle from "../style/ThemeToggle";
+import { useTheme } from "../context/themeProvider";
 
 function Header() {
+  const [ThemeMode, toggleTheme] = useTheme();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -39,6 +42,7 @@ function Header() {
           <Nav.Link onClick={logout}>로그아웃</Nav.Link>
         </Nav.Item>
       )}
+      <ThemeToggle toggle={toggleTheme} mode={ThemeMode} />
     </Nav>
   );
 }
