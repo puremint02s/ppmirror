@@ -3,16 +3,15 @@ import { Button, Form, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
 
 function EducationAddForm({ portfolioOwnerId, getEducations, setIsAdding }) {
-
-  const [ form, setForm ] = useState({} );
+  const [form, setForm] = useState({});
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setForm(prev => ({
+    setForm((prev) => ({
       ...prev,
-      [name]: value
-    }))
-  }
+      [name]: value,
+    }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,7 +21,7 @@ function EducationAddForm({ portfolioOwnerId, getEducations, setIsAdding }) {
     try {
       await Api.post("education/create", {
         userId,
-        ...form
+        ...form,
       });
       const res = await Api.get("educations", userId);
       getEducations(res.data);
@@ -30,7 +29,7 @@ function EducationAddForm({ portfolioOwnerId, getEducations, setIsAdding }) {
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -44,7 +43,7 @@ function EducationAddForm({ portfolioOwnerId, getEducations, setIsAdding }) {
         />
       </Form.Group>
 
-      <Form.Group controlId="formBasicSchool"  className="mt-3">
+      <Form.Group controlId="formBasicSchool" className="mt-3">
         <Form.Control
           type="text"
           name="major"
@@ -108,7 +107,7 @@ function EducationAddForm({ portfolioOwnerId, getEducations, setIsAdding }) {
         </Col>
       </Form.Group>
     </Form>
-  )
+  );
 }
 
 export default EducationAddForm;

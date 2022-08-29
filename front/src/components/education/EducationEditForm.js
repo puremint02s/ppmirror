@@ -3,25 +3,24 @@ import { Button, Form, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
 
 function EducationEditForm({ currentEducation, getEducations, setIsEditing }) {
-
-  const [ form, setForm ] = useState( currentEducation );
+  const [form, setForm] = useState(currentEducation);
 
   const handleChange = (e) => {
     const { name, value } = e.currentTarget;
-    setForm(prev => ({
-        ...prev,
-        [name]: value,
-      }))
-  }
+    setForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
 
-    const userId = currentEducation['userId'];
+    const userId = currentEducation["userId"];
     try {
       await Api.put(`educations/${currentEducation.eduId}`, {
-        ...form
+        ...form,
       });
       const res = await Api.get("educations", userId);
       getEducations(res.data);
@@ -29,7 +28,7 @@ function EducationEditForm({ currentEducation, getEducations, setIsEditing }) {
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
   return (
     <Form key={currentEducation.eduId} onSubmit={handleSubmit}>
@@ -53,7 +52,10 @@ function EducationEditForm({ currentEducation, getEducations, setIsEditing }) {
         />
       </Form.Group>
 
-      <Form.Group controlId="formBasicPosition" className="mb-3 mt-3 text-center">
+      <Form.Group
+        controlId="formBasicPosition"
+        className="mb-3 mt-3 text-center"
+      >
         <Form.Check
           inline
           label="재학중"

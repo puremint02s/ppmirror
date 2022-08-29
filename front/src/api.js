@@ -63,17 +63,18 @@ async function del(endpoint, params = "") {
   });
 }
 
-async function upload( endpoint, params = "", file ) {
+async function upload(endpoint, params = "", file) {
   try {
-    console.log(`UPLOAD 요청 ${serverUrl + endpoint + '/' + params}`);
-    const { data } = await axios.post(serverUrl + endpoint + "/" + params, file);
+    console.log(`UPLOAD 요청 ${serverUrl + endpoint + "/" + params}`);
+    const { data } = await axios.post(
+      serverUrl + endpoint + "/" + params,
+      file
+    );
     return data;
-  }
-  catch(e) {
+  } catch (e) {
     console.log(e);
   }
 }
-
 
 // 아래처럼 export한 후, import * as A 방식으로 가져오면,
 // A.get, A.post 로 쓸 수 있음.
