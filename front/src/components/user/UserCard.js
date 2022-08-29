@@ -8,7 +8,7 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
   const navigate = useNavigate();
   const userState = useContext(UserStateContext);
   const [ like, setLike ] = useState(false);
-  const [ likeCount, setLikeCount ] = useState(user?.likeCount);
+  const [ likeCount, setLikeCount ] = useState(user?.likeCount || 0);
 
   useEffect(async () => {
     // 만약 전역 상태의 user가 null이라면, 로그인 페이지로 이동함.
@@ -61,7 +61,19 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
             />
           }
         </Row>
-        <Card.Title>{user?.name}</Card.Title>
+        <Card.Title>
+          {user?.name}{' '}
+          {isNetwork && (user?.id !== userState.user.id) &&
+            <Card.Link
+              className="mt-3"
+              href="#"
+              style={{textDecoration:"none"}}
+              onClick={(e) => {handleLike(e)}}
+            >
+              {like ? "❤" : "🤍"}{' '}
+            </Card.Link>}
+          {likeCount}
+        </Card.Title>
         <Card.Subtitle className="mb-2 text-muted">{user?.email}</Card.Subtitle>
         <Card.Text>{user?.description}</Card.Text>
 
@@ -90,14 +102,7 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
             포트폴리오
           </Card.Link>
         )}
-        {isNetwork && (user?.id !== userState.user.id) &&
-          <Card.Link
-            className="mt-3"
-            href="#"
-            onClick={(e) => {handleLike(e)}}
-          >
-          {like ? "❤" : "🤍"} {likeCount}
-          </Card.Link>}
+
       </Card.Body>
     </Card>
   );
