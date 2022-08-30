@@ -1,35 +1,42 @@
 import React, { useState } from "react";
-import { Button, Form, Col, Row } from "react-bootstrap";
+import { Button, Col, Form, Row } from "react-bootstrap";
 import * as Api from "../../api";
 
-function EducationEditForm({ currentEducation, getEducations, setIsEditing }) {
-
-  const [ form, setForm ] = useState( currentEducation );
+function EducationEditForm({ currentEducation, setEducations, setIsEditing }) {
+  const [form, setForm] = useState(currentEducation);
 
   const handleChange = (e) => {
     const { name, value } = e.currentTarget;
-    setForm(prev => ({
-        ...prev,
-        [name]: value,
-      }))
-  }
+    setForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
 
-    const userId = currentEducation['userId'];
     try {
-      await Api.put(`educations/${currentEducation.eduId}`, {
-        ...form
+      const id = currentEducation.eduId;
+      await Api.put(`educations/${id}`, {
+        ...form,
       });
-      const res = await Api.get("educations", userId);
-      getEducations(res.data);
+
+      const edu = {
+        eduId: id,
+        ...form,
+      };
+
+      await setEducations((prev) =>
+        prev.map((el) => (el.eduId === edu.eduId ? edu : el))
+      );
+
       setIsEditing(false);
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
   return (
     <Form key={currentEducation.eduId} onSubmit={handleSubmit}>
@@ -53,7 +60,10 @@ function EducationEditForm({ currentEducation, getEducations, setIsEditing }) {
         />
       </Form.Group>
 
-      <Form.Group controlId="formBasicPosition" className="mb-3 mt-3 text-center">
+      <Form.Group
+        controlId="formBasicPosition"
+        className="mb-3 mt-3 text-center"
+      >
         <Form.Check
           inline
           label="재학중"
