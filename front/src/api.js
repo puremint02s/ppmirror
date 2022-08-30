@@ -1,8 +1,12 @@
 import axios from "axios";
 
 const backendPortNumber = "5001";
-const serverUrl =
-  "http://" + window.location.hostname + ":" + backendPortNumber + "/";
+// 로컬서버
+const localBaseUrl = "localhost";
+// 개발서버
+const realBaseUrl = "kdt-ai5-team02.elicecoding.com";
+
+const serverUrl = `http://${localBaseUrl}:${backendPortNumber}/`;
 
 async function get(endpoint, params = "") {
   console.log(
