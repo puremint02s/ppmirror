@@ -6,14 +6,17 @@ import { uploader } from "../middlewares/uploader";
 
 const userAuthRouter = Router();
 
-userAuthRouter.post("/user/upload/:id", uploader.single('file'), (req, res, next) => {
-  try {
-    res.status(201).json(true);
-  } catch (e) {
-    next(e);
+userAuthRouter.post(
+  "/user/upload/:id",
+  uploader.single("file"),
+  (req, res, next) => {
+    try {
+      res.status(201).json(true);
+    } catch (e) {
+      next(e);
+    }
   }
-});
-
+);
 
 userAuthRouter.post("/user/register", async function (req, res, next) {
   try {
@@ -113,7 +116,6 @@ userAuthRouter.get(
   }
 );
 
-
 userAuthRouter.get(
   "/users/maxlike",
   login_required,
@@ -149,7 +151,16 @@ userAuthRouter.put(
         imageUploaded = false;
       }
 
-      const toUpdate = { name, email, password, description, imageUploaded, defaultImage, likeCount, viewCount };
+      const toUpdate = {
+        name,
+        email,
+        password,
+        description,
+        imageUploaded,
+        defaultImage,
+        likeCount,
+        viewCount,
+      };
 
       // 해당 사용자 아이디로 사용자 정보를 db에서 찾아 업데이트함. 업데이트 요소가 없을 시 생략함
       const updatedUser = await userAuthService.setUser({ user_id, toUpdate });
@@ -178,41 +189,6 @@ userAuthRouter.get(
       }
 
       res.status(200).send(currentUserInfo);
-    } catch (error) {
-      next(error);
-    }
-  }
-);
-
-
-userAuthRouter.put(
-  "/users/like/:id",
-  login_required,
-  async function (req, res, next) {
-    try {
-      // URI로부터 사용자 id를 추출함.
-      const user_id = req.params.id;
-      // body data 로부터 업데이트할 사용자 정보를 추출함.
-      const likeCount = req.body.likeCount;
-
-
-      const portfolioOwnerId = req.body.portfolioOwnerId;
-      let toUpdate = { likeToUserId : user_id };
-
-      await userAuthService.setUser({ user_id: portfolioOwnerId, toUpdate });
-
-
-      toUpdate = { likeCount };
-
-      // 해당 사용자 아이디로 사용자 정보를 db에서 찾아 업데이트함. 업데이트 요소가 없을 시 생략함
-      const updatedUser = await userAuthService.setUser({ user_id, toUpdate });
-
-
-      if (updatedUser.errorMessage) {
-        throw new Error(updatedUser.errorMessage);
-      }
-
-      res.status(200).json(updatedUser);
     } catch (error) {
       next(error);
     }
