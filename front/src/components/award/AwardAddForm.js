@@ -10,7 +10,7 @@ function AwardAddForm({ portfolioOwnerId, setAward, setIsAdding }) {
   });
 
   function handleChange(e) {
-    const { name, value } = e.target;
+    const { name, value } = e.currentTarget;
     setForm((prev) => ({
       ...prev,
       [name]: value,

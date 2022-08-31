@@ -2,8 +2,21 @@ import is from "@sindresorhus/is";
 import { Router } from "express";
 import { login_required } from "../middlewares/login_required";
 import { userAuthService } from "../services/userService";
+import { uploader } from "../middlewares/uploader";
 
 const userAuthRouter = Router();
+
+userAuthRouter.post(
+  "/user/upload/:id",
+  uploader.single("file"),
+  (req, res, next) => {
+    try {
+      res.status(201).json(true);
+    } catch (e) {
+      next(e);
+    }
+  }
+);
 
 userAuthRouter.post("/user/register", async function (req, res, next) {
   try {
@@ -69,8 +82,11 @@ userAuthRouter.get(
   login_required,
   async function (req, res, next) {
     try {
+      // jwt토큰에서 사용자 id를 추출
+      const id = req.currentUserId;
+      console.log(id);
       // 전체 사용자 목록을 얻음
-      const users = await userAuthService.getUsers();
+      const users = await userAuthService.getUsersNetwork(id);
       res.status(200).send(users);
     } catch (error) {
       next(error);
@@ -100,6 +116,20 @@ userAuthRouter.get(
   }
 );
 
+userAuthRouter.get(
+  "/users/maxlike",
+  login_required,
+  async function (req, res, next) {
+    try {
+      const maxLikeUserInfo = await userAuthService.getUserMaxLike();
+
+      res.status(200).send(maxLikeUserInfo);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 userAuthRouter.put(
   "/users/:id",
   login_required,
@@ -107,13 +137,30 @@ userAuthRouter.put(
     try {
       // URI로부터 사용자 id를 추출함.
       const user_id = req.params.id;
+      // body data 로부터 업데이트할 사용자 정보를 추출함.
+      const name = req.body.name ?? null;
+      const email = req.body.email ?? null;
+      const password = req.body.password ?? null;
+      const description = req.body.description ?? null;
+      let imageUploaded = req.body.imageUploaded ?? null;
+      const defaultImage = req.body.defaultImage ?? null;
+      const likeCount = req.body.likeCount ?? null;
+      const viewCount = req.body.viewCount ?? null;
 
-      // const name = req.body.name ?? null;
-      // const email = req.body.email ?? null;
-      // const password = req.body.password ?? null;
-      // const description = req.body.description ?? null;
-      // const toUpdate = { name, email, password, description };
-      const toUpdate = req.body;
+      if (defaultImage) {
+        imageUploaded = false;
+      }
+
+      const toUpdate = {
+        name,
+        email,
+        password,
+        description,
+        imageUploaded,
+        defaultImage,
+        likeCount,
+        viewCount,
+      };
 
       // 해당 사용자 아이디로 사용자 정보를 db에서 찾아 업데이트함. 업데이트 요소가 없을 시 생략
       const updatedUser = await userAuthService.setUser({ user_id, toUpdate });
@@ -147,14 +194,5 @@ userAuthRouter.get(
     }
   }
 );
-
-// jwt 토큰 기능 확인용, 삭제해도 되는 라우터임.
-userAuthRouter.get("/afterlogin", login_required, function (req, res, next) {
-  res
-    .status(200)
-    .send(
-      `안녕하세요 ${req.currentUserId}님, jwt 웹 토큰 기능 정상 작동 중입니다.`
-    );
-});
 
 export { userAuthRouter };

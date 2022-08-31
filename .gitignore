@@ -1,4 +1,6 @@
 .idea
 back/.env
 back/node_modules
+back/public/files/.*
+back/public/images/.*
 front/node_modules

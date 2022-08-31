@@ -1,17 +1,16 @@
-import { Card, Button, Row, Col } from "react-bootstrap";
+import { Button, Card, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
 
-function EducationCard({ education, isEditable, getEducations, setIsEditing}) {
-
+function EducationCard({ education, isEditable, getEducations, setIsEditing }) {
   const handleDelete = async () => {
     try {
-      await Api.delete('educations', education.eduId);
-      const res = await Api.get("educations", education['userId']);
+      await Api.delete("educations", education.eduId);
+      const res = await Api.get("educations", education["userId"]);
       getEducations(res.data);
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
-  }
+  };
 
   return (
     <Card.Text key={education.eduId}>
@@ -19,7 +18,9 @@ function EducationCard({ education, isEditable, getEducations, setIsEditing}) {
         <Col>
           <span>{education.school}</span>
           <br />
-          <span className="text-muted">{education.major} ( {education.position} )</span>
+          <span className="text-muted">
+            {education.major} ( {education.position} )
+          </span>
           <br />
         </Col>
         {isEditable && (
@@ -30,7 +31,7 @@ function EducationCard({ education, isEditable, getEducations, setIsEditing}) {
               onClick={() => setIsEditing((prev) => !prev)}
             >
               Edit
-            </Button>{' '}
+            </Button>{" "}
             <Button
               variant="outline-secondary"
               size="sm"
@@ -42,7 +43,7 @@ function EducationCard({ education, isEditable, getEducations, setIsEditing}) {
         )}
       </Row>
     </Card.Text>
-  )
+  );
 }
 
 export default EducationCard;
