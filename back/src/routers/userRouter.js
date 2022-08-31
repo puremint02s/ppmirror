@@ -1,5 +1,7 @@
 import is from "@sindresorhus/is";
 import { Router } from "express";
+import { User } from "../db";
+import { UserModel } from "../db/schemas/user";
 import { login_required } from "../middlewares/login_required";
 import { userAuthService } from "../services/userService";
 import { uploader } from "../middlewares/uploader";
@@ -82,12 +84,19 @@ userAuthRouter.get(
   login_required,
   async function (req, res, next) {
     try {
+      const page = parseInt(req.query.page || 1);
+      const perPage = parseInt(req.query.perPage || 10);
+
+      const total = await UserModel.countDocuments({});
+
       // jwt토큰에서 사용자 id를 추출
       const id = req.currentUserId;
-      console.log(id);
-      // 전체 사용자 목록을 얻음
-      const users = await userAuthService.getUsersNetwork(id);
-      res.status(200).send(users);
+      const users = await User.findAllNetwork(id, page, perPage);
+
+      const totalPage = Math.ceil(total / perPage);
+      const pagination = { users, page, perPage, totalPage };
+
+      return res.status(200).json(pagination);
     } catch (error) {
       next(error);
     }
@@ -162,7 +171,7 @@ userAuthRouter.put(
         viewCount,
       };
 
-      // 해당 사용자 아이디로 사용자 정보를 db에서 찾아 업데이트함. 업데이트 요소가 없을 시 생략
+      // 해당 사용자 아이디로 사용자 정보를 db에서 찾아 업데이트함. 업데이트 요소가 없을 시 생략함
       const updatedUser = await userAuthService.setUser({ user_id, toUpdate });
 
       if (updatedUser.errorMessage) {

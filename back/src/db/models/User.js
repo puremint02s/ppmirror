@@ -21,7 +21,7 @@ class User {
     return users;
   }
 
-  static async findAllNetwork(id) {
+  static async findAllNetwork(id, page, perPage) {
 
     const user = await UserModel.aggregate([
       {
@@ -43,7 +43,9 @@ class User {
           as: 'like'
         },
       },
-    ])
+    ]).sort({ createdAt: "desc" })
+      .skip(perPage * (page - 1))
+      .limit(perPage);
 
     return user;
   }

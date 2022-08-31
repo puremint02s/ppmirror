@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import EducationCard from "./EducationCard";
 import EducationEditForm from "./EducationEditForm";
 
-function Education({ education, getEducations, isEditable }) {
+function Education({education, setEducations, isEditable}) {
   const [isEditing, setIsEditing] = useState(false);
 
   return (
@@ -11,7 +11,7 @@ function Education({ education, getEducations, isEditable }) {
         <EducationEditForm
           key={education.eduId}
           currentEducation={education}
-          getEducations={getEducations}
+          setEducations={setEducations}
           setIsEditing={setIsEditing}
         />
       ) : (
@@ -19,7 +19,7 @@ function Education({ education, getEducations, isEditable }) {
           key={education.eduId}
           education={education}
           isEditable={isEditable}
-          getEducations={getEducations}
+          setEducations={setEducations}
           setIsEditing={setIsEditing}
         />
       )}

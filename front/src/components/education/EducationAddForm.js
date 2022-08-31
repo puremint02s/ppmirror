@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Button, Form, Col, Row } from "react-bootstrap";
+import { Button, Col, Form, Row } from "react-bootstrap";
 import * as Api from "../../api";
 
-function EducationAddForm({ portfolioOwnerId, getEducations, setIsAdding }) {
+function EducationAddForm({ portfolioOwnerId, setEducations, setIsAdding }) {
   const [form, setForm] = useState({});
 
   const handleChange = (e) => {
@@ -24,7 +24,7 @@ function EducationAddForm({ portfolioOwnerId, getEducations, setIsAdding }) {
         ...form,
       });
       const res = await Api.get("educations", userId);
-      getEducations(res.data);
+      setEducations(res.data);
       setIsAdding(false);
     } catch (e) {
       console.log(e);

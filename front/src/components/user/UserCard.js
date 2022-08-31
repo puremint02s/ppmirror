@@ -1,10 +1,10 @@
-import {useNavigate} from "react-router-dom";
-import {Button, Card, Col, Row} from "react-bootstrap";
-import {useContext, useEffect, useState} from "react";
-import {UserStateContext} from "../../App";
+import { useNavigate } from "react-router-dom";
+import { Button, Card, Col, Row } from "react-bootstrap";
+import { useContext, useEffect, useState } from "react";
+import { UserStateContext } from "../../App";
 import * as Api from "../../api";
 
-function UserCard({user, setIsEditing, isEditable, isNetwork}) {
+function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
   const navigate = useNavigate();
   const userState = useContext(UserStateContext);
   const [like, setLike] = useState(false);
@@ -41,7 +41,6 @@ function UserCard({user, setIsEditing, isEditable, isNetwork}) {
     }
     const updatedUser = await res.data;
     await setLikeCount(updatedUser.likeCount);
-    // console.log('updatedUser : ', updatedUser)
   };
 
   //조회수 count
@@ -50,36 +49,34 @@ function UserCard({user, setIsEditing, isEditable, isNetwork}) {
     e.preventDefault();
 
     try {
-           
-      await Api.put(`users/${user.id}`,{
-          viewCount: 1,
-        });
-      
-        // console.log(count.data.viewCount)
-        navigate(`/users/${user.id}`);
+      await Api.put(`users/${user.id}`, {
+        viewCount: 1,
+      });
 
-      } catch (e) {
+      // console.log(count.data.viewCount)
+      navigate(`/users/${user.id}`);
+    } catch (e) {
       // 에러 문구는 뭐로??
       console.log(e);
     }
   };
 
   return (
-    <Card className="mb-2 ms-3 mr-5" style={{width: "18rem"}}>
+    <Card className="mb-2 ms-3 mr-5" style={{ width: "18rem" }}>
       <Card.Body>
-          {/* 조회수 */}
-          {user?.viewCount}
+        {/* 조회수 */}
+        {user?.viewCount}
         <Row className="justify-content-md-center">
           {user?.imageUploaded ? (
             <Card.Img
-              style={{width: "10rem", height: "8rem"}}
+              style={{ width: "10rem", height: "8rem" }}
               className="mb-3"
               src={`${Api.serverUrl}image/${user.id}`}
               alt="나만의 프로필"
             />
           ) : (
             <Card.Img
-              style={{width: "10rem", height: "8rem"}}
+              style={{ width: "10rem", height: "8rem" }}
               className="mb-3"
               src="http://placekitten.com/200/200"
               alt="랜덤 고양이 사진 (http://placekitten.com API 사용)"
@@ -92,17 +89,15 @@ function UserCard({user, setIsEditing, isEditable, isNetwork}) {
             <Card.Link
               className="mt-3"
               href="#"
-              style={{textDecoration: "none"}}
+              style={{ textDecoration: "none" }}
               onClick={(e) => {
                 handleLike(e);
               }}
             >
               {like ? "❤" : "🤍"}
             </Card.Link>
-          )}
-          {" "}
+          )}{" "}
           {likeCount ? likeCount : user?.likeCount}
-          
         </Card.Title>
         <Card.Subtitle className="mb-2 text-muted">{user?.email}</Card.Subtitle>
         <Card.Text>{user?.description}</Card.Text>
@@ -110,7 +105,7 @@ function UserCard({user, setIsEditing, isEditable, isNetwork}) {
         {isEditable && (
           <Col>
             <Row className="mt-3 text-center text-info">
-              <Col sm={{span: 20}}>
+              <Col sm={{ span: 20 }}>
                 <Button
                   variant="outline-info"
                   size="sm"
@@ -124,11 +119,7 @@ function UserCard({user, setIsEditing, isEditable, isNetwork}) {
         )}
 
         {isNetwork && (
-          <Card.Link
-            className="mt-3"
-            href="#"
-            onClick={(e) => handleCount(e)}
-          >
+          <Card.Link className="mt-3" href="#" onClick={(e) => handleCount(e)}>
             포트폴리오
           </Card.Link>
         )}

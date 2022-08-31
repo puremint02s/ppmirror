@@ -1,25 +1,20 @@
 import React, { useState } from "react";
-import { Button, Form, Card, Col, Row } from "react-bootstrap";
+import { Button, Card, Col, Form, Row } from "react-bootstrap";
 import * as Api from "../../api";
-
 
 function UserEditForm({ user, setIsEditing, setUser }) {
   //useState로 name 상태를 생성함.
   const [name, setName] = useState(user.name);
-  //useState로 email 상태를 생성함.
   const [email, setEmail] = useState(user.email);
-  //useState로 description 상태를 생성함.
   const [description, setDescription] = useState(user.description);
-  //useState로 imageUploaded 상태를 생성함.
   const [imageUploaded, setImageUploaded] = useState(user.imageUploaded);
-  //false로 defaultImage 상태를 생성함.
   const [defaultImage, setDefaultImage] = useState(false);
 
   //useState로 password 상태를 생성함.
   const [passwordForm, setPasswordForm] = useState({
     password: "",
     confirmPassword: "",
-  })
+  });
 
   const validateEmail = (email) => {
     return email
@@ -30,13 +25,12 @@ function UserEditForm({ user, setIsEditing, setUser }) {
   };
 
   const upload = async (e) => {
-      const formData = new FormData();
-      // alert(e.target.files[0]);
-      formData.append('file', e.target.files[0]);
-      const res = await Api.upload('user/upload', `${user.id}`, formData);
-
+    const formData = new FormData();
+    formData.append("file", e.target.files[0]);
+    const res = await Api.upload("user/upload", `${user.id}`, formData);
     const imageUpload = await res;
-      setImageUploaded(imageUpload);
+
+    await setImageUploaded(imageUpload);
   };
 
   function handleChange(e) {
@@ -53,9 +47,8 @@ function UserEditForm({ user, setIsEditing, setUser }) {
   const isPasswordValid = passwordForm.password.length >= 4;
   // 비밀번호와 확인용 비밀번호가 일치하는지 여부를 확인함.
   const isPasswordSame = passwordForm.password === passwordForm.confirmPassword;
-  
-  const isFormValid = isEmailValid && isPasswordValid && isPasswordSame;
 
+  const isFormValid = isEmailValid && isPasswordValid && isPasswordSame;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -78,36 +71,26 @@ function UserEditForm({ user, setIsEditing, setUser }) {
     setIsEditing(false);
   };
 
-
   return (
     <Card className="mb-2">
       <Card.Body>
-        <Row className="justify-content-md-center">
-          { imageUploaded ?
-            <Card.Img
-              style={{ width: "10rem", height: "8rem" }}
-              className="mb-3"
-              src={`http://localhost:5001/image/${user.id}`}
-              alt="나만의 프로필"
-            />
-            :
-            <Card.Img
-              style={{ width: "10rem", height: "8rem" }}
-              className="mb-3"
-              src="http://placekitten.com/200/200"
-              alt="랜덤 고양이 사진 (http://placekitten.com API 사용)"
-            />
-          }
-        </Row>
-        <Form.Group controlId="formFile" className="mb-1" encType='multipart/form-data' >
+        <Form.Group
+          controlId="formFile"
+          className="mb-1"
+          encType="multipart/form-data"
+        >
           <Form.Label>프로필 이미지</Form.Label>
-          <Form.Control type="file" onChange={(e) => upload(e)}/>
+          <Form.Control type="file" onChange={(e) => upload(e)} />
         </Form.Group>
-        <Form.Group controlId="formCheckbox"  className="mb-3" >
-          <Form.Check onChange={(e)=> {setDefaultImage(!!e.target.value); setImageUploaded(false);}}
-            type='checkbox'
-            id={'default-checkbox'}
-            label={'기본 프로필 이미지로 전환'}
+        <Form.Group controlId="formCheckbox" className="mb-3">
+          <Form.Check
+            onChange={(e) => {
+              setDefaultImage(!!e.target.value);
+              setImageUploaded(false);
+            }}
+            type="checkbox"
+            id={"default-checkbox"}
+            label={"기본 프로필 이미지로 전환"}
           />
         </Form.Group>
         <Form onSubmit={handleSubmit}>
@@ -128,10 +111,10 @@ function UserEditForm({ user, setIsEditing, setUser }) {
               onChange={(e) => setEmail(e.target.value)}
             />
             {!isEmailValid && (
-                <Form.Text className="text-success">
-                  이메일 형식이 올바르지 않습니다.
-                </Form.Text>
-              )}
+              <Form.Text className="text-success">
+                이메일 형식이 올바르지 않습니다.
+              </Form.Text>
+            )}
           </Form.Group>
 
           <Form.Group controlId="userEditPassword" className="mb-3">
@@ -143,10 +126,10 @@ function UserEditForm({ user, setIsEditing, setUser }) {
               onChange={handleChange}
             />
             {!isPasswordValid && (
-                <Form.Text className="text-success">
-                  비밀번호는 4글자 이상으로 설정해 주세요.
-                </Form.Text>
-              )}
+              <Form.Text className="text-success">
+                비밀번호는 4글자 이상으로 설정해 주세요.
+              </Form.Text>
+            )}
           </Form.Group>
 
           <Form.Group controlId="userEditConfirmPassword" className="mb-3">
@@ -158,10 +141,10 @@ function UserEditForm({ user, setIsEditing, setUser }) {
               onChange={handleChange}
             />
             {!isPasswordSame && (
-                <Form.Text className="text-success">
-                  비밀번호가 일치하지 않습니다.
-                </Form.Text>
-              )}
+              <Form.Text className="text-success">
+                비밀번호가 일치하지 않습니다.
+              </Form.Text>
+            )}
           </Form.Group>
 
           <Form.Group controlId="userEditDescription">
@@ -175,7 +158,12 @@ function UserEditForm({ user, setIsEditing, setUser }) {
 
           <Form.Group as={Row} className="mt-3 text-center">
             <Col sm={{ span: 20 }}>
-              <Button variant="primary" type="submit" className="me-3" disabled={!isFormValid}>
+              <Button
+                variant="primary"
+                type="submit"
+                className="me-3"
+                disabled={!isFormValid}
+              >
                 확인
               </Button>
               <Button variant="secondary" onClick={() => setIsEditing(false)}>

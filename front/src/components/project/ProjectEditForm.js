@@ -27,17 +27,28 @@ const ProjectEditForm = ({ currentProject, setProjects, setIsEditing }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const userId = currentProject.userId;
+    const id = currentProject.projectId;
     // try ~ catch문
     try {
-      await Api.put(`projects/${currentProject.projectId}`, {
+      await Api.put(`projects/${id}`, {
         ...form,
         startDate,
         endDate,
       });
 
-      const res = await Api.get("projects", userId);
-      setProjects(res.data);
+      const pro = {
+        projectId: id,
+        ...form,
+        startDate,
+        endDate,
+      };
+
+      await setProjects((prev) =>
+        prev.map((el) => (el.projectId === pro.projectId ? pro : el))
+      );
+
+      // const res = await Api.get("projects", userId);
+      // setProjects(res.data);
 
       setIsEditing(false);
     } catch (err) {

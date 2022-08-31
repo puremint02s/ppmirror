@@ -1,12 +1,12 @@
-import { Button, Card, Col, Row } from "react-bootstrap";
+import {Button, Card, Col, Row} from "react-bootstrap";
 import * as Api from "../../api";
 
-function EducationCard({ education, isEditable, getEducations, setIsEditing }) {
+function EducationCard({education, isEditable, setEducations, setIsEditing}) {
   const handleDelete = async () => {
     try {
       await Api.delete("educations", education.eduId);
       const res = await Api.get("educations", education["userId"]);
-      getEducations(res.data);
+      setEducations(res.data);
     } catch (e) {
       console.log(e);
     }
@@ -17,11 +17,11 @@ function EducationCard({ education, isEditable, getEducations, setIsEditing }) {
       <Row className="alert-items-center">
         <Col>
           <span>{education.school}</span>
-          <br />
+          <br/>
           <span className="text-muted">
             {education.major} ( {education.position} )
           </span>
-          <br />
+          <br/>
         </Col>
         {isEditable && (
           <Col xs lg="2">
