@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Card, Col, Row, Button } from "react-bootstrap";
+import React, {useEffect, useState} from "react";
+import {Button, Card, Col, Row} from "react-bootstrap";
 import * as Api from "../../api";
 import Education from "./Education";
 import EducationAddForm from "./EducationAddForm";
 
-function Educations({ portfolioOwnerId, isEditable }) {
+function Educations({portfolioOwnerId, isEditable}) {
   const [educations, setEducations] = useState([]);
   const [isAdding, setIsAdding] = useState(false);
 
@@ -16,9 +16,6 @@ function Educations({ portfolioOwnerId, isEditable }) {
     });
   }, [portfolioOwnerId]);
 
-  const getEducations = (data) => {
-    setEducations(data);
-  };
   return (
     <Card>
       <Card.Body>
@@ -27,13 +24,13 @@ function Educations({ portfolioOwnerId, isEditable }) {
           <Education
             key={education.eduId}
             education={education}
-            getEducations={getEducations}
+            setEducations={setEducations}
             isEditable={isEditable}
           />
         ))}
         {isEditable && (
           <Row className="mt-3 text-center mb-4">
-            <Col sm={{ span: 20 }}>
+            <Col sm={{span: 20}}>
               <Button onClick={() => setIsAdding(true)}>+</Button>
             </Col>
           </Row>
@@ -41,7 +38,7 @@ function Educations({ portfolioOwnerId, isEditable }) {
         {isAdding && (
           <EducationAddForm
             portfolioOwnerId={portfolioOwnerId}
-            getEducations={getEducations}
+            setEducations={setEducations}
             setIsAdding={setIsAdding}
           />
         )}
