@@ -10,6 +10,9 @@ function UserCard({user, setIsEditing, isEditable, isNetwork}) {
   const [like, setLike] = useState(false);
   const [likeCount, setLikeCount] = useState(user?.likeCount);
 
+  // 굳이 useState를 써야할까...?
+  // const [viewCount, setViewCount] = useState(user?.viewCount);
+
   useEffect(() => {
     // 만약 전역 상태의 user가 null이라면, 로그인 페이지로 이동함.
     // useState 훅을 통해 users 상태를 생성함.
@@ -41,9 +44,31 @@ function UserCard({user, setIsEditing, isEditable, isNetwork}) {
     // console.log('updatedUser : ', updatedUser)
   };
 
+  //조회수 count
+
+  const handleCount = async (e) => {
+    e.preventDefault();
+
+    try {
+           
+      await Api.put(`users/${user.id}`,{
+          viewCount: 1,
+        });
+      
+        // console.log(count.data.viewCount)
+        navigate(`/users/${user.id}`);
+
+      } catch (e) {
+      // 에러 문구는 뭐로??
+      console.log(e);
+    }
+  };
+
   return (
     <Card className="mb-2 ms-3 mr-5" style={{width: "18rem"}}>
       <Card.Body>
+          {/* 조회수 */}
+          {user?.viewCount}
         <Row className="justify-content-md-center">
           {user?.imageUploaded ? (
             <Card.Img
@@ -77,6 +102,7 @@ function UserCard({user, setIsEditing, isEditable, isNetwork}) {
           )}
           {" "}
           {likeCount ? likeCount : user?.likeCount}
+          
         </Card.Title>
         <Card.Subtitle className="mb-2 text-muted">{user?.email}</Card.Subtitle>
         <Card.Text>{user?.description}</Card.Text>
@@ -101,7 +127,7 @@ function UserCard({user, setIsEditing, isEditable, isNetwork}) {
           <Card.Link
             className="mt-3"
             href="#"
-            onClick={() => navigate(`/users/${user.id}`)}
+            onClick={(e) => handleCount(e)}
           >
             포트폴리오
           </Card.Link>
