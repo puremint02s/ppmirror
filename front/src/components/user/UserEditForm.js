@@ -1,23 +1,65 @@
-import React, { useState } from "react";
+import React, { useState,useRef } from "react";
 import { Button, Form, Card, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
+import styled from 'styled-components'
+import Tags from "@yaireo/tagify/dist/react.tagify";
 
-function UserEditForm({ user, setIsEditing, setUser }) {
+import "../../css/style.css";
+
+function UserEditForm({ user, setIsEditing, setUser}) {
   //useState로 name 상태를 생성함.
   const [name, setName] = useState(user.name);
   //useState로 email 상태를 생성함.
   const [email, setEmail] = useState(user.email);
   //useState로 description 상태를 생성함.
   const [description, setDescription] = useState(user.description);
+  const [hash,setHashtag]=useState('');
+  const [hashtag,sethashArr]=useState(user.hashtag);
+  
+
+  const onKeyPress = e => {
+    if (e.target.value.length !== 0 && e.key === 'Enter') {
+      e.preventDefault()
+      submitTagItem()
+    }
+  }
+
+
+  const submitTagItem = () => {
+    
+    let updatedTagList = [...hashtag]
+    updatedTagList.push(hash)
+    sethashArr(updatedTagList)
+    setHashtag('')
+  }
+
+
+  const deleteTagItem = e => {
+    const deleteTagItem = e.target.parentElement.firstChild.innerText
+    const filteredTagList = hashtag.filter(tagItem => tagItem !== deleteTagItem)
+    sethashArr(filteredTagList)
+  }
+ 
+
+const removeTag = i => {
+  const newTags = [...hash];
+  newTags.splice(i, 1);
+  setHashtag(newTags);
+};
+
+
+
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+   
     // "users/유저id" 엔드포인트로 PUT 요청함.
     const res = await Api.put(`users/${user.id}`, {
       name,
       email,
       description,
+      hashtag,
     });
     // 유저 정보는 response의 data임.
     const updatedUser = res.data;
@@ -59,6 +101,28 @@ function UserEditForm({ user, setIsEditing, setUser }) {
             />
           </Form.Group>
 
+           <Form.Group controlId="userEditTag" className="input-tag__tags">
+           {hashtag?.map((tagItem, index) => {
+          return (
+            <TagItem key={index}>
+              <Text>{tagItem}</Text>
+              <Button onClick={deleteTagItem}>X</Button>
+            </TagItem>
+          )
+        })}
+           <Form.Control 
+                type='text'
+                placeholder='Press enter to add tags'
+                tabIndex={2}
+                onChange={e => setHashtag(e.target.value)}
+                value={hash}
+                onKeyPress={onKeyPress}
+    
+
+            />
+    
+    </Form.Group>
+
           <Form.Group as={Row} className="mt-3 text-center">
             <Col sm={{ span: 20 }}>
               <Button variant="primary" type="submit" className="me-3">
@@ -75,4 +139,19 @@ function UserEditForm({ user, setIsEditing, setUser }) {
   );
 }
 
+
+
+const TagItem = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 5px;
+  padding: 5px;
+  background-color: tomato;
+  border-radius: 5px;
+  color: white;
+  font-size: 13px;
+`
+
+const Text = styled.span``
 export default UserEditForm;

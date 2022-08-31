@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import jwt from "jsonwebtoken";
 
 class userAuthService {
-  static async addUser({ name, email, password, description }) {
+  static async addUser({ name, email, password, description,hashtag }) {
     // 이메일 중복 확인
     const user = await User.findByEmail({ email });
     if (user) {
@@ -18,7 +18,7 @@ class userAuthService {
 
     // id 는 유니크 값 부여
     const id = uuidv4();
-    const newUser = { id, name, email, description, password: hashedPassword };
+    const newUser = { id, name, email, description, password: hashedPassword,hashtag };
 
     // db에 저장
     const createdNewUser = await User.create({ newUser });
@@ -56,13 +56,14 @@ class userAuthService {
     const id = user.id;
     const name = user.name;
     const description = user.description;
-
+    const hashtag = user.hashtag;
     const loginUser = {
       token,
       id,
       email,
       name,
       description,
+      hashtag ,
       errorMessage: null,
     };
 
@@ -99,13 +100,19 @@ class userAuthService {
 
     if (toUpdate.password) {
       const fieldToUpdate = "password";
-      const newValue = bcrypt.hash(toUpdate.password, 10);
+      const newValue = await bcrypt.hash(toUpdate.password, 10);
       user = await User.update({ user_id, fieldToUpdate, newValue });
     }
 
     if (toUpdate.description) {
       const fieldToUpdate = "description";
       const newValue = toUpdate.description;
+      user = await User.update({ user_id, fieldToUpdate, newValue });
+    }
+
+    if (toUpdate.hashtag) {
+      const fieldToUpdate = "hashtag";
+      const newValue = toUpdate.hashtag;
       user = await User.update({ user_id, fieldToUpdate, newValue });
     }
 

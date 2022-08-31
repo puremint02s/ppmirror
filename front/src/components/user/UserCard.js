@@ -17,7 +17,18 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
         <Card.Title>{user?.name}</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">{user?.email}</Card.Subtitle>
         <Card.Text>{user?.description}</Card.Text>
+        
+        {user?.hashtag?.map((tagItem, index) => {
+          return (
+            <Card.Text>
+              {tagItem}
+              </Card.Text>
+          )
+        })}
 
+    	
+    
+        
         {isEditable && (
           <Col>
             <Row className="mt-3 text-center text-info">
