@@ -1,14 +1,14 @@
-import { useNavigate } from "react-router-dom";
-import { Button, Card, Col, Row } from "react-bootstrap";
-import { useContext, useEffect, useState } from "react";
-import { UserStateContext } from "../../App";
+import {useNavigate} from "react-router-dom";
+import {Button, Card, Col, Row} from "react-bootstrap";
+import {useContext, useEffect, useState} from "react";
+import {UserStateContext} from "../../App";
 import * as Api from "../../api";
 
-function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
+function UserCard({user, setIsEditing, isEditable, isNetwork}) {
   const navigate = useNavigate();
   const userState = useContext(UserStateContext);
   const [like, setLike] = useState(false);
-  const [likeCount, setLikeCount] = useState(user?.likeCount || 0);
+  const [likeCount, setLikeCount] = useState(user?.likeCount);
 
   useEffect(() => {
     // 만약 전역 상태의 user가 null이라면, 로그인 페이지로 이동함.
@@ -42,19 +42,19 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
   };
 
   return (
-    <Card className="mb-2 ms-3 mr-5" style={{ width: "18rem" }}>
+    <Card className="mb-2 ms-3 mr-5" style={{width: "18rem"}}>
       <Card.Body>
         <Row className="justify-content-md-center">
           {user?.imageUploaded ? (
             <Card.Img
-              style={{ width: "10rem", height: "8rem" }}
+              style={{width: "10rem", height: "8rem"}}
               className="mb-3"
               src={`${Api.serverUrl}image/${user.id}`}
               alt="나만의 프로필"
             />
           ) : (
             <Card.Img
-              style={{ width: "10rem", height: "8rem" }}
+              style={{width: "10rem", height: "8rem"}}
               className="mb-3"
               src="http://placekitten.com/200/200"
               alt="랜덤 고양이 사진 (http://placekitten.com API 사용)"
@@ -67,15 +67,16 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
             <Card.Link
               className="mt-3"
               href="#"
-              style={{ textDecoration: "none" }}
+              style={{textDecoration: "none"}}
               onClick={(e) => {
                 handleLike(e);
               }}
             >
-              {like ? "❤" : "🤍"}{" "}
+              {like ? "❤" : "🤍"}
             </Card.Link>
           )}
-          {likeCount}
+          {" "}
+          {likeCount ? likeCount : user?.likeCount}
         </Card.Title>
         <Card.Subtitle className="mb-2 text-muted">{user?.email}</Card.Subtitle>
         <Card.Text>{user?.description}</Card.Text>
@@ -83,7 +84,7 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
         {isEditable && (
           <Col>
             <Row className="mt-3 text-center text-info">
-              <Col sm={{ span: 20 }}>
+              <Col sm={{span: 20}}>
                 <Button
                   variant="outline-info"
                   size="sm"
