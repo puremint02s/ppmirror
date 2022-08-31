@@ -6,11 +6,16 @@ import * as Api from "../../api";
 import UserCard from "./UserCard";
 import { UserStateContext } from "../../App";
 
+import Pagination from "./Pagination";
+
 function Network() {
   const navigate = useNavigate();
   const userState = useContext(UserStateContext);
   // useState 훅을 통해 users 상태를 생성함.
   const [users, setUsers] = useState([]);
+  const [page, setPage] = useState(1);
+  const [perPage, setPerPage] = useState(10);
+  const [totalUser, setTotalUser] = useState(0);
 
   useEffect(() => {
     // 만약 전역 상태의 user가 null이라면, 로그인 페이지로 이동함.
@@ -18,9 +23,21 @@ function Network() {
       navigate("/login");
       return;
     }
-    // "userlist" 엔드포인트로 GET 요청을 하고, users를 response의 data로 세팅함.
-    Api.get("userlist").then((res) => setUsers(res.data));
-  }, [userState, navigate]);
+    const getUserList = async () => {
+      try {
+        const { data } = await Api.get(
+          `userlist?page=${page}& perPage=${perPage}`
+        );
+
+        setUsers(data.users);
+        setTotalUser(data.totalPage);
+        console.log(data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getUserList();
+  }, [userState, navigate, page]);
 
   return (
     <Container fluid>
@@ -29,6 +46,12 @@ function Network() {
           <UserCard key={user.id} user={user} isNetwork />
         ))}
       </Row>
+      <Pagination
+        total={totalUser}
+        perPage={perPage}
+        page={page}
+        setPage={setPage}
+      />
     </Container>
   );
 }
