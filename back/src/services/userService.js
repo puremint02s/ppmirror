@@ -18,7 +18,14 @@ class userAuthService {
 
     // id 는 유니크 값 부여
     const id = uuidv4();
-    const newUser = { id, name, email, description, password: hashedPassword };
+    const newUser = {
+      id,
+      name,
+      email,
+      description,
+      password: hashedPassword,
+      hashtag,
+    };
 
     // db에 저장
     const createdNewUser = await User.create({ newUser });
@@ -56,6 +63,7 @@ class userAuthService {
     const id = user.id;
     const name = user.name;
     const description = user.description;
+    const hashtag = user.hashtag;
 
     const loginUser = {
       token,
@@ -63,6 +71,7 @@ class userAuthService {
       email,
       name,
       description,
+      hashtag,
       errorMessage: null,
     };
 
@@ -71,6 +80,15 @@ class userAuthService {
 
   static async getUsers() {
     const users = await User.findAll();
+    return users;
+  }
+
+  static async getUsersByHashtag({ hashtag }) {
+    const users = await User.find({ hashtag: { $in: [hashtag] } });
+    if (!users) {
+      const errorMessage = "해당 해시태그를 가진 유저가 없습니다.";
+      return { errorMessage };
+    }
     return users;
   }
 

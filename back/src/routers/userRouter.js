@@ -148,6 +148,25 @@ userAuthRouter.get(
   }
 );
 
+userAuthRouter.get(
+  "/userlist/:hashtag",
+  login_required,
+  async function (req, res, next) {
+    try {
+      const hashtag = req.params.hashtag;
+      const users = userAuthRouter.getUsersByHashtag({ hashtag });
+
+      if (users.errorMessage) {
+        throw new Error(users.errorMessage);
+      }
+
+      res.status(200).json(users);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 // jwt 토큰 기능 확인용, 삭제해도 되는 라우터임.
 userAuthRouter.get("/afterlogin", login_required, function (req, res, next) {
   res
