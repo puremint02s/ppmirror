@@ -1,9 +1,21 @@
 import React from "react";
-import Form from "react-bootstrap/Form";
+import styled from "styled-components";
+
+const ToggleBtn = styled.button`
+  border: none;
+  background: transparent;
+  font-size: 25px;
+  margin-right: 20px;
+  &:hover {
+    transform: scale(1.2);
+  }
+`;
 
 const ThemeToggle = ({ toggle, mode }) => {
   return (
-    <Form.Check type="switch" id="custom-switch" onClick={toggle} mode={mode} />
+    <ToggleBtn onClick={toggle} mode={mode}>
+      {mode === "dark" ? "🌙" : "🌞"}
+    </ToggleBtn>
   );
 };
 
