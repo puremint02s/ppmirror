@@ -75,8 +75,11 @@ userAuthRouter.get(
       // const users = await userAuthService.getUsers();
       // res.status(200).send(users);
 
-      const page = Number(req.query.page || 1);
-      const perPage = Number(req.query.perPage || 10);
+      const page = parseInt(req.query.page || 1);
+      const perPage = parseInt(req.query.perPage || 10);
+
+      console.log("page", page);
+      console.log("perPage", perPage);
 
       const total = await UserModel.countDocuments({});
 

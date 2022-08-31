@@ -14,8 +14,8 @@ function Network() {
   // useState 훅을 통해 users 상태를 생성함.
   const [users, setUsers] = useState([]);
   const [page, setPage] = useState(1);
-  const [perPage, setPerPage] = useState(10);
-  const [totalUser, setTotalUser] = useState(0);
+  const [perPage, setPerPage] = useState(20);
+  const [totalUser, setTotalUser] = useState(20);
 
   useEffect(() => {
     // 만약 전역 상태의 user가 null이라면, 로그인 페이지로 이동함.
@@ -26,7 +26,7 @@ function Network() {
     const getUserList = async () => {
       try {
         const { data } = await Api.get(
-          `userlist?page=${page}& perPage=${perPage}`
+          `userlist?page=${page}&perPage=${perPage}`
         );
 
         setUsers(data.users);
