@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import EducationCard from "./EducationCard";
 import EducationEditForm from "./EducationEditForm";
 
-function Education({ education, setEducations, isEditable }) {
+function Education({education, setEducations, isEditable}) {
   const [isEditing, setIsEditing] = useState(false);
 
   return (
