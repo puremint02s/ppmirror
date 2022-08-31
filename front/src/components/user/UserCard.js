@@ -38,7 +38,6 @@ function UserCard({user, setIsEditing, isEditable, isNetwork}) {
     }
     const updatedUser = await res.data;
     await setLikeCount(updatedUser.likeCount);
-    // console.log('updatedUser : ', updatedUser)
   };
 
   return (
