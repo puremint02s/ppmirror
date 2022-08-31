@@ -14,9 +14,8 @@ function UserEditForm({ user, setIsEditing, setUser}) {
   //useState로 description 상태를 생성함.
   const [description, setDescription] = useState(user.description);
   const [hash,setHashtag]=useState('');
-  const [hashtag,sethashArr]=useState(user.hashtag);
+  const [hashtag,sethashArr]=useState(user.hashtag?user.hashtag:[]);
   
-
   const onKeyPress = e => {
     if (e.target.value.length !== 0 && e.key === 'Enter') {
       e.preventDefault()
@@ -26,7 +25,7 @@ function UserEditForm({ user, setIsEditing, setUser}) {
 
 
   const submitTagItem = () => {
-    
+  
     let updatedTagList = [...hashtag]
     updatedTagList.push(hash)
     sethashArr(updatedTagList)
@@ -112,7 +111,7 @@ const removeTag = i => {
         })}
            <Form.Control 
                 type='text'
-                placeholder='Press enter to add tags'
+                placeholder='해시태그를 넣어주세요'
                 tabIndex={2}
                 onChange={e => setHashtag(e.target.value)}
                 value={hash}

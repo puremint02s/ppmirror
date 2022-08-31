@@ -1,8 +1,25 @@
 import { useNavigate } from "react-router-dom";
 import { Card, Row, Button, Col } from "react-bootstrap";
+import * as Api from "../../api";
+import { useState } from "react";
 
-function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
+function UserCard({ user, setIsEditing, isEditable, isNetwork,setUser }) {
   const navigate = useNavigate();
+ 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    // const res = await Api.get(`userlist/${user.hashtag}`);
+   
+
+    // Api.get("users/maxlike").then((res) => setLikeuser(res.data));
+    // const updatedUser = res.data;
+    // setUser(updatedUser);
+    navigate(`/userlist/${user.hashtag}`)
+
+ 
+  };
+
   return (
     <Card className="mb-2 ms-3 mr-5" style={{ width: "18rem" }}>
       <Card.Body>
@@ -20,9 +37,9 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
         
         {user?.hashtag?.map((tagItem, index) => {
           return (
-            <Card.Text>
+           <Button onClick={handleSubmit}>
               {tagItem}
-              </Card.Text>
+              </Button>
           )
         })}
 
@@ -44,6 +61,7 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
             </Row>
           </Col>
         )}
+
 
         {isNetwork && (
           <Card.Link
