@@ -10,7 +10,7 @@ import { awardRouter } from "./routers/awardRouter";
 const app = express();
 
 // CORS 에러 방지
-app.use(cors());
+app.use(cors({ origin: true, credentials: true }));
 
 // express 기본 제공 middleware
 // express.json(): POST 등의 요청과 함께 오는 json형태의 데이터를 인식하고 핸들링할 수 있게 함.

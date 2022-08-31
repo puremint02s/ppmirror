@@ -157,4 +157,22 @@ userAuthRouter.get("/afterlogin", login_required, function (req, res, next) {
     );
 });
 
+userAuthRouter.get("/users/github/start", (req, res) => {
+  const baseUrl = "https://github.com/login/oauth/authorize";
+  const config = {
+    client_id: "0b18e6e08eb05984257a",
+    allow_signup: false,
+    scope: "read:user user:email",
+  };
+  const params = new URLSearchParams(config).toString();
+  const finalUrl = `${baseUrl}?${params}`;
+  return (
+    res
+      // .setHeader("Access-Control-Allow-Origin", origin)
+      .redirect(finalUrl)
+  );
+});
+
+userAuthRouter.get("/users/github/finish", (req, res) => {});
+
 export { userAuthRouter };
