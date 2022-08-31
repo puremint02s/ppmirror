@@ -115,7 +115,7 @@ userAuthRouter.put(
       // const toUpdate = { name, email, password, description };
       const toUpdate = req.body;
 
-      // 해당 사용자 아이디로 사용자 정보를 db에서 찾아 업데이트함. 업데이트 요소가 없을 시 생략함
+      // 해당 사용자 아이디로 사용자 정보를 db에서 찾아 업데이트함. 업데이트 요소가 없을 시 생략
       const updatedUser = await userAuthService.setUser({ user_id, toUpdate });
 
       if (updatedUser.errorMessage) {
