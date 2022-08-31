@@ -60,6 +60,14 @@ function LoginForm() {
     }
   };
 
+  const handleGithubLogin = async () => {
+    await Api.get("users/github/start", {
+      headers: {
+        "Access-Control-Allow-Origin": origin,
+      },
+    });
+  };
+
   return (
     <Container>
       <Row className="justify-content-md-center mt-5">
@@ -100,12 +108,7 @@ function LoginForm() {
                 <Button variant="primary" type="submit" disabled={!isFormValid}>
                   로그인
                 </Button>
-                <Button
-                  variant="primary"
-                  onClick={async () => {
-                    await Api.get("users/github/start");
-                  }}
-                >
+                <Button variant="primary" onClick={handleGithubLogin}>
                   Github 로그인
                 </Button>
               </Col>
