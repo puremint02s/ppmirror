@@ -4,6 +4,7 @@ import { Container, Col, Row, Form, Button } from "react-bootstrap";
 
 import * as Api from "../../api";
 import { DispatchContext } from "../../App";
+import { areIntervalsOverlapping } from "date-fns";
 
 function LoginForm() {
   const navigate = useNavigate();
@@ -98,6 +99,14 @@ function LoginForm() {
               <Col sm={{ span: 20 }}>
                 <Button variant="primary" type="submit" disabled={!isFormValid}>
                   로그인
+                </Button>
+                <Button
+                  variant="primary"
+                  onClick={async () => {
+                    await Api.get("users/github/start");
+                  }}
+                >
+                  Github 로그인
                 </Button>
               </Col>
             </Form.Group>
