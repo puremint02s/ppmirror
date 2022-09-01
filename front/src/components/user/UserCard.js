@@ -56,7 +56,7 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
       // console.log(count.data.viewCount)
       navigate(`/users/${user.id}`);
     } catch (e) {
-      // 에러 문구는 뭐로??
+      
       console.log(e);
     }
   };
