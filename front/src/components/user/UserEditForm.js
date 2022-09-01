@@ -134,7 +134,7 @@ function UserEditForm({ user, setIsEditing, setUser }) {
 
           <Form.Group controlId="userEditConfirmPassword" className="mb-3">
             <Form.Control
-              type="confirmPassword"
+              type="password"
               name="confirmPassword"
               placeholder="비밀번호 확인"
               value={passwordForm.confirmPassword}
