@@ -1,12 +1,14 @@
 import axios from "axios";
 
 const backendPortNumber = "5001";
-// 로컬서버
-const localBaseUrl = "localhost";
-// 개발서버
-const realBaseUrl = "kdt-ai5-team02.elicecoding.com";
 
-const serverUrl = `http://${localBaseUrl}:${backendPortNumber}/`;
+// 개발서버
+// const realBaseUrl = "kdt-ai5-team02.elicecoding.com";
+
+// 서버주소
+// 현재 프론트의 실행 위치가 로컬일 경우는 localhost로, 개발일 경우는 개발url로 자동변경
+const autoBaseUrl = window.location.hostname;
+const serverUrl = `http://${autoBaseUrl}:${backendPortNumber}/`;
 
 async function get(endpoint, params = "") {
   console.log(
@@ -63,6 +65,19 @@ async function del(endpoint, params = "") {
   });
 }
 
+async function upload(endpoint, params = "", file) {
+  try {
+    console.log(`UPLOAD 요청 ${serverUrl + endpoint + "/" + params}`);
+    const {data} = await axios.post(
+      serverUrl + endpoint + "/" + params,
+      file
+    );
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 // 아래처럼 export한 후, import * as A 방식으로 가져오면,
 // A.get, A.post 로 쓸 수 있음.
-export { get, post, put, del as delete };
+export {get, post, put, del as delete, upload, serverUrl};

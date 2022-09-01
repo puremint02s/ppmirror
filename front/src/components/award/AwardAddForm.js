@@ -10,7 +10,7 @@ function AwardAddForm({ portfolioOwnerId, setAward, setIsAdding }) {
   });
 
   function handleChange(e) {
-    const { name, value } = e.target;
+    const { name, value } = e.currentTarget;
     setForm((prev) => ({
       ...prev,
       [name]: value,
@@ -35,7 +35,7 @@ function AwardAddForm({ portfolioOwnerId, setAward, setIsAdding }) {
       setAward(res.data);
       setIsAdding(false);
     } catch (e) {
-      console.log("추가 실패", e);
+      console.log(e);
     }
   }
 

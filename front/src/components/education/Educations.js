@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Button, Card, Col, Row } from "react-bootstrap";
+import React, {useEffect, useState} from "react";
+import {Button, Card, Col, Row} from "react-bootstrap";
 import * as Api from "../../api";
 import Education from "./Education";
 import EducationAddForm from "./EducationAddForm";
 
-function Educations({ portfolioOwnerId, isEditable }) {
+function Educations({portfolioOwnerId, isEditable}) {
   const [educations, setEducations] = useState([]);
   const [isAdding, setIsAdding] = useState(false);
 
@@ -30,7 +30,7 @@ function Educations({ portfolioOwnerId, isEditable }) {
         ))}
         {isEditable && (
           <Row className="mt-3 text-center mb-4">
-            <Col sm={{ span: 20 }}>
+            <Col sm={{span: 20}}>
               <Button onClick={() => setIsAdding(true)}>+</Button>
             </Col>
           </Row>

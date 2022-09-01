@@ -4,13 +4,12 @@ import DatePicker from "react-datepicker";
 import * as Api from "../../api";
 
 const ProjectAddForm = ({ isAdding, portfolioOwnerId, setProjects }) => {
-  // title, description => form state로 묶기
   const [form, setForm] = useState({
     title: "",
     description: "",
   });
   const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(null);
 
   const handleChangeInput = (e) => {
     const { name, value } = e.currentTarget;
@@ -24,7 +23,6 @@ const ProjectAddForm = ({ isAdding, portfolioOwnerId, setProjects }) => {
     e.preventDefault();
 
     const userId = portfolioOwnerId;
-    // try ~ catch문
     try {
       await Api.post("project/create", {
         ...form,
@@ -64,7 +62,7 @@ const ProjectAddForm = ({ isAdding, portfolioOwnerId, setProjects }) => {
       </Form.Group>
 
       <Row className="mt-3 mb-3">
-        <Form.Group sm="auto" as={Col} className="me-3">
+        <Form.Group sm="auto" as={Col} >
           <DatePicker
             selected={startDate}
             onChange={(date) => setStartDate(date)}
@@ -74,6 +72,9 @@ const ProjectAddForm = ({ isAdding, portfolioOwnerId, setProjects }) => {
             endDate={endDate}
           />
         </Form.Group>
+        <Form.Group sm="auto" as={Col} >
+          <span style={{fontSize: 20}}>~</span>
+        </Form.Group>
         <Form.Group sm="auto" as={Col}>
           <DatePicker
             selected={endDate}
@@ -82,8 +83,8 @@ const ProjectAddForm = ({ isAdding, portfolioOwnerId, setProjects }) => {
             selectsEnd
             startDate={startDate}
             endDate={endDate}
-            // mindate로 시작날짜보다 이전으로 설정 안 되게
             minDate={startDate}
+            placeholderText="dd/mm/yyyy"
           />
         </Form.Group>
       </Row>

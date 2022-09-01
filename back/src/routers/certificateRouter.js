@@ -6,7 +6,6 @@ import { certificateService } from "../services/certificateService";
 
 const certificateRouter = Router();
 
-// 새로운 자격증 추가하기
 certificateRouter.post(
   "/certificate/create",
   login_required,
@@ -16,7 +15,6 @@ certificateRouter.post(
         throw new Error("모든 항목을 입력해주세요.");
       }
 
-      // jwt토큰에서 추출된 사용자 id 사용
       const userId = req.currentUserId;
       const certificateId = uuidv4();
       const { title, description, acquiredAt } = req.body;
@@ -47,7 +45,6 @@ certificateRouter.post(
   }
 );
 
-// :userId에 해당하는 사람의 자격증 가져오기
 certificateRouter.get("/certificates/:userId", async (req, res) => {
   const { userId } = req.params;
   const foundCertificates = await certificateService.findCertificatesByUserId({
@@ -56,7 +53,6 @@ certificateRouter.get("/certificates/:userId", async (req, res) => {
   return res.status(200).json(foundCertificates);
 });
 
-// :certificateId에 해당하는 자격증 수정하기
 certificateRouter.put(
   "/certificates/:certificateId",
   login_required,
@@ -104,7 +100,9 @@ certificateRouter.delete(
         certificateId,
       });
 
-      return res.status(201).json({ message: "삭제 성공!" });
+      return res
+        .status(201)
+        .json({ message: "삭제가 성공적으로 이루어졌습니다." });
     }
     return res.status(400).json({ message: "작성자만 삭제할 수 있습니다." });
   }

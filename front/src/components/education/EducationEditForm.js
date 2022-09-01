@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { Button, Col, Form, Row } from "react-bootstrap";
+import React, {useState} from "react";
+import {Button, Col, Form, Row} from "react-bootstrap";
 import * as Api from "../../api";
 
-function EducationEditForm({ currentEducation, setEducations, setIsEditing }) {
+function EducationEditForm({currentEducation, setEducations, setIsEditing}) {
   const [form, setForm] = useState(currentEducation);
 
   const handleChange = (e) => {
-    const { name, value } = e.currentTarget;
+    const {name, value} = e.currentTarget;
     setForm((prev) => ({
       ...prev,
       [name]: value,
@@ -107,7 +107,7 @@ function EducationEditForm({ currentEducation, setEducations, setIsEditing }) {
       </Form.Group>
 
       <Form.Group as={Row} className="mt-3 mb-3 text-center">
-        <Col sm={{ span: 20 }}>
+        <Col sm={{span: 20}}>
           <Button variant="primary" type="submit" className="me-3">
             확인
           </Button>

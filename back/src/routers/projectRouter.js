@@ -109,7 +109,7 @@ projectRouter.delete(
 
       return res
         .status(201)
-        .json({ message: "Project 삭제가 성공적으로 이루어졌습니다." });
+        .json({ message: "삭제가 성공적으로 이루어졌습니다." });
     }
     return res.status(400).json({ message: "작성자만 삭제할 수 있습니다." });
   }
