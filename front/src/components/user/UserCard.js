@@ -64,7 +64,7 @@ function UserCard({user, setIsEditing, isEditable, isNetwork}) {
   };
 
   return (
-    <Card className="mb-2 ms-3 mr-5" style={{width: "18rem"}}>
+    <Card className="mb-3 ms-3 mr-5" style={{ width: "18rem" }}>
       <Card.Body>
         {/* 조회수 */}
         {user?.viewCount}
@@ -85,7 +85,7 @@ function UserCard({user, setIsEditing, isEditable, isNetwork}) {
             />
           )}
         </Row>
-        <Card.Title>
+        <Card.Title className="mb-2">{user?.name}
           {user?.name}{" "}
           {isNetwork && user?.id !== userState.user.id && (
             <Card.Link
@@ -101,10 +101,9 @@ function UserCard({user, setIsEditing, isEditable, isNetwork}) {
           )}
           {" "}
           {likeCount ? likeCount : user?.likeCount}
-
         </Card.Title>
-        <Card.Subtitle className="mb-2 text-muted">{user?.email}</Card.Subtitle>
-        <Card.Text>{user?.description}</Card.Text>
+        <Card.Subtitle className="mb-3 text-muted">{user?.email}</Card.Subtitle>
+        <Card.Text className="mb-3">{user?.description}</Card.Text>
 
         {isEditable && (
           <Col>
@@ -124,7 +123,7 @@ function UserCard({user, setIsEditing, isEditable, isNetwork}) {
 
         {isNetwork && (
           <Card.Link
-            className="mt-3"
+            className="text-decoration-none"
             href="#"
             onClick={(e) => handleCount(e)}
           >
