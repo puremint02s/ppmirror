@@ -10,7 +10,7 @@ const ProjectAddForm = ({ isAdding, portfolioOwnerId, setProjects }) => {
     description: "",
   });
   const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(null);
 
   const handleChangeInput = (e) => {
     const { name, value } = e.currentTarget;

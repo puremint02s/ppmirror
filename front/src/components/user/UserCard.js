@@ -4,7 +4,7 @@ import { Card, Row, Button, Col } from "react-bootstrap";
 function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
   const navigate = useNavigate();
   return (
-    <Card className="mb-2 ms-3 mr-5" style={{ width: "18rem" }}>
+    <Card className="mb-3 ms-3 mr-5" style={{ width: "18rem" }}>
       <Card.Body>
         <Row className="justify-content-md-center">
           <Card.Img
@@ -14,9 +14,9 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
             alt="랜덤 고양이 사진 (http://placekitten.com API 사용)"
           />
         </Row>
-        <Card.Title>{user?.name}</Card.Title>
-        <Card.Subtitle className="mb-2 text-muted">{user?.email}</Card.Subtitle>
-        <Card.Text>{user?.description}</Card.Text>
+        <Card.Title className="mb-2">{user?.name}</Card.Title>
+        <Card.Subtitle className="mb-3 text-muted">{user?.email}</Card.Subtitle>
+        <Card.Text className="mb-3">{user?.description}</Card.Text>
 
         {isEditable && (
           <Col>
@@ -36,7 +36,7 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
 
         {isNetwork && (
           <Card.Link
-            className="mt-3"
+            className="text-decoration-none"
             href="#"
             onClick={() => navigate(`/users/${user.id}`)}
           >

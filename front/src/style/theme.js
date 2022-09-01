@@ -1,6 +1,6 @@
 export const lightTheme = {
-  bgColor: "#f5f7ff",
-  textColor: "#31302E",
+  bgColor: "#f7f7f7",
+  textColor: "#17171b",
   borderColor: "1px solid #eaeaea",
   input: "#ffffff",
 };
