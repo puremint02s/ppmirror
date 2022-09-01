@@ -18,6 +18,9 @@ export const GlobalStyle = createGlobalStyle`
   .card {
     background: ${({ theme }) => theme.card};
   }
+  .card-text {
+    line-height: 25px;
+  }
   .form-control {
     background: ${({ theme }) => theme.input};
     color: ${({ theme }) => theme.textColor};
