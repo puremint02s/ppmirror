@@ -7,7 +7,7 @@ const Modal = (props) => {
   const [likeUser, setLikeUser] = useState([]);
   useEffect(() => {
     Api.get("users/maxlike").then((res) => setLikeUser(res.data));
-  }, [likeUser]);
+  }, []);
   
   return (
     <div className={open ? 'openModal modals' : 'modals'}>
@@ -25,7 +25,6 @@ const Modal = (props) => {
 };
 const customStyles = {
  
-  top: "50%",
   left: "50%",
   right: "auto",
   bottom: "auto",
