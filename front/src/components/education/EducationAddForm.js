@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import * as Api from "../../api";
+import * as Util from "../../util";
 
 function EducationAddForm({ portfolioOwnerId, setEducations, setIsAdding }) {
-  const [form, setForm] = useState({});
+  const [form, setForm] = useState({
+    school: '',
+    major: '',
+    position: '',
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -16,6 +21,10 @@ function EducationAddForm({ portfolioOwnerId, setEducations, setIsAdding }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
+
+    if (!Util.handleCheck(form)) {
+      return false;
+    }
 
     const userId = portfolioOwnerId;
     try {

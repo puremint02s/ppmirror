@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {Button, Col, Form, Row} from "react-bootstrap";
 import * as Api from "../../api";
+import * as Util from "../../util";
 
 function EducationEditForm({currentEducation, setEducations, setIsEditing}) {
   const [form, setForm] = useState(currentEducation);
@@ -16,6 +17,10 @@ function EducationEditForm({currentEducation, setEducations, setIsEditing}) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
+
+    if (!Util.handleCheck(form)) {
+      return false;
+    }
 
     try {
       const id = currentEducation.eduId;
