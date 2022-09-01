@@ -84,7 +84,6 @@ userAuthRouter.get(
   login_required,
   async function (req, res, next) {
     try {
-
       const page = parseInt(req.query.page || 1);
       const perPage = parseInt(req.query.perPage || 10);
 
@@ -98,7 +97,6 @@ userAuthRouter.get(
       const pagination = { users, page, perPage, totalPage };
 
       return res.status(200).json(pagination);
-
     } catch (error) {
       next(error);
     }

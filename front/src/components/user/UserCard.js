@@ -1,10 +1,10 @@
-import {useNavigate} from "react-router-dom";
-import {Button, Card, Col, Row} from "react-bootstrap";
-import {useContext, useEffect, useState} from "react";
-import {UserStateContext} from "../../App";
+import { useNavigate } from "react-router-dom";
+import { Button, Card, Col, Row } from "react-bootstrap";
+import { useContext, useEffect, useState } from "react";
+import { UserStateContext } from "../../App";
 import * as Api from "../../api";
 
-function UserCard({user, setIsEditing, isEditable, isNetwork}) {
+function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
   const navigate = useNavigate();
   const userState = useContext(UserStateContext);
   const [like, setLike] = useState(false);
@@ -49,14 +49,12 @@ function UserCard({user, setIsEditing, isEditable, isNetwork}) {
     e.preventDefault();
 
     try {
-
-      await Api.put(`users/${user.id}`,{
+      await Api.put(`users/${user.id}`, {
         viewCount: 1,
       });
 
       // console.log(count.data.viewCount)
       navigate(`/users/${user.id}`);
-
     } catch (e) {
       // 에러 문구는 뭐로??
       console.log(e);
@@ -64,42 +62,42 @@ function UserCard({user, setIsEditing, isEditable, isNetwork}) {
   };
 
   return (
-    <Card className="mb-3 ms-3 mr-5" style={{ width: "18rem" }}>
+    <Card className="mb-2 ms-3 mr-5" style={{ width: "18rem" }}>
       <Card.Body>
         {/* 조회수 */}
         {user?.viewCount}
         <Row className="justify-content-md-center">
           {user?.imageUploaded ? (
             <Card.Img
-              style={{width: "10rem", height: "8rem"}}
+              style={{ width: "10rem", height: "8rem" }}
               className="mb-3"
               src={`${Api.serverUrl}image/${user.id}`}
               alt="나만의 프로필"
             />
           ) : (
             <Card.Img
-              style={{width: "10rem", height: "8rem"}}
+              style={{ width: "10rem", height: "8rem" }}
               className="mb-3"
               src="http://placekitten.com/200/200"
               alt="랜덤 고양이 사진 (http://placekitten.com API 사용)"
             />
           )}
         </Row>
-        <Card.Title className="mb-2">{user?.name}
+        <Card.Title className="mb-2">
+          {user?.name}
           {user?.name}{" "}
           {isNetwork && user?.id !== userState.user.id && (
             <Card.Link
               className="mt-3"
               href="#"
-              style={{textDecoration: "none"}}
+              style={{ textDecoration: "none" }}
               onClick={(e) => {
                 handleLike(e);
               }}
             >
               {like ? "❤" : "🤍"}
             </Card.Link>
-          )}
-          {" "}
+          )}{" "}
           {likeCount ? likeCount : user?.likeCount}
         </Card.Title>
         <Card.Subtitle className="mb-3 text-muted">{user?.email}</Card.Subtitle>
@@ -108,7 +106,7 @@ function UserCard({user, setIsEditing, isEditable, isNetwork}) {
         {isEditable && (
           <Col>
             <Row className="mt-3 text-center text-info">
-              <Col sm={{span: 20}}>
+              <Col sm={{ span: 20 }}>
                 <Button
                   variant="outline-info"
                   size="sm"

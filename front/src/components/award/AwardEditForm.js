@@ -10,7 +10,7 @@ function AwardEditForm({ currentAward, setAward, setIsEditing }) {
   });
 
   function handleChange(e) {
-    const { name, value } = e.target;
+    const { name, value } = e.currentTarget;
     setForm((prev) => ({
       ...prev,
       [name]: value,
@@ -21,7 +21,7 @@ function AwardEditForm({ currentAward, setAward, setIsEditing }) {
     e.preventDefault();
 
     // 현재 수상내역에서 userId로 찾기
-    const Id = currentAward["userId"];
+    const Id = currentAward.userId;
 
     //try~catch
     try {
