@@ -84,7 +84,6 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
           )}
         </Row>
         <Card.Title className="mb-2">
-          {user?.name}
           {user?.name}{" "}
           {isNetwork && user?.id !== userState.user.id && (
             <Card.Link
