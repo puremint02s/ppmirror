@@ -149,7 +149,7 @@ userAuthRouter.get(
   async function (req, res, next) {
     try {
       const hashtag = req.params.hashtag;
-      const users = userAuthRouter.getUsersByHashtag({ hashtag });
+      const users = await userAuthService.getUsersByHashtag({ hashtag });
 
       if (users.errorMessage) {
         throw new Error(users.errorMessage);

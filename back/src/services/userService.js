@@ -76,7 +76,7 @@ class userAuthService {
   }
 
   static async getUsersByHashtag({ hashtag }) {
-    const users = await User.find({ hashtag: { $in: [hashtag] } });
+    const users = await User.findByHashtag({ hashtag });
     if (!users) {
       const errorMessage = "해당 해시태그를 가진 유저가 없습니다.";
       return { errorMessage };

@@ -6,6 +6,11 @@ class User {
     return createdNewUser;
   }
 
+  static async findByHashtag({ hashtag }) {
+    const users = await UserModel.find({ hashtag: { $in: hashtag } });
+    return users;
+  }
+
   static async findByEmail({ email }) {
     const user = await UserModel.findOne({ email });
     return user;
