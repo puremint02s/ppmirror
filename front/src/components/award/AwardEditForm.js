@@ -30,10 +30,15 @@ function AwardEditForm({ currentAward, setAward, setIsEditing }) {
         ...form,
       });
 
-      
-      const res = await Api.get(`awards`, Id);
+      const pro = {
+        awardId: currentAward.awardId,
+        ...form,
+      };
 
-      setAward(res.data);
+      await setAward((prev) =>
+        prev.map((el) => (el.awardId === pro.awardId ? pro : el))
+      );
+
       setIsEditing(false);
     } catch (e) {
       console.log(e);
