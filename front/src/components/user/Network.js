@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Container, Row } from "react-bootstrap";
 
 import * as Api from "../../api";
@@ -18,9 +18,15 @@ function Network() {
       navigate("/login");
       return;
     }
-    // "userlist" 엔드포인트로 GET 요청을 하고, users를 response의 data로 세팅함.
-    Api.get("userlist").then((res) => setUsers(res.data));
-  }, [userState, navigate]);
+
+    if (params.hashtag) {
+      const hashtag = params.hashtag;
+      Api.get(`userlist/${hashtag}`).then((res) => setUsers(res.data));
+    } else {
+      // "userlist" 엔드포인트로 GET 요청을 하고, users를 response의 data로 세팅함.
+      Api.get("userlist").then((res) => setUsers(res.data));      
+    }
+  }, [params, userState, navigate]);
 
   return (
     <Container fluid>
