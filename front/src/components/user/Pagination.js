@@ -8,8 +8,10 @@ const PageButton = styled.div`
   button {
     width: 80px;
     border: none;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     padding: 20px;
+    background: ${({ theme }) => theme.card};
+    color: ${({ theme }) => theme.textColor};
 
     &:hover {
       background: gray;
@@ -20,13 +22,13 @@ const PageButton = styled.div`
 const Pagination = ({ total, page, setPage }) => {
   return (
     <PageButton>
-      <button onClick={() => setPage(page - 1)} disabled={page === 1}>
+      <button className="paginationBtn" onClick={() => setPage(page - 1)} disabled={page === 1}>
         &lt;
       </button>
       {Array(total)
         .fill()
         .map((v, i) => (
-          <button
+          <button className="paginationBtn"
             key={i + 1}
             onClick={() => setPage(i + 1)}
             aria-current={page === i + 1 ? "page" : null}
@@ -34,7 +36,7 @@ const Pagination = ({ total, page, setPage }) => {
             {i + 1}
           </button>
         ))}
-      <button onClick={() => setPage(page + 1)} disabled={page === total}>
+      <button className="paginationBtn" onClick={() => setPage(page + 1)} disabled={page === total}>
         &gt;
       </button>
     </PageButton>

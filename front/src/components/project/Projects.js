@@ -8,12 +8,10 @@ const Projects = ({ portfolioOwnerId, isEditable }) => {
   const [projects, setProjects] = useState([]);
   const [isAdding, setIsAdding] = useState(false);
 
-  // setProjects를 명시적으로 전달하기 위해 함수 작성
   const getNewProjectList = (data) => {
     setProjects(data);
   };
 
-  //res.data가 배열인지 확인
   useEffect(() => {
     Api.get("projects", portfolioOwnerId).then((res) => {
       if (Array.isArray(res.data)) {

@@ -30,13 +30,18 @@ function AwardEditForm({ currentAward, setAward, setIsEditing }) {
         ...form,
       });
 
-      // 수정한거 다시 받아오기 ---- get 어떻게 안써?????
-      const res = await Api.get(`awards`, Id);
+      const pro = {
+        awardId: currentAward.awardId,
+        ...form,
+      };
 
-      setAward(res.data);
+      await setAward((prev) =>
+        prev.map((el) => (el.awardId === pro.awardId ? pro : el))
+      );
+
       setIsEditing(false);
     } catch (e) {
-      console.log("수정 실패", e);
+      console.log(e);
     }
   }
 

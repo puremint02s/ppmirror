@@ -6,11 +6,6 @@ class Like {
     return createdNewLike;
   }
 
-  static async findAll() {
-    const likes = await LikeModel.find({});
-    return likes;
-  }
-
   static async findByUserId( userId, targetUserId ) {
     const likes = await LikeModel.find({ userId, targetUserId });
     return likes;

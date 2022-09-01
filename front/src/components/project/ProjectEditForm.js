@@ -4,7 +4,6 @@ import * as Api from "../../api";
 import DatePicker from "react-datepicker";
 
 const ProjectEditForm = ({ currentProject, setProjects, setIsEditing }) => {
-  // title, description => form state로 묶기
   const [form, setForm] = useState({
     title: currentProject.title,
     description: currentProject.description,
@@ -28,7 +27,6 @@ const ProjectEditForm = ({ currentProject, setProjects, setIsEditing }) => {
     e.preventDefault();
 
     const id = currentProject.projectId;
-    // try ~ catch문
     try {
       await Api.put(`projects/${id}`, {
         ...form,
@@ -46,9 +44,6 @@ const ProjectEditForm = ({ currentProject, setProjects, setIsEditing }) => {
       await setProjects((prev) =>
         prev.map((el) => (el.projectId === pro.projectId ? pro : el))
       );
-
-      // const res = await Api.get("projects", userId);
-      // setProjects(res.data);
 
       setIsEditing(false);
     } catch (err) {
@@ -97,7 +92,6 @@ const ProjectEditForm = ({ currentProject, setProjects, setIsEditing }) => {
             selectsEnd
             startDate={startDate}
             endDate={endDate}
-            // mindate로 시작날짜보다 이전으로 설정 안 되게
             minDate={startDate}
           />
         </Form.Group>

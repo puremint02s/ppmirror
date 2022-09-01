@@ -10,9 +10,6 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
   const [like, setLike] = useState(false);
   const [likeCount, setLikeCount] = useState(user?.likeCount || 0);
 
-  // 굳이 useState를 써야할까...?
-  // const [viewCount, setViewCount] = useState(user?.viewCount);
-
   useEffect(() => {
     // 만약 전역 상태의 user가 null이라면, 로그인 페이지로 이동함.
     // useState 훅을 통해 users 상태를 생성함.
@@ -53,10 +50,9 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
         viewCount: 1,
       });
 
-      // console.log(count.data.viewCount)
       navigate(`/users/${user.id}`);
     } catch (e) {
-      // 에러 문구는 뭐로??
+      
       console.log(e);
     }
   };
@@ -84,7 +80,6 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
           )}
         </Row>
         <Card.Title className="mb-2">
-          {user?.name}
           {user?.name}{" "}
           {isNetwork && user?.id !== userState.user.id && (
             <Card.Link

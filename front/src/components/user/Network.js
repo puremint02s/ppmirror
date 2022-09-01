@@ -4,7 +4,7 @@ import { Container, Row } from "react-bootstrap";
 import * as Api from "../../api";
 import UserCard from "./UserCard";
 import { UserStateContext } from "../../App";
-import Modal from "../popup/modal";
+
 import Pagination from "./Pagination";
 
 function Network() {
@@ -14,13 +14,7 @@ function Network() {
   const [page, setPage] = useState(1);
   const [perPage, setPerPage] = useState(10);
   const [totalUser, setTotalUser] = useState(20);
-  const [modalOpen, setModalOpen] = useState(true);
-  const openModal = () => {
-    setModalOpen(true);
-  };
-  const closeModal = () => {
-    setModalOpen(false);
-  };
+
   useEffect(() => {
     if (!userState.user) {
       navigate("/login");
@@ -41,6 +35,7 @@ function Network() {
   }, [userState, navigate, page]);
 
   return (
+<<<<<<< HEAD
     <>
       <Modal
         open={modalOpen}
@@ -61,6 +56,21 @@ function Network() {
         />
       </Container>
     </>
+=======
+    <Container>
+      <Row xs="auto" className="jusify-content-center">
+        {users.map((user) => (
+          <UserCard key={user.id} user={user} isNetwork />
+        ))}
+      </Row>
+      <Pagination
+        total={totalUser}
+        perPage={perPage}
+        page={page}
+        setPage={setPage}
+      />
+    </Container>
+>>>>>>> 8ca5873d14317b36a1a12a9c9dbc3c43c9cfa102
   );
 }
 

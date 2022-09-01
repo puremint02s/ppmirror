@@ -16,7 +16,7 @@ const ThemeProvider = ({ children }) => {
   );
 };
 
-function useTheme() {
+const useTheme = () => {
   const context = useContext(ThemeContext);
   const { ThemeMode, setThemeMode } = context;
 
