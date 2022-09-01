@@ -8,7 +8,7 @@ function UserCard({user, setIsEditing, isEditable, isNetwork}) {
   const navigate = useNavigate();
   const userState = useContext(UserStateContext);
   const [like, setLike] = useState(false);
-  const [likeCount, setLikeCount] = useState(user?.likeCount);
+  const [likeCount, setLikeCount] = useState(user?.likeCount || 0);
 
   // 굳이 useState를 써야할까...?
   // const [viewCount, setViewCount] = useState(user?.viewCount);
