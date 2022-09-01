@@ -10,6 +10,9 @@ function UserEditForm({ user, setIsEditing, setUser }) {
   const [imageUploaded, setImageUploaded] = useState(user.imageUploaded);
   const [defaultImage, setDefaultImage] = useState(false);
 
+  // password 변경 여부 확인
+  const [passwordChange, setPasswordChange] = useState(false);
+
   //useState로 password 상태를 생성함.
   const [passwordForm, setPasswordForm] = useState({
     password: "",
@@ -48,28 +51,55 @@ function UserEditForm({ user, setIsEditing, setUser }) {
   // 비밀번호와 확인용 비밀번호가 일치하는지 여부를 확인함.
   const isPasswordSame = passwordForm.password === passwordForm.confirmPassword;
 
-  const isFormValid = isEmailValid && isPasswordValid && isPasswordSame;
+  if (passwordChange) {
+    const isFormValid = isEmailValid && isPasswordValid && isPasswordSame;
+  } else {
+    const isFormValid = isEmailValid;
+  }
+  
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  
+  
+    const handleSubmit = async (e) => {
+      e.preventDefault();
 
-    // "users/유저id" 엔드포인트로 PUT 요청함.
-    const res = await Api.put(`users/${user.id}`, {
-      name,
-      email,
-      ...passwordForm,
-      description,
-      imageUploaded,
-      defaultImage,
-    });
-    // 유저 정보는 response의 data임.
-    const updatedUser = res.data;
-    // 해당 유저 정보로 user을 세팅함.
-    setUser(updatedUser);
-
-    // isEditing을 false로 세팅함.
-    setIsEditing(false);
-  };
+      if (passwordChange) {
+        const res = await Api.put(`users/${user.id}`, {
+          name,
+          email,
+          ...passwordForm,
+          description,
+          imageUploaded,
+          defaultImage,
+        });
+        // 유저 정보는 response의 data임.
+        const updatedUser = res.data;
+        // 해당 유저 정보로 user을 세팅함.
+        setUser(updatedUser);
+    
+        // isEditing을 false로 세팅함.
+        setIsEditing(false);
+      } else {
+        const res = await Api.put(`users/${user.id}`, {
+          name,
+          email,
+          description,
+          imageUploaded,
+          defaultImage,
+        });
+        // 유저 정보는 response의 data임.
+        const updatedUser = res.data;
+        // 해당 유저 정보로 user을 세팅함.
+        setUser(updatedUser);
+    
+        // isEditing을 false로 세팅함.
+        setIsEditing(false);
+      };
+      }
+  
+      // "users/유저id" 엔드포인트로 PUT 요청함.
+      
+  
 
   return (
     <Card className="mb-2">
@@ -117,6 +147,17 @@ function UserEditForm({ user, setIsEditing, setUser }) {
             )}
           </Form.Group>
 
+          {/* 비밀번호 변경 */}
+          <Form.Group controlId="formCheckbox" className="mb-3">
+            <Form.Check
+              onChange={() => setPasswordChange((prev) => !prev)}
+              type="checkbox"
+              id={"default-checkbox"}
+              label={"비밀번호 변경"}
+            />
+            </Form.Group>
+
+
           <Form.Group controlId="userEditPassword" className="mb-3">
             <Form.Control
               type="password"
@@ -134,7 +175,7 @@ function UserEditForm({ user, setIsEditing, setUser }) {
 
           <Form.Group controlId="userEditConfirmPassword" className="mb-3">
             <Form.Control
-              type="confirmPassword"
+              type="password"
               name="confirmPassword"
               placeholder="비밀번호 확인"
               value={passwordForm.confirmPassword}
