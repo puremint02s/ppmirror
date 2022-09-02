@@ -20,7 +20,7 @@ function CertificateCard({
   };
 
   return (
-    <Card.Text key={certificate.certificateId}>
+    <Card.Text>
       <Row className="alert-items-center">
         <Col>
           <span>{certificate.title}</span>
