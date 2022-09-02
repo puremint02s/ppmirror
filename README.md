@@ -1,19 +1,51 @@
-# 레이서 포트폴리오 서비스
+# Team02 포트폴리오 웹 사이트
 
-이 프로젝트는 자기자신의 포트폴리오를 작성하고, 또한 다른 사람의 포트폴리오를 확인할 수 있는 웹 서비스입니다. \
-웹 구현 예시: http://kdt-ai-first-project.elicecoding.com/
+이 프로젝트는 자기자신의 포트폴리오를 작성하고, 또한 다른 사람의 포트폴리오를 확인할 수 있는 웹 서비스입니다.
 
-> 위 IP 주소는 프로젝트 진행 기간에만 유효합니다.
+<br>
 
-**5개 MVP**로 구성됩니다.
+![시연gif](/Team02.gif)
 
-> 현재는 USer MVP 코드만 있습니다.
+site: <http://kdt-ai5-team02.elicecoding.com/>
 
-- User (회원가입, 로그인 등 사용자 관련)
-- Award (포트폴리오 중 상장 이력 관련)
-- Certificate (포트폴리오 중 자격증 관련)
-- Project (포트폴리오 중 프로젝트 관련)
-- Education (포트폴리오 중 교육, 학교 관련)
+Git Lab: <https://kdt-gitlab.elice.io/ai_track/class05/web_project/team02>
+
+notion: <https://www.notion.so/elice/2-c66bd4fd0b3b4603a36500345f04fd2b>
+
+<br>
+
+---
+
+## 팀 구성
+
+<code style="color: red">프론트엔드</code>: 김예린, 오윤아, 이재경, 이태의
+
+<code style="color: blue">백엔드</code>: 박지연, 연다은봄, 이태의
+
+<br>
+
+- <code style="color: red">김예린</code>: Award Mvp, 조회수 기능
+- <code style="color: red">오윤아</code>: Project Mvp, 다크모드, 페이지네이션
+- <code style="color: red">이재경</code>: Certificate Mvp, 좋아요 기반 모달창
+- <code style="color: red">이태의</code>: Eduation Mvp, 좋아요, User 프로필 이미지 변경
+
+<br>
+
+- <code style="color: blue">박지연</code>: Award Mvp, Eduation Mvp
+- <code style="color: blue">연다은봄</code>: Project Mvp, Certificate Mvp, 페이지네이션
+- <code style="color: blue">이태의</code>: 조회수 기능, 좋아요, 좋아요 기반 모달창, User 프로필 이미지 변경
+
+<br>
+
+---
+
+## 프로젝트 기간
+
+📅 2022.08.22 - 2022.09.02
+
+<br>
+
+---
 
 ## 주요 사용 기술
 
@@ -28,6 +60,10 @@
 - Express (nodemon, babel-node로 실행됩니다.)
 - Mongodb, Mongoose
 
+<br>
+
+---
+
 ## 설치 방법
 
 1. 프론트 엔드 서버 실행
@@ -41,10 +77,7 @@ yarn start
 2. 백엔드 서버 실행
 
 ```bash
-back 폴더 내부 README 참고
+npm install --global yarn
+yarn
+yarn start
 ```
-
----
-
-본 프로젝트에서 제공하는 모든 코드 등의는 저작권법에 의해 보호받는 ㈜엘리스의 자산이며, 무단 사용 및 도용, 복제 및 배포를 금합니다.
-Copyright 2022 엘리스 Inc. All rights reserved.
