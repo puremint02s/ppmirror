@@ -1,5 +1,10 @@
 # 포트폴리오 공유 서비스 프론트엔드 코드
 
+> 포트폴리오를 여러 유저들이 공유하는 사이트
+> 각 유저의 포트폴리오는 학력,수상이력,자격증,프로젝트로 구성되어있다
+> 네트워크 페이지에서 여러 사람들의 포트폴리오늘 볼 수 있으며, 다른 사람의 포트폴리오를 보고 마음에 들면 좋아요❤️ 버튼을 누를 수 있고,
+  다른사람의 페이지를 보면 조회수가 올라간다. 가장 좋아요 수가 높은 유저를 모달창으로 보여주어 확인이 가능하다.
+
 ## 실행 방법
 
 ## 1. react-srcipts start 실행
@@ -24,25 +29,43 @@ yarn start
 
   - Header.js: 네비게이션 바
   - Porfolio.js: 메인 화면을 구성하는, 5개 MVP를 모두 포함하는 컴포넌트
-    - **현재는 User MVP만 포함**되어 있습니다.
-  - award 폴더: 포트폴리오 중 수상이력 관련 컴포넌트들 -> **현재 없습니다.**
-  - certificate 폴더: 포트폴리오 중 자격증 관련 컴포넌트들 -> **현재 없습니다.**
-  - education 폴더: 포트폴리오 중 학력 관련 컴포넌트들 -> **현재 없습니다.**
-  - project 폴더: 포트폴리오 중 프로젝트 관련 컴포넌트들 -> **현재 없습니다.**
+
+  *5개의 컴포넌트 폴더
+
+  - award 폴더: 포트폴리오 중 수상이력 관련 컴포넌트들 
+  - certificate 폴더: 포트폴리오 중 자격증 관련 컴포넌트들
+  - education 폴더: 포트폴리오 중 학력 관련 컴포넌트들
+  - project 폴더: 포트폴리오 중 프로젝트 관련 컴포넌트들
   - user 폴더: 포트폴리오 중 사용자 관련 컴포넌트들
+  - popup 폴더: 네트워크 페이지에서 좋아요수 가장 많은 사람을 보여주는 모달창
+
+  *전체적인 로직은 아래와 같습니다.
+
+  [ ] 포트폴리오(Porfolio.js) 컴포넌트는 5개 컴포넌트 (Awards,certificates,educations,projects,users) 컴포넌트를 사용함.
+  [ ] 복수형 컴포넌트(Awards,certificate,education,project,user)는 항목의 **목록**으로, 여러 개의 단수형 컴포넌트(Award,certificate,education,project,user)로 구성됨
+  [ ] + (추가하기 버튼 클릭 시) (컴포넌트명)AddForm 컴포넌트로 구성됩니다.(ex-AwardAddForm)
+  [ ] 각 컴포넌트는 **isEditing 상태에 따라**, false면 (컴포넌트명)Card, true면 (컴포넌트명)EditForm이 됩니다.(ex-AwardCard,AwardEditForm)
+  [ ] **isEditable**(포트폴리오 소유자와 현재 로그인한 사용자가 일치할 때)이 true인 경우 편집 버튼이 생깁니다.
+  [ ] **isAdding**이 true면 (컴포넌트명)AddForm, false면 그냥 컴퓨넌트들의 모음이 됩니다.
+
+- context 폴더:
+
+  -themeProvider.js: 다크모드 localStorage 저장
+
+ - style 폴더:
+  
+  -GlobalStyles.js: 글로벌 스타일시트
+  -theme.js: 다크모드 컨텐츠 스타일시트
+  -theme.js: 다크모드 토글버튼 스타일시트
 
 - api.js:
   - axios를 사용하는 코드가 있습니다.
   - delete 함수는 코드는 작성되어 있지만, 쓰이지고 있지는 않습니다. -> **사용하는 기능을 추가해 보세요!**
+
 - App.js:
   - SPA 라우팅 코드가 있습니다.
+ 
 - reducer.js:
   - 로그인, 로그아웃은 useReducer 훅으로 구현되는데, 이 때 사용되는 reducer 함수입니다.
 
-2. 전체적인 로직은 아래와 같습니다. 예를 들어 Award MVP 기준입니다 (**물론 현재는 코드는 없습니다. 여러분들이 개발해야 하기 때문입니다. 우선 로직만 참고해 주세요. 나머지 MVP도 비슷합니다**)
 
-- 포트폴리오 컴포넌트는 Awards 컴포넌트를 사용함.
-- Awards는 수상이력 **목록**으로, 여러 개의 Award 컴포넌트+ (추가하기 버튼 클릭 시) AwardAddForm 컴포넌트로 구성됩니다.
-- 각 Award 컴포넌트는 **isEditing 상태에 따라**, false면 AwardCard, true면 AwardEditForm이 됩니다.
-- **isEditable**(포트폴리오 소유자와 현재 로그인한 사용자가 일치할 때)이 true인 경우 편집 버튼이 생깁니다.
-- Awards는 **isAdding**이 true면 AwardAddForm, false면 그냥 Award들의 모음이 됩니다.
