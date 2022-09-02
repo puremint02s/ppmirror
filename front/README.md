@@ -51,13 +51,13 @@ yarn start
 
 - context 폴더:
 
-  -themeProvider.js: 다크모드 localStorage 저장
+  - themeProvider.js: 다크모드 localStorage 저장
 
  - style 폴더:
   
-   -GlobalStyles.js: 글로벌 스타일시트
-   -theme.js: 다크모드 컨텐츠 스타일시트
-   -theme.js: 다크모드 토글버튼 스타일시트
+   - GlobalStyles.js: 글로벌 스타일시트
+   - theme.js: 다크모드 컨텐츠 스타일시트
+   - theme.js: 다크모드 토글버튼 스타일시트
 
 - api.js:
   - axios를 사용하는 코드가 있습니다.
