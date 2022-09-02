@@ -20,6 +20,19 @@ const ProjectEditForm = ({ currentProject, setProjects, setIsEditing }) => {
     }));
   };
 
+  const handleStartDateChange = (startDate) => {
+    if(isSameDay(startDate, form.endDate)) {
+      setForm({...form, startDate})
+    }
+    if(isAfter(startDate, form.endDate)){
+
+      setForm({...form, startDate: startDate, endDate: startDate})
+    }else {
+      setForm({...form, startDate})
+
+    }
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -48,20 +61,6 @@ const ProjectEditForm = ({ currentProject, setProjects, setIsEditing }) => {
       console.log("편집이 정상적으로 이루어지지 않았습니다.", err);
     }
   };
-
-
-  const handleStartDateChange = (startDate) => {
-    if(isSameDay(startDate, form.endDate)) {
-      setForm({...form, startDate})
-    }
-    if(isAfter(startDate, form.endDate)){
-
-      setForm({...form, startDate: startDate, endDate: startDate})
-    }else {
-      setForm({...form, startDate})
-
-    }
-  }
 
   return (
     <Form onSubmit={handleSubmit}>

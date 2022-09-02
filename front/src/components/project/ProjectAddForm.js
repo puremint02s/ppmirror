@@ -20,6 +20,18 @@ const ProjectAddForm = ({ isAdding, portfolioOwnerId, setProjects }) => {
     }));
   };
 
+  const handleStartDateChange = (startDate) => {
+    if(isSameDay(startDate, form.endDate)) {
+      setForm({...form, startDate})
+    }
+    if(isAfter(startDate, form.endDate)){
+
+      setForm({...form, startDate: startDate, endDate: startDate})
+    }else {
+      setForm({...form, startDate})
+    }
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -37,27 +49,6 @@ const ProjectAddForm = ({ isAdding, portfolioOwnerId, setProjects }) => {
       console.log("추가가 정상적으로 이루어지지 않았습니다.", err);
     }
   };
-
-  const changeEndDate = (date) => {
-    if (form.endDate > form.startDate) {
-      setForm({...form, endDate: date, startDate: date})
-    }
-    setForm({...form, endDate: date, startDate: date})
-  }
-
-  const handleStartDateChange = (startDate) => {
-    if(isSameDay(startDate, form.endDate)) {
-      setForm({...form, startDate})
-    }
-    if(isAfter(startDate, form.endDate)){
-
-      setForm({...form, startDate: startDate, endDate: startDate})
-    }else {
-      setForm({...form, startDate})
-
-    }
-  }
-
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -98,7 +89,7 @@ const ProjectAddForm = ({ isAdding, portfolioOwnerId, setProjects }) => {
         <Form.Group sm="auto" as={Col}>
           <DatePicker
             selected={form.endDate}
-            onChange={changeEndDate}
+            onChange={(endDate) => setForm({...form, endDate})}
             value={form.endDate}
             selectsEnd
             startDate={form.startDate}
