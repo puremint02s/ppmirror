@@ -57,11 +57,27 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
     }
   };
 
+  // 조회수 표시
+  function view (count) {
+    if (count > 1) {
+      return `views ${count}`
+    }
+    else if (count ===1 ) {
+      return `view ${count}`
+    }
+    else{
+      return;
+    }
+
+  }
+
   return (
     <Card className="mb-2 ms-3 mr-5" style={{ width: "18rem" }}>
       <Card.Body>
         {/* 조회수 */}
-        {user?.viewCount}
+        <div style={{marginBottom: 20, fontSize: 12}}>
+          {view(user?.viewCount)}
+        </div>
         <Row className="justify-content-md-center">
           {user?.imageUploaded ? (
             <Card.Img
