@@ -35,8 +35,8 @@ function EducationAddForm({ portfolioOwnerId, setEducations, setIsAdding }) {
       const res = await Api.get("educations", userId);
       setEducations(res.data);
       setIsAdding(false);
-    } catch (e) {
-      console.log(e);
+    } catch (err) {
+      console.log("추가가 정상적으로 이루어지지 않았습니다.", err);
     }
   };
 

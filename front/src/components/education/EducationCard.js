@@ -1,3 +1,4 @@
+import React from "react";
 import {Button, Card, Col, Row} from "react-bootstrap";
 import * as Api from "../../api";
 
@@ -7,8 +8,8 @@ function EducationCard({education, isEditable, setEducations, setIsEditing}) {
       await Api.delete("educations", education.eduId);
       const res = await Api.get("educations", education["userId"]);
       setEducations(res.data);
-    } catch (e) {
-      console.log(e);
+    } catch (err) {
+      console.log("삭제가 정상적으로 이루어지지 않았습니다.", err);
     }
   };
 

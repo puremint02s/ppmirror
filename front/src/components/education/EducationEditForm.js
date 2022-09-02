@@ -38,8 +38,8 @@ function EducationEditForm({currentEducation, setEducations, setIsEditing}) {
       );
 
       setIsEditing(false);
-    } catch (e) {
-      console.log(e);
+    } catch (err) {
+      console.log("수정이 정상적으로 이루어지지 않았습니다.", err);
     }
   };
 
