@@ -10,8 +10,7 @@ function CertificateEditForm({
   setIsEditing,
 }) {
   const [form, setForm] = useState({
-    title: currentCertificate.title,
-    description: currentCertificate.description,
+    ...currentCertificate,
     acquiredAt: new Date(currentCertificate.acquiredAt),
   });
 
@@ -52,52 +51,49 @@ function CertificateEditForm({
   };
 
   return (
-    <Card className="mb-2">
-      <Card.Body>
-        <Form onSubmit={handleSubmit} key={currentCertificate.certificateId}>
-          <Form.Group controlId="certificateEditTitle" className="mb-3">
-            <Form.Control
-              type="text"
-              placeholder="자격증 제목"
-              name="title"
-              value={form.title}
-              onChange={handleChange}
-            />
-          </Form.Group>
+    <Form onSubmit={handleSubmit} key={currentCertificate.certificateId}>
+      <Form.Group controlId="certificateEditTitle" className="mb-3">
+        <Form.Control
+          type="text"
+          placeholder="자격증 제목"
+          name="title"
+          value={form.title}
+          onChange={handleChange}
+        />
+      </Form.Group>
 
-          <Form.Group controlId="certificateEditDescription" className="mb-3">
-            <Form.Control
-              type="text"
-              placeholder="상세내용"
-              name="description"
-              value={form.description}
-              onChange={handleChange}
-            />
-          </Form.Group>
+      <Form.Group controlId="certificateEditDescription" className="mb-3">
+        <Form.Control
+          type="text"
+          placeholder="상세내용"
+          name="description"
+          value={form.description}
+          onChange={handleChange}
+        />
+      </Form.Group>
 
-          <Form.Group as={Row} className="mt-3">
-            <Col xs="auto">
-              <DatePicker
-                selected={form.acquiredAt}
-                onChange={(acquiredAt) => setForm({...form,acquiredAt})}
-                value={form.acquiredAt}
-              />
-            </Col>
-          </Form.Group>
+      <Form.Group as={Row} className="mt-3">
+        <Col xs="auto">
+          <DatePicker
+            selected={form.acquiredAt}
+            onChange={(acquiredAt) => setForm({ ...form, acquiredAt })}
+            value={form.acquiredAt}
+            name="acquiredAt"
+          />
+        </Col>
+      </Form.Group>
 
-          <Form.Group as={Row} className="mt-3 text-center">
-            <Col sm={{ span: 20 }}>
-              <Button variant="primary" type="submit" className="me-3">
-                확인
-              </Button>
-              <Button variant="secondary" onClick={() => setIsEditing(false)}>
-                취소
-              </Button>
-            </Col>
-          </Form.Group>
-        </Form>
-      </Card.Body>
-    </Card>
+      <Form.Group as={Row} className="mt-3 text-center">
+        <Col sm={{ span: 20 }}>
+          <Button variant="primary" type="submit" className="me-3">
+            확인
+          </Button>
+          <Button variant="secondary" onClick={() => setIsEditing(false)}>
+            취소
+          </Button>
+        </Col>
+      </Form.Group>
+    </Form>
   );
 }
 
