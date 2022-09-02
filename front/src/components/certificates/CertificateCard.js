@@ -1,5 +1,7 @@
+import React from "react";
 import * as Api from "../../api";
 import { Card, Row, Button, Col } from "react-bootstrap";
+import * as dateFns from "date-fns";
 
 function CertificateCard({
   certificate,
@@ -7,8 +9,8 @@ function CertificateCard({
   isEditable,
   getCertificates,
 }) {
-  const t = new Date(certificate.acquiredAt);
-  const time_text = t.toISOString().split("T")[0];
+  // const t = new Date(certificate.acquiredAt);
+  // const time_text = t.toISOString().split("T")[0];
   const handleDelete = async () => {
     try {
       await Api.delete("certificates", certificate.certificateId);
@@ -27,7 +29,7 @@ function CertificateCard({
           <br />
           <span className="text-muted">{certificate.description}</span>
           <br />
-          <span className="text-muted">{time_text}</span>
+          <span className="text-muted"> {dateFns.format(new Date(certificate.acquiredAt), "yyyy-MM-dd")}</span>
         </Col>
 
         {isEditable && (

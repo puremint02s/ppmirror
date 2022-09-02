@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, Form, Card, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
 import DatePicker from "react-datepicker";
+import * as Util from "../../util";
 
 function CertificateEditForm({
   currentCertificate,
@@ -11,11 +12,8 @@ function CertificateEditForm({
   const [form, setForm] = useState({
     title: currentCertificate.title,
     description: currentCertificate.description,
-    certificateId: currentCertificate.certificateId,
+    acquiredAt: new Date(currentCertificate.acquiredAt),
   });
-  const [AcquiredAt, setAcquiredAt] = useState(
-    new Date(currentCertificate.acquiredAt)
-  );
 
   const handleChange = (e) => {
     const { name, value } = e.currentTarget;
@@ -28,20 +26,21 @@ function CertificateEditForm({
   const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
+    if (!Util.handleCheck(form)) {
+      return false;
+    }
 
-    const acquiredAt = AcquiredAt.toISOString().split("T")[0];
+    // const acquiredAt = form.AcquiredAt.toISOString().split("T")[0];
 
     try {
       const id = currentCertificate.certificateId;
 
       await Api.put(`certificates/${id}`, {
         ...form,
-        acquiredAt,
       });
       const cert = {
         certificateId: id,
         ...form,
-        acquiredAt,
       };
       await getCertificates((prev) =>
         prev.map((el) => (el.certificateId === cert.certificateId ? cert : el))
@@ -79,8 +78,9 @@ function CertificateEditForm({
           <Form.Group as={Row} className="mt-3">
             <Col xs="auto">
               <DatePicker
-                selected={AcquiredAt}
-                onChange={(date) => setAcquiredAt(date)}
+                selected={form.acquiredAt}
+                onChange={(acquiredAt) => setForm({...form,acquiredAt})}
+                value={form.acquiredAt}
               />
             </Col>
           </Form.Group>

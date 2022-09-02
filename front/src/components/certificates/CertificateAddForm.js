@@ -12,11 +12,12 @@ function CertificateAddForm({
   const [form, setForm] = useState({
     title: "",
     description: "",
+    acquiredAt:new Date()
   });
 
-  const [AcquiredAt, setAcquiredAt] = useState(new Date());
+  // const [AcquiredAt, setAcquiredAt] = useState(new Date());
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.currentTarget;
     setForm((prev) => ({
       ...prev,
       [name]: value,
@@ -31,13 +32,12 @@ function CertificateAddForm({
     }
 
     const userId = portfolioOwnerId;
-    const acquiredAt = AcquiredAt.toISOString().split("T")[0];
+    // const acquiredAt = form.AcquiredAt.toISOString().split("T")[0];
 
     try {
       await Api.post("certificate/create", {
         userId,
-        ...form,
-        acquiredAt
+        ...form
       });
 
       const res = await Api.get("certificates", userId);
@@ -72,8 +72,9 @@ function CertificateAddForm({
       <Form.Group as={Row} className="mt-3">
         <Col xs="auto">
           <DatePicker
-            selected={AcquiredAt}
-            onChange={(date) => setAcquiredAt(date)}
+            selected={form.acquiredAt}
+            onChange={(acquiredAt) => setForm({...form, acquiredAt})}
+            value={form.acquiredAt}
           />
         </Col>
       </Form.Group>
