@@ -12,7 +12,7 @@ function Network() {
   const userState = useContext(UserStateContext);
   const [users, setUsers] = useState([]);
   const [page, setPage] = useState(1);
-  const [perPage, setPerPage] = useState(10);
+  const [perPage, setPerPage] = useState(12);
   const [totalUser, setTotalUser] = useState(20);
   const [modalOpen, setModalOpen] = useState(true);
   const openModal = () => {
