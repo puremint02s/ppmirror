@@ -31,7 +31,7 @@ yarn start
   - Porfolio.js: 메인 화면을 구성하는, 5개 MVP를 모두 포함하는 컴포넌트<br><br>
 
 
-   ✔️5개의 컴포넌트 폴더
+   ✔️ 5개의 컴포넌트 폴더
 
   - award 폴더: 포트폴리오 중 수상이력 관련 컴포넌트들 
   - certificate 폴더: 포트폴리오 중 자격증 관련 컴포넌트들
@@ -40,7 +40,7 @@ yarn start
   - user 폴더: 포트폴리오 중 사용자 관련 컴포넌트들
   - popup 폴더: 네트워크 페이지에서 좋아요수 가장 많은 사람을 보여주는 모달창<br><br>
 
-  ✔️전체적인 로직은 아래와 같습니다.
+  ✔️ 전체적인 로직은 아래와 같습니다.
 
   - 포트폴리오(Porfolio.js) 컴포넌트는 5개 컴포넌트 (Awards,certificates,educations,projects,users) 컴포넌트를 사용함.<br>
   - 복수형 컴포넌트(Awards,certificate,education,project,user)는 항목의 **목록**으로, 여러 개의 단수형 컴포넌트(Award,certificate,education,project,user)로 구성됨<br>
