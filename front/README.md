@@ -45,9 +45,10 @@ yarn start
   - 포트폴리오(Porfolio.js) 컴포넌트는 5개 컴포넌트 (Awards,certificates,educations,projects,users) 컴포넌트를 사용함.<br>
   - 복수형 컴포넌트(Awards,certificate,education,project,user)는 항목의 **목록**으로, 여러 개의 단수형 컴포넌트(Award,certificate,education,project,user)로 구성됨<br>
   - (추가하기 버튼 클릭 시) (컴포넌트명)AddForm 컴포넌트로 구성됩니다.(ex-AwardAddForm)<br>
-  - 각 컴포넌트는 **isEditing 상태에 따라**, false면 (컴포넌트명)Card, true면 (컴포넌트명)EditForm이 됩니다.(ex-AwardCard,AwardEditForm)<br>
+  - 각 컴포넌트는 **isEditing(편집버튼 클릭) 상태에 따라**, false면 (컴포넌트명)Card, true면 (컴포넌트명)EditForm이 됩니다.(ex-AwardCard,AwardEditForm)<br>
   - **isEditable**(포트폴리오 소유자와 현재 로그인한 사용자가 일치할 때)이 true인 경우 편집 버튼이 생깁니다.<br>
   - **isAdding**이 true면 (컴포넌트명)AddForm, false면 그냥 컴퓨넌트들의 모음이 됩니다.<br><br>
+  - 삭제 버튼을 누르면 삭제가 가능합니다.
 
 - context 폴더:
 
@@ -60,8 +61,9 @@ yarn start
    - theme.js: 다크모드 토글버튼 스타일시트<br><br>
 
 - api.js:
+
   - axios를 사용하는 코드가 있습니다.
-  - delete 함수는 코드는 작성되어 있지만, 쓰이지고 있지는 않습니다. -> **사용하는 기능을 추가해 보세요!**
+  - delete 함수는 코드는 작성되어 있지만, 쓰이지고 있지는 않습니다.
 
 - App.js:
   - SPA 라우팅 코드가 있습니다.
