@@ -20,7 +20,7 @@ const ToggleBtn = styled.button`
 const ThemeToggle = ({ toggle, mode }) => {
   return (
     <ToggleBtn onClick={toggle} mode={mode}>
-      {mode === "dark" ? "🌙" : "🌞"}
+      {mode === "dark" ? "🌞" : "🌙"}
     </ToggleBtn>
   );
 };

@@ -3,6 +3,7 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 import * as Api from "../../api";
 import * as Util from "../../util";
 import DatePicker from "react-datepicker";
+import {isSameDay, isAfter }  from 'date-fns'
 
 const ProjectEditForm = ({ currentProject, setProjects, setIsEditing }) => {
   const [form, setForm] = useState({
@@ -48,6 +49,20 @@ const ProjectEditForm = ({ currentProject, setProjects, setIsEditing }) => {
     }
   };
 
+
+  const handleStartDateChange = (startDate) => {
+    if(isSameDay(startDate, form.endDate)) {
+      setForm({...form, startDate})
+    }
+    if(isAfter(startDate, form.endDate)){
+
+      setForm({...form, startDate: startDate, endDate: startDate})
+    }else {
+      setForm({...form, startDate})
+
+    }
+  }
+
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Group className="mb-3" controlId="formProjectTitle">
@@ -74,7 +89,7 @@ const ProjectEditForm = ({ currentProject, setProjects, setIsEditing }) => {
         <Form.Group sm="auto" as={Col} >
           <DatePicker
             selected={form.startDate}
-            onChange={(startDate) => setForm({...form, startDate})}
+            onChange={handleStartDateChange}
             value={form.startDate}
             selectsStart
             startDate={form.startDate}
@@ -93,7 +108,6 @@ const ProjectEditForm = ({ currentProject, setProjects, setIsEditing }) => {
             startDate={form.startDate}
             endDate={form.endDate}
             minDate={form.startDate}
-            placeholderText="dd/mm/yyyy"
           />
         </Form.Group>
       </Row>

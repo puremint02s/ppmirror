@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import * as Api from "../../api";
+import {isSameDay, isAfter }  from 'date-fns'
 
 const ProjectAddForm = ({ isAdding, portfolioOwnerId, setProjects }) => {
   const [form, setForm] = useState({
     title: "",
     description: "",
     startDate: new Date(),
-    endDate: null,
+    endDate: new Date(),
   });
 
   const handleChangeInput = (e) => {
@@ -37,6 +38,27 @@ const ProjectAddForm = ({ isAdding, portfolioOwnerId, setProjects }) => {
     }
   };
 
+  const changeEndDate = (date) => {
+    if (form.endDate > form.startDate) {
+      setForm({...form, endDate: date, startDate: date})
+    }
+    setForm({...form, endDate: date, startDate: date})
+  }
+
+  const handleStartDateChange = (startDate) => {
+    if(isSameDay(startDate, form.endDate)) {
+      setForm({...form, startDate})
+    }
+    if(isAfter(startDate, form.endDate)){
+
+      setForm({...form, startDate: startDate, endDate: startDate})
+    }else {
+      setForm({...form, startDate})
+
+    }
+  }
+
+
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Group className="mb-3" controlId="formProjectTitle">
@@ -63,7 +85,7 @@ const ProjectAddForm = ({ isAdding, portfolioOwnerId, setProjects }) => {
         <Form.Group sm="auto" as={Col} >
           <DatePicker
             selected={form.startDate}
-            onChange={(startDate) => setForm({...form, startDate})}
+            onChange={handleStartDateChange}
             value={form.startDate}
             selectsStart
             startDate={form.startDate}
@@ -76,13 +98,12 @@ const ProjectAddForm = ({ isAdding, portfolioOwnerId, setProjects }) => {
         <Form.Group sm="auto" as={Col}>
           <DatePicker
             selected={form.endDate}
-            onChange={(endDate) => setForm({...form, endDate})}
+            onChange={changeEndDate}
             value={form.endDate}
             selectsEnd
             startDate={form.startDate}
             endDate={form.endDate}
             minDate={form.startDate}
-            placeholderText="dd/mm/yyyy"
           />
         </Form.Group>
       </Row>
