@@ -58,7 +58,7 @@ yarn start
   
    - GlobalStyles.js: 글로벌 스타일시트 코드가 있습니다.<br>
    - theme.js: 다크모드 컨텐츠 스타일시트 코드가 있습니다.<br>
-   - theme.js: 다크모드 토글버튼 스타일시트 코드가 있습니다.<br>
+   - theme.js: 다크모드 토글버튼 스타일시트 코드가 있습니다.<br><br>
 
 - api.js:
 
