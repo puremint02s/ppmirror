@@ -27,27 +27,27 @@ yarn start
 
 - components 폴더:
 
-  - Header.js: 네비게이션 바<br>
+  - Header.js: 네비게이션 바<br><br>
   - Porfolio.js: 메인 화면을 구성하는, 5개 MVP를 모두 포함하는 컴포넌트<br><br>
 
 
    ✔️ 5개의 컴포넌트 폴더
 
-  - award 폴더: 포트폴리오 중 수상이력 관련 컴포넌트들 입니다.
-  - certificate 폴더: 포트폴리오 중 자격증 관련 컴포넌트들 입니다.
-  - education 폴더: 포트폴리오 중 학력 관련 컴포넌트들 입니다.
-  - project 폴더: 포트폴리오 중 프로젝트 관련 컴포넌트들 입니다.
-  - user 폴더: 포트폴리오 중 사용자 관련 컴포넌트들 입니다.
+  - award 폴더: 포트폴리오 중 수상이력 관련 컴포넌트들 입니다.<br><br>
+  - certificate 폴더: 포트폴리오 중 자격증 관련 컴포넌트들 입니다.<br><br>
+  - education 폴더: 포트폴리오 중 학력 관련 컴포넌트들 입니다.<br><br>
+  - project 폴더: 포트폴리오 중 프로젝트 관련 컴포넌트들 입니다.<br><br>
+  - user 폴더: 포트폴리오 중 사용자 관련 컴포넌트들 입니다.<br><br>
   - popup 폴더: 네트워크 페이지에서 좋아요수 가장 많은 사람을 보여주는 모달창 입니다.<br><br>
 
   ✔️ 전체적인 로직은 아래와 같습니다.
 
-  - 포트폴리오(Porfolio.js) 컴포넌트는 5개 컴포넌트 (Awards,certificates,educations,projects,users) 컴포넌트를 사용합니다.<br>
-  - 복수형 컴포넌트(Awards,certificate,education,project,user)는 항목의 **목록**으로, 여러 개의 단수형 컴포넌트(Award,certificate,education,project,user)로 구성됩니다.<br>
-  - (추가하기 버튼 클릭 시) (컴포넌트명)AddForm 컴포넌트로 구성됩니다.(ex-AwardAddForm)<br>
-  - 각 컴포넌트는 **isEditing(편집버튼 클릭) 상태에 따라**, false면 (컴포넌트명)Card, true면 (컴포넌트명)EditForm이 됩니다.(ex-AwardCard,AwardEditForm)<br>
-  - **isEditable**(포트폴리오 소유자와 현재 로그인한 사용자가 일치할 때)이 true인 경우 편집 버튼이 생깁니다.<br>
-  - **isAdding**이 true면 (컴포넌트명)AddForm, false면 그냥 컴포넌트들의 모음이 됩니다.<br>
+  - 포트폴리오(Porfolio.js) 컴포넌트는 5개 컴포넌트 (Awards,certificates,educations,projects,users) 컴포넌트를 사용합니다.<br><br>
+  - 복수형 컴포넌트(Awards,certificate,education,project,user)는 항목의 **목록**으로, 여러 개의 단수형 컴포넌트(Award,certificate,education,project,user)로 구성됩니다.<br><br>
+  - (추가하기 버튼 클릭 시) (컴포넌트명)AddForm 컴포넌트로 구성됩니다.(ex-AwardAddForm)<br><br>
+  - 각 컴포넌트는 **isEditing(편집버튼 클릭) 상태에 따라**, false면 (컴포넌트명)Card, true면 (컴포넌트명)EditForm이 됩니다.(ex-AwardCard,AwardEditForm)<br><br>
+  - **isEditable**(포트폴리오 소유자와 현재 로그인한 사용자가 일치할 때)이 true인 경우 편집 버튼이 생깁니다.<br><br>
+  - **isAdding**이 true면 (컴포넌트명)AddForm, false면 그냥 컴포넌트들의 모음이 됩니다.<br><br>
   - 삭제 버튼을 누르면 삭제가 가능합니다.<br><br>
 
 - context 폴더:
@@ -56,8 +56,8 @@ yarn start
 
  - style 폴더:
   
-   - GlobalStyles.js: 글로벌 스타일시트 코드가 있습니다.
-   - theme.js: 다크모드 컨텐츠 스타일시트 코드가 있습니다.
+   - GlobalStyles.js: 글로벌 스타일시트 코드가 있습니다.<br><br>
+   - theme.js: 다크모드 컨텐츠 스타일시트 코드가 있습니다.<br><br>
    - theme.js: 다크모드 토글버튼 스타일시트 코드가 있습니다.<br><br>
 
 - api.js:
