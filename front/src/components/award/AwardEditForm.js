@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
+import * as Util from "../../util";
 
 function AwardEditForm({ currentAward, setAward, setIsEditing }) {
   // 수상 & 내용
-  const [form, setForm] = useState({
-    title: currentAward.title,
-    description: currentAward.description,
-  });
+  const [form, setForm] = useState(currentAward);
 
   function handleChange(e) {
     const { name, value } = e.currentTarget;
@@ -19,24 +17,29 @@ function AwardEditForm({ currentAward, setAward, setIsEditing }) {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    e.stopPropagation();
 
-    // 현재 수상내역에서 userId로 찾기
-    const Id = currentAward.userId;
+    if (!Util.handleCheck(form)) {
+      return false;
+    }
+
+    
 
     //try~catch
     try {
       // 수정해서 보내기
+      
       await Api.put(`awards/${currentAward.awardId}`, {
         ...form,
       });
 
-      const pro = {
+      const award = {
         awardId: currentAward.awardId,
         ...form,
       };
 
       await setAward((prev) =>
-        prev.map((el) => (el.awardId === pro.awardId ? pro : el))
+        prev.map((el) => (el.awardId === award.awardId ? award : el))
       );
 
       setIsEditing(false);
