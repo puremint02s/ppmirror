@@ -23,7 +23,6 @@ function AwardEditForm({ currentAward, setAward, setIsEditing }) {
       return false;
     }
 
-    
 
     //try~catch
     try {
