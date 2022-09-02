@@ -35,6 +35,10 @@ const UserSchema = new Schema(
       type: Number,
       default: 0,
     },
+    hashtag: {
+      type: [String],
+      required: false,
+    },
   },
   {
     timestamps: true,

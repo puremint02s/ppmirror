@@ -97,7 +97,14 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
         </Card.Title>
         <Card.Subtitle className="mb-3 text-muted">{user?.email}</Card.Subtitle>
         <Card.Text className="mb-3">{user?.description}</Card.Text>
-
+        {user?.hashtag?.map((tagItem, index) => {
+          return (
+           <Button onClick={(e)=>navigate(`/userlist/${e.target.value}`)} value={tagItem} key={index}>
+              {tagItem}
+              </Button>
+          )
+        })}
+        
         {isEditable && (
           <Col>
             <Row className="mt-3 text-center text-info">

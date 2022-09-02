@@ -11,6 +11,11 @@ class User {
     return user;
   }
 
+  static async findByHashtag({ hashtag }) {
+    const users = await UserModel.find({ hashtag: { $in: hashtag } });
+    return users;
+  }
+
   static async findById({ user_id }) {
     const user = await UserModel.findOne({ id: user_id });
     return user;

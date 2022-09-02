@@ -200,4 +200,22 @@ userAuthRouter.get(
   }
 );
 
+userAuthRouter.get(
+  "/userlist/:hashtag",
+  login_required,
+  async function (req, res, next) {
+    try {
+      const hashtag = req.params.hashtag;
+      const users = await userAuthService.getUsersByHashtag({ hashtag });
+      if (users.errorMessage) {
+        throw new Error(users.errorMessage);
+      }
+
+      res.status(200).json(users);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 export { userAuthRouter };
