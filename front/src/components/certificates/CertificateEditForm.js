@@ -29,8 +29,6 @@ function CertificateEditForm({
       return false;
     }
 
-    // const acquiredAt = form.AcquiredAt.toISOString().split("T")[0];
-
     try {
       const id = currentCertificate.certificateId;
 
