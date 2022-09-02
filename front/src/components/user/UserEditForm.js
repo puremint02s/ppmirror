@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, Card, Col, Form, Row } from "react-bootstrap";
 import * as Api from "../../api";
+import styled from "styled-components";
 
 function UserEditForm({ user, setIsEditing, setUser }) {
   //useState로 name 상태를 생성함.
@@ -9,7 +10,8 @@ function UserEditForm({ user, setIsEditing, setUser }) {
   const [description, setDescription] = useState(user.description);
   const [imageUploaded, setImageUploaded] = useState(user.imageUploaded);
   const [defaultImage, setDefaultImage] = useState(false);
-
+  const [hash, setHashtag] = useState("");
+  const [hashtag, sethashArr] = useState(user.hashtag ? user.hashtag : []);
   //useState로 password 상태를 생성함.
   const [passwordForm, setPasswordForm] = useState({
     password: "",
@@ -41,6 +43,34 @@ function UserEditForm({ user, setIsEditing, setUser }) {
     }));
   }
 
+  const onKeyPress = (e) => {
+    if (e.target.value.length !== 0 && e.key === "Enter") {
+      e.preventDefault();
+      submitTagItem();
+    }
+  };
+
+  const submitTagItem = () => {
+    let updatedTagList = [...hashtag];
+    updatedTagList.push(hash);
+    sethashArr(updatedTagList);
+    setHashtag("");
+  };
+
+  const deleteTagItem = (e) => {
+    const deleteTagItem = e.target.parentElement.firstChild.innerText;
+    const filteredTagList = hashtag.filter(
+      (tagItem) => tagItem !== deleteTagItem
+    );
+    sethashArr(filteredTagList);
+  };
+
+  const removeTag = (i) => {
+    const newTags = [...hash];
+    newTags.splice(i, 1);
+    setHashtag(newTags);
+  };
+
   //위 validateEmail 함수를 통해 이메일 형태 적합 여부를 확인함.
   const isEmailValid = validateEmail(email);
   // 비밀번호가 4글자 이상인지 여부를 확인함.
@@ -61,6 +91,7 @@ function UserEditForm({ user, setIsEditing, setUser }) {
       description,
       imageUploaded,
       defaultImage,
+      hashtag,
     });
     // 유저 정보는 response의 data임.
     const updatedUser = res.data;
@@ -156,6 +187,25 @@ function UserEditForm({ user, setIsEditing, setUser }) {
             />
           </Form.Group>
 
+          <Form.Group controlId="userEditTag" className="input-tag__tags">
+            {hashtag?.map((tagItem, index) => {
+              return (
+                <TagItem key={index}>
+                  <Text>{tagItem}</Text>
+                  <Button onClick={deleteTagItem}>X</Button>
+                </TagItem>
+              );
+            })}
+            <Form.Control
+              type="text"
+              placeholder="해시태그를 넣어주세요"
+              tabIndex={2}
+              onChange={(e) => setHashtag(e.target.value)}
+              value={hash}
+              onKeyPress={onKeyPress}
+            />
+          </Form.Group>
+
           <Form.Group as={Row} className="mt-3 text-center">
             <Col sm={{ span: 20 }}>
               <Button
@@ -176,5 +226,19 @@ function UserEditForm({ user, setIsEditing, setUser }) {
     </Card>
   );
 }
+
+const TagItem = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 5px;
+  padding: 5px;
+  background-color: tomato;
+  border-radius: 5px;
+  color: white;
+  font-size: 13px;
+`;
+
+const Text = styled.span``;
 
 export default UserEditForm;
