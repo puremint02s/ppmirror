@@ -52,7 +52,7 @@ yarn start
 
 - context 폴더:
 
-  - themeProvider.js: 다크모드 localStorage 저장<br><br>
+  - themeProvider.js: 다크모드,라이트모드 localStorage 저장하여 상태 저장 및 구현<br><br>
 
  - style 폴더:
   
