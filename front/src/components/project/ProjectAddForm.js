@@ -7,9 +7,9 @@ const ProjectAddForm = ({ isAdding, portfolioOwnerId, setProjects }) => {
   const [form, setForm] = useState({
     title: "",
     description: "",
+    startDate: new Date(),
+    endDate: null,
   });
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(null);
 
   const handleChangeInput = (e) => {
     const { name, value } = e.currentTarget;
@@ -26,8 +26,6 @@ const ProjectAddForm = ({ isAdding, portfolioOwnerId, setProjects }) => {
     try {
       await Api.post("project/create", {
         ...form,
-        startDate,
-        endDate,
       });
 
       const res = await Api.get("projects", userId);
@@ -64,12 +62,12 @@ const ProjectAddForm = ({ isAdding, portfolioOwnerId, setProjects }) => {
       <Row className="mt-3 mb-3">
         <Form.Group sm="auto" as={Col} >
           <DatePicker
-            selected={startDate}
-            onChange={(date) => setStartDate(date)}
-            value={startDate}
+            selected={form.startDate}
+            onChange={(startDate) => setForm({...form, startDate})}
+            value={form.startDate}
             selectsStart
-            startDate={startDate}
-            endDate={endDate}
+            startDate={form.startDate}
+            endDate={form.endDate}
           />
         </Form.Group>
         <Form.Group sm="auto" as={Col} >
@@ -77,13 +75,13 @@ const ProjectAddForm = ({ isAdding, portfolioOwnerId, setProjects }) => {
         </Form.Group>
         <Form.Group sm="auto" as={Col}>
           <DatePicker
-            selected={endDate}
-            onChange={(date) => setEndDate(date)}
-            value={endDate}
+            selected={form.endDate}
+            onChange={(endDate) => setForm({...form, endDate})}
+            value={form.endDate}
             selectsEnd
-            startDate={startDate}
-            endDate={endDate}
-            minDate={startDate}
+            startDate={form.startDate}
+            endDate={form.endDate}
+            minDate={form.startDate}
             placeholderText="dd/mm/yyyy"
           />
         </Form.Group>

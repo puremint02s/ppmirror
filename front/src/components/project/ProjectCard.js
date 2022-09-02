@@ -8,7 +8,6 @@ const ProjectCard = ({ setIsEditing, isEditable, project, setProjects }) => {
     try {
       await Api.delete("projects", project.projectId);
       const res = await Api.get("projects", project["userId"]);
-
       setProjects(res.data);
     } catch (err) {
       console.log("삭제가 정상적으로 이루어지지 않았습니다.", err);
