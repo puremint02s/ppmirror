@@ -6,7 +6,7 @@ function AwardCard({ award, setAward, setIsEditing, isEditable }) {
   async function handleDelete() {
     await Api.delete("awards", award.awardId);
 
-    const res = await Api.get("awards", award.userId);
+    const res = await Api.get("awards", award["userId"]);
     setAward(res.data);
   }
   return (

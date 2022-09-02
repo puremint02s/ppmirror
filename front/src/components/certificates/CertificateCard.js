@@ -12,7 +12,7 @@ function CertificateCard({
   const handleDelete = async () => {
     try {
       await Api.delete("certificates", certificate.certificateId);
-      const res = await Api.get("certificates", certificate.userId);
+      const res = await Api.get("certificates", certificate["userId"]);
       getCertificates(res.data);
     } catch (e) {
       console.log(e);

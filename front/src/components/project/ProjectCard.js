@@ -7,7 +7,7 @@ const ProjectCard = ({ setIsEditing, isEditable, project, setProjects }) => {
   const handleDelete = async () => {
     try {
       await Api.delete("projects", project.projectId);
-      const res = await Api.get("projects", project.userId);
+      const res = await Api.get("projects", project["userId"]);
 
       setProjects(res.data);
     } catch (err) {
