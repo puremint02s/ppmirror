@@ -65,7 +65,7 @@ yarn start
   - axios를 사용하는 코드가 있습니다.<br><br>
 
 - App.js:
-  - SPA 라우팅 코드가 있습니다.
+  - SPA 라우팅 코드가 있습니다.<br><br>
  
 - reducer.js:
   - 로그인, 로그아웃은 useReducer 훅으로 구현되는데, 이 때 사용되는 reducer 함수입니다.
