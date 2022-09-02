@@ -6,8 +6,7 @@ import DatePicker from "react-datepicker";
 
 const ProjectEditForm = ({ currentProject, setProjects, setIsEditing }) => {
   const [form, setForm] = useState({
-    title: currentProject.title,
-    description: currentProject.description,
+    ...currentProject,
     startDate: new Date(currentProject.startDate),
     endDate: new Date(currentProject.endDate),
   });
