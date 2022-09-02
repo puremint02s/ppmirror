@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
+import * as Util from "../../util";
 
 function AwardAddForm({ portfolioOwnerId, setAward, setIsAdding }) {
   // 수상 내역
@@ -8,6 +9,8 @@ function AwardAddForm({ portfolioOwnerId, setAward, setIsAdding }) {
     title: "",
     description: "",
   });
+
+  
 
   function handleChange(e) {
     const { name, value } = e.currentTarget;
@@ -19,6 +22,10 @@ function AwardAddForm({ portfolioOwnerId, setAward, setIsAdding }) {
 
   async function handleSubmit(e) {
     e.preventDefault();
+
+    if (!Util.handleCheck(form)) {
+      return false;
+    }
 
     const Id = portfolioOwnerId;
 

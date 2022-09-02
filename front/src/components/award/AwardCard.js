@@ -4,10 +4,14 @@ import * as Api from "../../api";
 function AwardCard({ award, setAward, setIsEditing, isEditable }) {
   // 삭제 기능
   async function handleDelete() {
-    await Api.delete("awards", award.awardId);
+    try {
+      await Api.delete("awards", award.awardId);
 
-    const res = await Api.get("awards", award["userId"]);
-    setAward(res.data);
+      const res = await Api.get("awards", award.userId);
+      setAward(res.data);
+    } catch (e) {
+      console.log(e);
+    }
   }
   return (
     <Card.Text>

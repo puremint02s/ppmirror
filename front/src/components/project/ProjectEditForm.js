@@ -1,19 +1,16 @@
 import React, { useState } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import * as Api from "../../api";
+import * as Util from "../../util";
 import DatePicker from "react-datepicker";
 
 const ProjectEditForm = ({ currentProject, setProjects, setIsEditing }) => {
   const [form, setForm] = useState({
     title: currentProject.title,
     description: currentProject.description,
+    startDate: new Date(currentProject.startDate),
+    endDate: new Date(currentProject.endDate),
   });
-
-  const [startDate, setStartDate] = useState(
-    new Date(currentProject.startDate)
-  );
-
-  const [endDate, setEndDate] = useState(new Date(currentProject.endDate));
 
   const handleChangeInput = (e) => {
     const { name, value } = e.currentTarget;
@@ -25,20 +22,21 @@ const ProjectEditForm = ({ currentProject, setProjects, setIsEditing }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    e.stopPropagation();
+
+    if (!Util.handleCheck(form)) {
+      return false;
+    }
 
     const id = currentProject.projectId;
     try {
       await Api.put(`projects/${id}`, {
         ...form,
-        startDate,
-        endDate,
       });
 
       const pro = {
         projectId: id,
         ...form,
-        startDate,
-        endDate,
       };
 
       await setProjects((prev) =>
@@ -74,25 +72,29 @@ const ProjectEditForm = ({ currentProject, setProjects, setIsEditing }) => {
       </Form.Group>
 
       <Row className="mt-3 mb-3">
-        <Form.Group sm="auto" as={Col} className="me-3">
+        <Form.Group sm="auto" as={Col} >
           <DatePicker
-            selected={startDate}
-            onChange={(date) => setStartDate(date)}
-            value={startDate}
+            selected={form.startDate}
+            onChange={(startDate) => setForm({...form, startDate})}
+            value={form.startDate}
             selectsStart
-            startDate={startDate}
-            endDate={endDate}
+            startDate={form.startDate}
+            endDate={form.endDate}
           />
+        </Form.Group>
+        <Form.Group sm="auto" as={Col} >
+          <span style={{fontSize: 20}}>~</span>
         </Form.Group>
         <Form.Group sm="auto" as={Col}>
           <DatePicker
-            selected={endDate}
-            onChange={(date) => setEndDate(date)}
-            value={endDate}
+            selected={form.endDate}
+            onChange={(endDate) => setForm({...form, endDate})}
+            value={form.endDate}
             selectsEnd
-            startDate={startDate}
-            endDate={endDate}
-            minDate={startDate}
+            startDate={form.startDate}
+            endDate={form.endDate}
+            minDate={form.startDate}
+            placeholderText="dd/mm/yyyy"
           />
         </Form.Group>
       </Row>
