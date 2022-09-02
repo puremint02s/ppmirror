@@ -47,7 +47,7 @@ yarn start
   - (추가하기 버튼 클릭 시) (컴포넌트명)AddForm 컴포넌트로 구성됩니다.(ex-AwardAddForm)<br>
   - 각 컴포넌트는 **isEditing 상태에 따라**, false면 (컴포넌트명)Card, true면 (컴포넌트명)EditForm이 됩니다.(ex-AwardCard,AwardEditForm)<br>
   - **isEditable**(포트폴리오 소유자와 현재 로그인한 사용자가 일치할 때)이 true인 경우 편집 버튼이 생깁니다.<br>
-  - **isAdding**이 true면 (컴포넌트명)AddForm, false면 그냥 컴퓨넌트들의 모음이 됩니다.
+  - **isAdding**이 true면 (컴포넌트명)AddForm, false면 그냥 컴퓨넌트들의 모음이 됩니다.<br><br>
 
 - context 폴더:
 
