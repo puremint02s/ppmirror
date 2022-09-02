@@ -28,7 +28,7 @@ yarn start
 - components 폴더:
 
   - Header.js: 네비게이션 바입니다.<br>
-  - Porfolio.js: 메인 화면을 구성하는, 5개 MVP를 모두 포함하는 컴포넌트입니다.<br>
+  - Porfolio.js: 메인 화면을 구성하는, 5개 MVP를 모두 포함하는 컴포넌트입니다.<br><br>
 
 
    ✔️ 5개의 컴포넌트 폴더
