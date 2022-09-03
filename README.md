@@ -23,7 +23,7 @@
 - [Used Stacks](#used-stacks)
 - [Browser Support](#browser-support)
 - [Installing](#installing)
-- [Architecture](#architecture)
+- [File Structure](#file-structure)
 - [Authors](#authors)
 - [Period of project](#period-of-project)
 - [Thanks](#thanks)
@@ -84,7 +84,7 @@ Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | 11 ✔ |
 <br>
 
 
-1. 프론트 엔드 서버 실행 (react-srcipts start 실행)
+1. 프론트 엔드 서버 실행 (react-scripts start 실행)
 
 ```bash
 cd front
@@ -104,7 +104,7 @@ yarn start
 
 <br>
 
-## Architecture
+## File Structure
 
 1. FrontEnd 
 > src 폴더는 크게 components, context, style 폴더로 구분됩니다. \
@@ -164,8 +164,8 @@ yarn start
 2. Backend 
 > src 폴더의 주요 폴더는 routers, services, db 폴더 3개이며 그 외 middlewares 폴더까지 \
 > 총 4개의 폴더가 있습니다. \
-> 주요 폴더의 각 폴더에는 MVP 별로 1개씩, 그리고 (추가 기능) '좋아요' 기능까지 총 6개 파일이 있습니다. \
-(기본 MVP - 학력, 수상내역, 자격사항, 프로젝트)
+> 주요 폴더에는 각 폴더 별로 MVP 별로 1개씩,  (추가 기능) '좋아요' 기능까지 총 6개 파일이 있습니다. \
+(기본 MVP - 학력, 수상내역, 자격사항, 프로젝트, 유저)
 
 - routers:
     - request와 response가 처리됩니다.
