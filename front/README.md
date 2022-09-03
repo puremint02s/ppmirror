@@ -25,6 +25,56 @@ yarn start
 
 1. src폴더는 아래와 같이 구성됩니다.
 
+📦src<br>
+ ┣ 📂components<br>
+ ┃ ┣ 📂award<br>
+ ┃ ┃ ┣ 📜Award.js<br>
+ ┃ ┃ ┣ 📜AwardAddForm.js<br>
+ ┃ ┃ ┣ 📜AwardCard.js<br>
+ ┃ ┃ ┣ 📜AwardEditForm.js<br>
+ ┃ ┃ ┗ 📜Awards.js<br>
+ ┃ ┣ 📂certificates<br>
+ ┃ ┃ ┣ 📜Certificate.js<br>
+ ┃ ┃ ┣ 📜CertificateAddForm.js<br>
+ ┃ ┃ ┣ 📜CertificateCard.js<br>
+ ┃ ┃ ┣ 📜CertificateEditForm.js<br>
+ ┃ ┃ ┗ 📜Certificates.js<br>
+ ┃ ┣ 📂education<br>
+ ┃ ┃ ┣ 📜Education.js<br>
+ ┃ ┃ ┣ 📜EducationAddForm.js<br>
+ ┃ ┃ ┣ 📜EducationCard.js<br>
+ ┃ ┃ ┣ 📜EducationEditForm.js<br>
+ ┃ ┃ ┗ 📜Educations.js<br>
+ ┃ ┣ 📂popup<br>
+ ┃ ┃ ┗ 📜modal.js<br>
+ ┃ ┣ 📂project<br>
+ ┃ ┃ ┣ 📜Project.js<br>
+ ┃ ┃ ┣ 📜ProjectAddForm.js<br>
+ ┃ ┃ ┣ 📜ProjectCard.js<br>
+ ┃ ┃ ┣ 📜ProjectEditForm.js<br>
+ ┃ ┃ ┗ 📜Projects.js<br>
+ ┃ ┣ 📂user<br>
+ ┃ ┃ ┣ 📜LoginForm.js<br>
+ ┃ ┃ ┣ 📜Network.js<br>
+ ┃ ┃ ┣ 📜Pagination.js<br>
+ ┃ ┃ ┣ 📜RegisterForm.js<br>
+ ┃ ┃ ┣ 📜User.js<br>
+ ┃ ┃ ┣ 📜UserCard.js<br>
+ ┃ ┃ ┗ 📜UserEditForm.js<br>
+ ┃ ┣ 📜Header.js<br>
+ ┃ ┗ 📜Portfolio.js<br>
+ ┣ 📂context<br>
+ ┃ ┗ 📜themeProvider.js<br>
+ ┣ 📂style<br>
+ ┃ ┣ 📜GlobalStyles.js<br>
+ ┃ ┣ 📜theme.js<br>
+ ┃ ┗ 📜ThemeToggle.js<br>
+ ┣ 📜api.js<br>
+ ┣ 📜App.js<br>
+ ┣ 📜index.js<br>
+ ┣ 📜reducer.js<br>
+ ┗ 📜util.js
+
 - components 폴더:
 
   - Header.js: 네비게이션 바입니다.<br>
