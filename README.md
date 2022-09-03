@@ -155,7 +155,11 @@ yarn start
 
 - reducer.js:
 
-    - 로그인, 로그아웃은 useReducer 훅으로 구현되는데, 이 때 사용되는 reducer 함수입니다.
+    - 로그인, 로그아웃은 useReducer 훅으로 구현되는데, 이 때 사용되는 reducer 함수입니다.<br><br>
+
+- util.js:
+
+  - form validation check function 코드가 있습니다. <br><br>
 
 
 <br>
