@@ -18,7 +18,7 @@ function EducationEditForm({currentEducation, setEducations, setIsEditing}) {
     e.preventDefault();
     e.stopPropagation();
 
-    if (!Util.handleLengthCheck(form)) {
+    if (!Util.validateLength(form)) {
       return false;
     }
 

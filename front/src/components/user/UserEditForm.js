@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, Card, Col, Form, Row } from "react-bootstrap";
 import * as Api from "../../api";
+import * as Util from "../../Util";
 
 function UserEditForm({ user, setIsEditing, setUser }) {
   //useState로 name 상태를 생성함.
@@ -15,14 +16,6 @@ function UserEditForm({ user, setIsEditing, setUser }) {
     password: "",
     confirmPassword: "",
   });
-
-  const validateEmail = (email) => {
-    return email
-      .toLowerCase()
-      .match(
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      );
-  };
 
   const upload = async (e) => {
     const formData = new FormData();
@@ -41,8 +34,8 @@ function UserEditForm({ user, setIsEditing, setUser }) {
     }));
   }
 
-  //위 validateEmail 함수를 통해 이메일 형태 적합 여부를 확인함.
-  const isEmailValid = validateEmail(email);
+  //validateEmail 함수를 통해 이메일 형태 적합 여부를 확인함.
+  const isEmailValid = Util.validateEmail(email);
   // 비밀번호가 4글자 이상인지 여부를 확인함.
   const isPasswordValid = passwordForm.password.length >= 4;
   // 비밀번호와 확인용 비밀번호가 일치하는지 여부를 확인함.

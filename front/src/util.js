@@ -1,4 +1,4 @@
-const handleLengthCheck = (form) => {
+const validateLength = (form) => {
   if (Object.keys(form).length === 0 ) {
     alert('입력값을 확인하여 주십시오');
     return false;
@@ -18,4 +18,13 @@ const handleLengthCheck = (form) => {
   }
 }
 
-export { handleLengthCheck };
+
+const validateEmail = (email) => {
+  return email
+    .toLowerCase()
+    .match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+};
+
+export { validateLength, validateEmail };
