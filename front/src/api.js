@@ -1,14 +1,9 @@
 import axios from "axios";
 
-const backendPortNumber = "5001";
+const backendUrl = process.env.REACT_APP_API_URL;
+const backendPort = process.env.REACT_APP_PORT;
 
-// 개발서버
-// const realBaseUrl = "kdt-ai5-team02.elicecoding.com";
-
-// 서버주소
-// 현재 프론트의 실행 위치가 로컬일 경우는 localhost로, 개발일 경우는 개발url로 자동변경
-const autoBaseUrl = window.location.hostname;
-const serverUrl = `http://${autoBaseUrl}:${backendPortNumber}/`;
+const serverUrl = `${backendUrl}:${backendPort}/`;
 
 async function get(endpoint, params = "") {
   console.log(
