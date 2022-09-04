@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Card, Col, Form, Row } from "react-bootstrap";
 import * as Api from "../../api";
-import * as Util from "../../Util";
+import * as Util from "../../util";
 
 function UserEditForm({ user, setIsEditing, setUser }) {
   //useState로 name 상태를 생성함.

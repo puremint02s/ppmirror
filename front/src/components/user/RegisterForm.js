@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Container, Col, Row, Form, Button } from "react-bootstrap";
 
 import * as Api from "../../api";
-import * as Util from "../../Util";
+import * as Util from "../../util";
 
 function RegisterForm() {
   const navigate = useNavigate();
