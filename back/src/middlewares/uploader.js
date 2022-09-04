@@ -20,18 +20,15 @@ export const uploader = multer({
     if(ext !== '.png' && ext !== '.jpg' && ext !== '.jpeg') {
       return callback(new Error('PNG, JPG만 업로드하세요'))
     }
-    const url1 = path.join(dir, `${req.params.id}.png`);
-    const url2 = path.join(dir, `${req.params.id}.jpg`);
-    const url3 = path.join(dir, `${req.params.id}.jpeg`);
-
-    if(fs.existsSync(url1)){
-      fs.unlinkSync(url1);
+    const url = path.join(dir, `${req.params.id}`);
+    if(fs.existsSync(url + '.png') ){
+      fs.unlinkSync(url + '.png');
     }
-    if(fs.existsSync(url2)){
-      fs.unlinkSync(url2);
+    if(fs.existsSync(url  + '.jpg')){
+      fs.unlinkSync(url +  + '.jpg');
     }
-    if(fs.existsSync(url3)){
-      fs.unlinkSync(url3);
+    if(fs.existsSync(url  + '.jpeg')){
+      fs.unlinkSync(url  + '.jpeg');
     }
 
     callback(null, true);

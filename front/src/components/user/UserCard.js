@@ -83,7 +83,7 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
             <Card.Img
               style={{ width: "10rem", height: "8rem" }}
               className="mb-3"
-              src={`${Api.serverUrl}image/${user.id}`}
+              src={`${Api.serverUrl}user/image/${user.id}`}
               alt="나만의 프로필"
             />
           ) : (

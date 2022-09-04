@@ -8,7 +8,7 @@ import { awardRouter } from "./routers/awardRouter";
 import { likeRouter } from "./routers/likeRouter";
 import { errorMiddleware } from "./middlewares/errorMiddleware";
 import * as path from "path";
-import * as fs from "fs";
+import fs from "fs";
 const app = express();
 const dir = path.join(__dirname, '..', '/public/images/');
 

@@ -2,8 +2,25 @@ import { User } from "../db"; // from을 폴더(db) 로 설정 시, 디폴트로
 import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
 import jwt from "jsonwebtoken";
+import path from "path";
+import fs from "fs";
+const dir = path.join(__dirname, '../../', '/public/images/');
+
 
 class userAuthService {
+
+  static async getUserImage( { id }) {
+    let url = path.join(dir, `${id}`);
+    if (fs.existsSync(url + '.png')) {
+      url += '.png'
+    } else if ( fs.existsSync(url + '.jpg') ) {
+      url += '.jpg'
+    } else if ( fs.existsSync(url + '.jpeg')) {
+      url += '.jpeg'
+    }
+    return url;
+  }
+
   static async addUser({ name, email, password, description }) {
     // 이메일 중복 확인
     const user = await User.findByEmail({ email });
@@ -68,17 +85,6 @@ class userAuthService {
 
     return loginUser;
   }
-
-  static async getUsers() {
-    const users = await User.findAll();
-    return users;
-  }
-
-  static async getUsersNetwork(id) {
-    const users = await User.findAllNetwork(id);
-    return users;
-  }
-
 
   static async getUserMaxLike() {
     const user = await User.findMaxLike();
