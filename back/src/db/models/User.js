@@ -16,13 +16,7 @@ class User {
     return user;
   }
 
-  static async findAll() {
-    const users = await UserModel.find({});
-    return users;
-  }
-
   static async findAllNetwork(id, page, perPage) {
-
     const user = await UserModel.aggregate([
       {
         $lookup: {
@@ -56,22 +50,9 @@ class User {
   }
 
 
-  static async update({ user_id, fieldToUpdate, newValue }) {
+  static async update({ user_id, fieldToUpdate, newValue, operator }) {
     const filter = { id: user_id };
-    const update = { [fieldToUpdate]: newValue };
-    const option = { returnOriginal: false };
-
-    const updatedUser = await UserModel.findOneAndUpdate(
-      filter,
-      update,
-      option
-    );
-    return updatedUser;
-  }
-
-  static async updateInc({ user_id, fieldToUpdate, newValue }) {
-    const filter = { id: user_id };
-    const update = { $inc: { [fieldToUpdate]: newValue } };
+    const update = operator === 'increase' ? { $inc: { [fieldToUpdate]: newValue } } : { [fieldToUpdate]: newValue }
     const option = { returnOriginal: false };
 
     const updatedUser = await UserModel.findOneAndUpdate(

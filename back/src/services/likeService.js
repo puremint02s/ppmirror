@@ -28,11 +28,6 @@ class likeService {
 
         return like;
     }
-
-    // static async getLikes({ userId }) {
-    //     const likes = await Like.findAllById({ userId: userId });
-    //     return likes;
-    // }
 }
 
 export { likeService };

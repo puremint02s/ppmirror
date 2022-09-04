@@ -135,13 +135,13 @@ class userAuthService {
     if (toUpdate.likeCount) {
       const fieldToUpdate = "likeCount";
       const newValue = toUpdate.likeCount;
-      user = await User.updateInc({ user_id, fieldToUpdate, newValue });
+      user = await User.update({ user_id, fieldToUpdate, newValue, operator: "increase" });
     }
 
     if (toUpdate.viewCount) {
       const fieldToUpdate = "viewCount";
       const newValue = toUpdate.viewCount;
-      user = await User.updateInc({ user_id, fieldToUpdate, newValue });
+      user = await User.update({ user_id, fieldToUpdate, newValue, operator: "increase" });
     }
 
     return user;

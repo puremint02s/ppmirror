@@ -25,7 +25,7 @@ likeRouter.post(
       }
 
       // 해당 사용자 아이디로 사용자 정보를 db에서 찾아 업데이트함. 업데이트 요소가 없을 시 생략함
-      const updatedUser = await userAuthService.setUser({ user_id: targetUserId, toUpdate });
+      const updatedUser = await userAuthService.setUser({ user_id: targetUserId, toUpdate, operator: "increase" });
 
       if (updatedUser.errorMessage) {
         throw new Error(updatedUser.errorMessage);
@@ -57,7 +57,7 @@ likeRouter.delete(
       }
 
       // 해당 사용자 아이디로 사용자 정보를 db에서 찾아 업데이트함. 업데이트 요소가 없을 시 생략함
-      const updatedUser = await userAuthService.setUser({ user_id: targetUserId, toUpdate });
+      const updatedUser = await userAuthService.setUser({ user_id: targetUserId, toUpdate, operator: "increase" });
 
       // console.log('updatedUser: ', updatedUser)
 
@@ -71,21 +71,5 @@ likeRouter.delete(
     }
   }
 );
-
-
-// likeRouter.get(
-//   "/likes/:likeId",
-//   login_required,
-//   async function (req, res, next) {
-//     try {
-//       const userId = req.params.userId;
-//       const educationList = await likeService.getEducations({ userId });
-//
-//       res.status(200).send(educationList);
-//     } catch (error) {
-//       next(error);
-//     }
-//   }
-// );
 
 export { likeRouter };
