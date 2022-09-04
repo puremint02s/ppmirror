@@ -30,7 +30,7 @@ function UserEditForm({ user, setIsEditing, setUser }) {
     const res = await Api.upload("user/upload", `${user.id}`, formData);
     const imageUpload = await res;
 
-    await setImageUploaded(imageUpload);
+    setImageUploaded(imageUpload);
   };
 
   function handleChange(e) {

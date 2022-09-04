@@ -31,13 +31,13 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
       res = await Api.post("like", {
         userId: user.id,
       });
-      await setLike(true);
+      setLike(true);
     } else {
       res = await Api.delete("unlike", user.id);
-      await setLike(false);
+      setLike(false);
     }
     const updatedUser = await res.data;
-    await setLikeCount(updatedUser.likeCount);
+    setLikeCount(updatedUser.likeCount);
   };
 
   //조회수 count
