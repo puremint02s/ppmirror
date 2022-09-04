@@ -1,4 +1,4 @@
-const handleCheck = (form) => {
+const handleLengthCheck = (form) => {
   if (Object.keys(form).length === 0 ) {
     alert('입력값을 확인하여 주십시오');
     return false;
@@ -18,4 +18,4 @@ const handleCheck = (form) => {
   }
 }
 
-export { handleCheck };
+export { handleLengthCheck };

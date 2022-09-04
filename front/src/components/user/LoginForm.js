@@ -9,6 +9,8 @@ function LoginForm() {
   const navigate = useNavigate();
   const dispatch = useContext(DispatchContext);
 
+  console.log(process.env)
+
   //useState로 email 상태를 생성함.
   const [email, setEmail] = useState("");
   //useState로 password 상태를 생성함.

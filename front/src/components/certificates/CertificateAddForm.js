@@ -26,7 +26,7 @@ function CertificateAddForm({
   const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
-    if (!Util.handleCheck(form)) {
+    if (!Util.handleLengthCheck(form)) {
       return false;
     }
 

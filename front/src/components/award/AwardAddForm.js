@@ -23,7 +23,7 @@ function AwardAddForm({ portfolioOwnerId, setAward, setIsAdding }) {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    if (!Util.handleCheck(form)) {
+    if (!Util.handleLengthCheck(form)) {
       return false;
     }
 

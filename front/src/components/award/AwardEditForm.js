@@ -19,7 +19,7 @@ function AwardEditForm({ currentAward, setAward, setIsEditing }) {
     e.preventDefault();
     e.stopPropagation();
 
-    if (!Util.handleCheck(form)) {
+    if (!Util.handleLengthCheck(form)) {
       return false;
     }
 
