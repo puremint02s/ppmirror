@@ -15,12 +15,6 @@ function Network() {
   const [perPage, setPerPage] = useState(12);
   const [totalUser, setTotalUser] = useState(20);
   const [modalOpen, setModalOpen] = useState(true);
-  const openModal = () => {
-    setModalOpen(true);
-  };
-  const closeModal = () => {
-    setModalOpen(false);
-  };
 
   useEffect(() => {
     // 만약 전역 상태의 user가 null이라면, 로그인 페이지로 이동함.
@@ -46,7 +40,7 @@ function Network() {
     <>
       <Modal
         open={modalOpen}
-        close={closeModal}
+        close={() => setModalOpen(false)}
         header="베스트 포트폴리오"
       ></Modal>
 
